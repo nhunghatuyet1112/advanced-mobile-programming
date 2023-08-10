@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 import 'package:finalproject/pages/login.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const Scaffold(
         body: SingleChildScrollView(
-          child: Scene(),
+          child: Login(),
         ),
       ),
     );

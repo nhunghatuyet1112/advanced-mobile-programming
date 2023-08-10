@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:finalproject/utils.dart';
+import 'package:finalproject/pages/register.dart';
 
-class Scene extends StatelessWidget {
-  const Scene({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -198,63 +200,67 @@ class Scene extends StatelessWidget {
             Container(
               margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
               width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin:
-                        EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                    child: Text(
-                      'Don’t have account ?',
-                      textAlign: TextAlign.center,
-                      style: SafeGoogleFont(
-                        'Be Vietnam',
-                        fontSize: 20 * ffem,
-                        fontWeight: FontWeight.w700,
-                        height: 1.2575 * ffem / fem,
-                        color: const Color(0xff000000),
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 10 * fem),
+                      child: Text(
+                        "Don't have an account ?",
+                        textAlign: TextAlign.center,
                         style: SafeGoogleFont(
                           'Be Vietnam',
                           fontSize: 20 * ffem,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w700,
                           height: 1.2575 * ffem / fem,
                           color: const Color(0xff000000),
                         ),
-                        children: [
-                          const TextSpan(
-                            text: 'Click ',
-                          ),
-                          TextSpan(
-                            text: 'here',
-                            style: SafeGoogleFont(
-                              'Be Vietnam',
-                              fontSize: 20 * ffem,
-                              fontWeight: FontWeight.w700,
-                              height: 1.2575 * ffem / fem,
-                              decoration: TextDecoration.underline,
-                              color: const Color(0xff00a3ff),
-                              decorationColor: const Color(0xff00a3ff),
-                            ),
-                          ),
-                          const TextSpan(
-                            text: ' to register',
-                          ),
-                        ],
                       ),
                     ),
-                  ),
-                ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Click ',
+                          textAlign: TextAlign.center,
+                          style: SafeGoogleFont(
+                            'Be Vietnam',
+                            fontSize: 20 * ffem,
+                            fontWeight: FontWeight.w400,
+                            height: 1.2575 * ffem / fem,
+                            color: const Color(0xff000000),
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff737373)),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Scaffold(
+                                        body: SingleChildScrollView(
+                                            child: Register()))));
+                          },
+                          child: const Text('here'),
+                        ),
+                        Text(
+                          ' to register',
+                          style: SafeGoogleFont(
+                            'Be Vietnam',
+                            fontSize: 20 * ffem,
+                            fontWeight: FontWeight.w400,
+                            height: 1.2575 * ffem / fem,
+                            color: const Color(0xff000000),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
