@@ -9,6 +9,7 @@ class Information extends StatelessWidget {
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -159,6 +160,14 @@ class Information extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 10 * fem),
+              width: double.infinity,
+              height: 2 * fem,
+              decoration: const BoxDecoration(
+                color: Color(0xff000000),
               ),
             ),
             Container(

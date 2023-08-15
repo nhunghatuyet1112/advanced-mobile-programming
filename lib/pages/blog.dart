@@ -9,6 +9,7 @@ class Blog extends StatelessWidget {
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+
     return SizedBox(
       width: double.infinity,
       child: SizedBox(
@@ -159,15 +160,21 @@ class Blog extends StatelessWidget {
               ),
             ),
             Container(
+              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 10 * fem),
+              width: double.infinity,
+              height: 2 * fem,
+              decoration: const BoxDecoration(
+                color: Color(0xff000000),
+              ),
+            ),
+            Container(
               padding:
                   EdgeInsets.fromLTRB(35 * fem, 0 * fem, 35 * fem, 0 * fem),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin:
-                        EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
+                  SizedBox(
                     width: double.infinity,
                     height: 180 * fem,
                     child: Stack(
