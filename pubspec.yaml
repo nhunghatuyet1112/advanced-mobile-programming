@@ -38,6 +38,7 @@ dependencies:
   google_fonts: any
   firebase_core: ^2.15.0
   intl: any
+  carousel_slider: any
 
 dev_dependencies:
   flutter_test:

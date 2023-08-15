@@ -1,10 +1,12 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:finalproject/utils.dart';
 
-class Scene extends StatelessWidget {
+class Home extends StatelessWidget {
+  const Home({super.key});
   @override
   Widget build(BuildContext context) {
     double baseWidth = 412;
@@ -19,92 +21,77 @@ class Scene extends StatelessWidget {
           color: Color(0xffffffff),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              // autogroupmhu3heR (EoAmFY6XoyKxhCg4UDMhU3)
+            SizedBox(
               width: double.infinity,
-              height: 130*fem,
+              height: 130 * fem,
               child: Stack(
                 children: [
                   Positioned(
-                    // headerRaR (2488:952)
-                    left: 0*fem,
-                    top: 0*fem,
-                    child: Container(
-                      width: 412*fem,
-                      height: 130*fem,
-                      decoration: BoxDecoration (
-                        border: Border.all(color: Color(0xff000000)),
-                        borderRadius: BorderRadius.only (
-                          topLeft: Radius.circular(24*fem),
-                          topRight: Radius.circular(24*fem),
-                        ),
-                      ),
+                    left: 0 * fem,
+                    top: 0 * fem,
+                    child: SizedBox(
+                      width: 412 * fem,
+                      height: 130 * fem,
                       child: Stack(
                         children: [
                           Positioned(
-                            // frameblockMMb (2488:953)
-                            left: 0*fem,
-                            top: 40*fem,
-                            child: Container(
-                              width: 412*fem,
-                              height: 90*fem,
-                              decoration: BoxDecoration (
-                                borderRadius: BorderRadius.only (
-                                  topLeft: Radius.circular(24*fem),
-                                  topRight: Radius.circular(24*fem),
-                                ),
-                              ),
+                            left: 15 * fem,
+                            top: 40 * fem,
+                            child: SizedBox(
+                              width: 204 * fem,
+                              height: 26 * fem,
                               child: Center(
-                                child: Center(
-                                  child: Text(
-                                    'Urban Outfitters',
-                                    textAlign: TextAlign.center,
-                                    style: SafeGoogleFont (
-                                      'Alfa Slab One',
-                                      fontSize: 25*ffem,
+                                child: RichText(
+                                  text: TextSpan(
+                                    style: SafeGoogleFont(
+                                      'Be Vietnam',
+                                      fontSize: 20 * ffem,
                                       fontWeight: FontWeight.w400,
-                                      height: 1.3675*ffem/fem,
-                                      color: Color(0xff000000),
+                                      height: 1.2575 * ffem / fem,
+                                      color: const Color(0xff000000),
                                     ),
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Hello, welcome Nhung ',
+                                      ),
+                                      TextSpan(
+                                        text: '👋',
+                                        style: SafeGoogleFont(
+                                          'Be Vietnam',
+                                          fontSize: 20 * ffem,
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.2575 * ffem / fem,
+                                          color: const Color(0xff000000),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           Positioned(
-                            // frame1171274977ytm (2488:955)
-                            left: 15*fem,
-                            top: 18.5*fem,
-                            child: Container(
-                              width: 204*fem,
-                              height: 26*fem,
+                            left: 0 * fem,
+                            top: 50 * fem,
+                            child: SizedBox(
+                              width: 412 * fem,
+                              height: 90 * fem,
                               child: Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: SafeGoogleFont (
-                                      'Be Vietnam',
-                                      fontSize: 20*ffem,
+                                child: Center(
+                                  child: Text(
+                                    'Urban Outfitters',
+                                    textAlign: TextAlign.center,
+                                    style: SafeGoogleFont(
+                                      'Alfa Slab One',
+                                      fontSize: 25 * ffem,
                                       fontWeight: FontWeight.w400,
-                                      height: 1.2575*ffem/fem,
-                                      color: Color(0xff000000),
+                                      height: 1.3675 * ffem / fem,
+                                      color: const Color(0xff000000),
                                     ),
-                                    children: [
-                                      TextSpan(
-                                        text: 'Hello, welcome Nhung ',
-                                      ),
-                                      TextSpan(
-                                        text: '👋',
-                                        style: SafeGoogleFont (
-                                          'Be Vietnam',
-                                          fontSize: 20*ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2575*ffem/fem,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ),
@@ -115,82 +102,63 @@ class Scene extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    // searchbutton3n9 (2488:960)
-                    left: 42*fem,
-                    top: 70*fem,
+                    left: 368 * fem,
+                    top: 80 * fem,
                     child: Align(
                       child: SizedBox(
-                        width: 340*fem,
-                        height: 30*fem,
+                        width: 30 * fem,
+                        height: 30 * fem,
                         child: TextButton(
                           onPressed: () {},
-                          style: TextButton.styleFrom (
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
                           child: Image.asset(
-                            'assets/pages/images/search-button-2KB.png',
-                            width: 340*fem,
-                            height: 30*fem,
+                            'assets/pages/images/iconography-caesarzkn-iGy.png',
+                            width: 30 * fem,
+                            height: 30 * fem,
                           ),
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    // iconographycaesarzkn9aH (2488:961)
-                    left: 370.5*fem,
-                    top: 72.4997558594*fem,
+                    left: 8 * fem,
+                    top: 76 * fem,
                     child: Align(
                       child: SizedBox(
-                        width: 25.06*fem,
-                        height: 25.01*fem,
-                        child: Image.asset(
-                          'assets/pages/images/iconography-caesarzkn-77X.png',
-                          width: 25.06*fem,
-                          height: 25.01*fem,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    // menubtnuseremw (2488:962)
-                    left: 8*fem,
-                    top: 66*fem,
-                    child: Align(
-                      child: SizedBox(
-                        width: 40*fem,
-                        height: 40*fem,
+                        width: 40 * fem,
+                        height: 40 * fem,
                         child: TextButton(
                           onPressed: () {},
-                          style: TextButton.styleFrom (
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
                           child: Image.asset(
-                            'assets/pages/images/menu-btn-user-iJ5.png',
-                            width: 40*fem,
-                            height: 40*fem,
+                            'assets/pages/images/menu-btn-user-2ZX.png',
+                            width: 40 * fem,
+                            height: 40 * fem,
                           ),
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    // searchbuttonx1w (2488:963)
-                    left: 42*fem,
-                    top: 70*fem,
+                    left: 38 * fem,
+                    top: 80 * fem,
                     child: Align(
                       child: SizedBox(
-                        width: 340*fem,
-                        height: 30*fem,
+                        width: 340 * fem,
+                        height: 30 * fem,
                         child: TextButton(
                           onPressed: () {},
-                          style: TextButton.styleFrom (
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
                           child: Image.asset(
-                            'assets/pages/images/search-button-ax1.png',
-                            width: 340*fem,
-                            height: 30*fem,
+                            'assets/pages/images/search-button-N3s.png',
+                            width: 340 * fem,
+                            height: 30 * fem,
                           ),
                         ),
                       ),
@@ -200,78 +168,135 @@ class Scene extends StatelessWidget {
               ),
             ),
             Container(
-              // body44y (2488:957)
+              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
               width: double.infinity,
-              height: 602*fem,
-              child: Container(
-                // sliderQed (2488:959)
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration (
-                  color: Color(0xffffffff),
-                ),
-                child: Container(
-                  // frame1171274971kyP (I2488:959;2346:2562)
-                  padding: EdgeInsets.fromLTRB(194*fem, 281*fem, 29*fem, 18*fem),
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration (
-                    image: DecorationImage (
-                      fit: BoxFit.cover,
-                      image: AssetImage (
-                        'assets/pages/images/image-54-bg-ELy.png',
-                      ),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        // frame1171274973eos (I2488:959;2346:2579)
-                        margin: EdgeInsets.fromLTRB(149*fem, 0*fem, 0*fem, 239*fem),
-                        child: TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom (
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Container(
-                            width: 40*fem,
-                            height: 40*fem,
-                            child: Image.asset(
-                              'assets/pages/images/frame-1171274973-8DF.png',
-                              width: 40*fem,
-                              height: 40*fem,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        // chevronbardown7hT (I2488:959;2346:2713)
-                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 165*fem, 0*fem),
-                        child: TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom (
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Container(
-                            width: 24*fem,
-                            height: 24*fem,
-                            child: Image.asset(
-                              'assets/pages/images/chevron-bar-down-CrD.png',
-                              width: 24*fem,
-                              height: 24*fem,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              height: 2 * fem,
+              decoration: const BoxDecoration(
+                color: Color(0xff000000),
               ),
             ),
+            Container(
+              width: double.infinity,
+              height: 577,
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  CarouselSlider(
+                      items: [
+                        Container(
+                        decoration: const BoxDecoration (
+                        image: DecorationImage (
+                          fit: BoxFit.fill,
+                          image: AssetImage (
+                            'assets/pages/images/image-54-bg-ELy.png',
+                          ),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: TextButton(
+                              onPressed: () {},
+                              style: TextButton.styleFrom (
+                                padding: EdgeInsets.fromLTRB(300*fem, 270*fem, 0*fem, 0*fem),
+                              ),
+                              child: Container(
+                                width: 40*fem,
+                                height: 40*fem,
+                                child: Image.asset(
+                                  'assets/pages/images/frame-1171274973-8DF.png',
+                                  width: 40*fem,
+                                  height: 40*fem,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: TextButton(
+                              onPressed: () {},
+                              style: TextButton.styleFrom (
+                                padding: EdgeInsets.fromLTRB(0 * fem, 230 * fem, 0*fem, 0*fem),
+                              ),
+                              child: Container(
+                                width: 24*fem,
+                                height: 24*fem,
+                                child: Image.asset(
+                                  'assets/pages/images/chevron-bar-down-CrD.png',
+                                  width: 24*fem,
+                                  height: 24*fem,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                    ),
+                  ),], options: CarouselOptions(
+                    height: 577,
+                    scrollDirection: Axis.vertical,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 1,
+                  ))
+                ],
+              ),
+            ),
+            // SizedBox(
+            //   width: double.infinity,
+            //   height: 577 * fem,
+            //     child: Container(
+            //       decoration: const BoxDecoration (
+            //         image: DecorationImage (
+            //           fit: BoxFit.fill,
+            //           image: AssetImage (
+            //             'assets/pages/images/image-54-bg-ELy.png',
+            //           ),
+            //         ),
+            //       ),
+            //       child: Column(
+            //         crossAxisAlignment: CrossAxisAlignment.center,
+            //         children: [
+            //           Container(
+            //             child: TextButton(
+            //               onPressed: () {},
+            //               style: TextButton.styleFrom (
+            //                 padding: EdgeInsets.fromLTRB(320*fem, 270*fem, 0*fem, 0*fem),
+            //               ),
+            //               child: Container(
+            //                 width: 40*fem,
+            //                 height: 40*fem,
+            //                 child: Image.asset(
+            //                   'assets/pages/images/frame-1171274973-8DF.png',
+            //                   width: 40*fem,
+            //                   height: 40*fem,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //           Container(
+            //             child: TextButton(
+            //               onPressed: () {},
+            //               style: TextButton.styleFrom (
+            //                 padding: EdgeInsets.fromLTRB(0 * fem, 235 * fem, 0*fem, 0*fem),
+            //               ),
+            //               child: Container(
+            //                 width: 24*fem,
+            //                 height: 24*fem,
+            //                 child: Image.asset(
+            //                   'assets/pages/images/chevron-bar-down-CrD.png',
+            //                   width: 24*fem,
+            //                   height: 24*fem,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
       ),
           );
+
   }
 }
