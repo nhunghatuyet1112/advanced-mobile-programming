@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
-import 'package:finalproject/pages/information.dart';
+import 'package:finalproject/pages/blog-list.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const Scaffold(
         body: SingleChildScrollView(
-          child: Information(),
+          child: BlogList(),
         ),
       ),
     );
