@@ -159,13 +159,15 @@ class Blog extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(35 * fem, 0 * fem, 35 * fem, 0 * fem),
+              padding:
+                  EdgeInsets.fromLTRB(35 * fem, 0 * fem, 35 * fem, 0 * fem),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
+                    margin:
+                        EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
                     width: double.infinity,
                     height: 180 * fem,
                     child: Stack(
@@ -213,7 +215,8 @@ class Blog extends StatelessWidget {
                     ),
                   ),
                   Container(
-                      margin: EdgeInsets.fromLTRB(0 * fem, 10 * fem, 0 * fem, 10 * fem),
+                    margin: EdgeInsets.fromLTRB(
+                        0 * fem, 10 * fem, 0 * fem, 10 * fem),
                     child: Text(
                       'The Top 5 Trending Products',
                       style: SafeGoogleFont(
@@ -356,7 +359,8 @@ class Blog extends StatelessWidget {
                                 width: 110 * fem,
                                 height: double.infinity,
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: const Color(0xff000000)),
+                                  border: Border.all(
+                                      color: const Color(0xff000000)),
                                   color: const Color(0xffffffff),
                                   borderRadius: BorderRadius.circular(10 * fem),
                                 ),
