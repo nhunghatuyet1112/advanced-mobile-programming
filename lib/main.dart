@@ -1,26 +1,55 @@
+import 'package:finalproject/pages/auth.dart';
+import 'package:finalproject/pages/verify-email.dart';
+import 'package:finalproject/toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:finalproject/utils.dart';
-import 'package:finalproject/pages/login.dart';
 
-void main() => runApp(const MyApp());
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  runApp(const MyApp());
+}
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter',
-      debugShowCheckedModeBanner: false,
-      scrollBehavior: MyCustomScrollBehavior(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Scaffold(
-        body: SingleChildScrollView(
-          child: Login(),
+  Widget build(BuildContext context) => MaterialApp(
+        scaffoldMessengerKey: Toast.messengerKey,
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-      ),
-    );
-  }
+        home: const MainPage(),
+      );
+}
+
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Something went wrong!'));
+            } else if (snapshot.hasData) {
+              return const VerifyEmail();
+            } else {
+              return const SingleChildScrollView(
+                child: Auth(),
+              );
+            }
+          },
+        ),
+      );
 }

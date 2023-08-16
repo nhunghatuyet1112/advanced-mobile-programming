@@ -1,18 +1,41 @@
+import 'package:finalproject/main.dart';
+import 'package:finalproject/pages/forgot-password.dart';
+import 'package:finalproject/toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:finalproject/utils.dart';
-import 'package:finalproject/pages/register.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class Login extends StatefulWidget {
+  final VoidCallback onClickedSignUp;
+
+  const Login({
+    Key? key,
+    required this.onClickedSignUp,
+  }) : super(key: key);
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    TextEditingController usernameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -63,7 +86,7 @@ class Login extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 0 * fem, 10 * fem),
+                        0 * fem, 0 * fem, 0 * fem, 15 * fem),
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +96,7 @@ class Login extends StatelessWidget {
                               0 * fem, 0 * fem, 0 * fem, 5 * fem),
                           width: double.infinity,
                           child: Text(
-                            'Username',
+                            'Email',
                             textAlign: TextAlign.start,
                             style: SafeGoogleFont(
                               'Be Vietnam',
@@ -94,7 +117,7 @@ class Login extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10 * fem),
                           ),
                           child: TextField(
-                            controller: usernameController,
+                            controller: emailController,
                             decoration:
                                 const InputDecoration(border: InputBorder.none),
                             // onChanged: (e) => usernameController.text = e,
@@ -152,17 +175,22 @@ class Login extends StatelessWidget {
                     margin: EdgeInsets.fromLTRB(
                         0 * fem, 0 * fem, 0 * fem, 20 * fem),
                     width: double.infinity,
-                    child: Text(
-                      'Forgot password ?',
-                      textAlign: TextAlign.right,
-                      style: SafeGoogleFont(
-                        'Be Vietnam',
-                        fontSize: 18 * ffem,
-                        fontWeight: FontWeight.w400,
-                        height: 1.2575 * ffem / fem,
-                        color: const Color(0xff000000),
-                        decorationColor: const Color(0xff000000),
+                    child: GestureDetector(
+                      child: Text(
+                        'Forgot password ?',
+                        textAlign: TextAlign.right,
+                        style: SafeGoogleFont(
+                          'Be Vietnam',
+                          fontSize: 18 * ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2575 * ffem / fem,
+                          color: const Color(0xff000000),
+                          decorationColor: const Color(0xff000000),
+                        ),
                       ),
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ForgotPassword(),
+                      )),
                     ),
                   ),
                   TextButton(
@@ -179,7 +207,15 @@ class Login extends StatelessWidget {
                       ),
                       child: Center(
                         child: Center(
-                          child: Text(
+                            child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size.fromHeight(40),
+                            backgroundColor: const Color(0xff292526),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.0)),
+                          ),
+                          icon: const Icon(Icons.lock_open, size: 20),
+                          label: Text(
                             'Login',
                             textAlign: TextAlign.center,
                             style: SafeGoogleFont(
@@ -190,7 +226,8 @@ class Login extends StatelessWidget {
                               color: const Color(0xffffffff),
                             ),
                           ),
-                        ),
+                          onPressed: logIn,
+                        )),
                       ),
                     ),
                   ),
@@ -223,40 +260,42 @@ class Login extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Click ',
-                          textAlign: TextAlign.center,
-                          style: SafeGoogleFont(
-                            'Be Vietnam',
-                            fontSize: 20 * ffem,
-                            fontWeight: FontWeight.w400,
-                            height: 1.2575 * ffem / fem,
-                            color: const Color(0xff000000),
+                        RichText(
+                          text: TextSpan(
+                            style: SafeGoogleFont(
+                              'Be Vietnam',
+                              fontSize: 20 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.2575 * ffem / fem,
+                              color: const Color(0xff000000),
+                            ),
+                            text: 'Click ',
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = widget.onClickedSignUp,
+                                text: 'here',
+                                style: SafeGoogleFont(
+                                  'Be Vietnam',
+                                  fontSize: 20 * ffem,
+                                  fontWeight: FontWeight.w700,
+                                  height: 1.2575 * ffem / fem,
+                                  color: const Color(0xff000000),
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' to register',
+                                style: SafeGoogleFont(
+                                  'Be Vietnam',
+                                  fontSize: 20 * ffem,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.2575 * ffem / fem,
+                                  color: const Color(0xff000000),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xff737373)),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Scaffold(
-                                        body: SingleChildScrollView(
-                                            child: Register()))));
-                          },
-                          child: const Text('here'),
-                        ),
-                        Text(
-                          ' to register',
-                          style: SafeGoogleFont(
-                            'Be Vietnam',
-                            fontSize: 20 * ffem,
-                            fontWeight: FontWeight.w400,
-                            height: 1.2575 * ffem / fem,
-                            color: const Color(0xff000000),
-                          ),
-                        )
                       ],
                     ),
                   ],
@@ -267,5 +306,23 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future logIn() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()));
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Toast.showSnackBar(e.message);
+    }
+
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

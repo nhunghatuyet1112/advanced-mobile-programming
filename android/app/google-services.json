@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "556179218531",
+    "firebase_url": "https://group1-finalproject-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "group1-finalproject",
     "storage_bucket": "group1-finalproject.appspot.com"
   },
@@ -29,6 +30,49 @@
             {
               "client_id": "556179218531-cjr5u3kc494snncuba0r7ddmefp03tn2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "556179218531-kat03eaglu143ja5e5pq10600qgg7alc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.test"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556179218531:android:2a662cc0d80a605df11856",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556179218531-cjr5u3kc494snncuba0r7ddmefp03tn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf-c5BP9WXNZ3c9zu71dhXVYJUru61aHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556179218531-cjr5u3kc494snncuba0r7ddmefp03tn2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "556179218531-kat03eaglu143ja5e5pq10600qgg7alc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.test"
+              }
             }
           ]
         }
