@@ -1,10 +1,38 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:finalproject/utils.dart';
 
-class Scene extends StatelessWidget {
+
+class Category extends StatefulWidget {
+  const Category({super.key});
+
+  @override
+  _Category createState() => _Category();
+}
+
+class _Category extends State<Category> {
+  bool btnState = false;
+  String whichBtn = '';
+  List<String> btnCategory = ['All Items', 'Men', 'Women', 'Kid', 'Baby', 'Accessories'];
+  void setBtn(String btnName, bool btnState) {
+    setState(() {
+      whichBtn = btnName;
+      btnState = !btnState;
+      if(btnName == 'All'){
+        btnCategory = ['All Items', 'Men', 'Women', 'Kid', 'Baby', 'Accessories'];
+      }
+      else if (btnName == 'Men' || btnName == 'Kid' || btnName == 'Baby'){
+        btnCategory = ['Shirts', 'Trousers', 'Hoodie', 'Sweater', 'Jacket', 'Accessories'];
+      }
+      else if (btnName == 'Women'){
+        btnCategory = ['Shirts', 'Skirts', 'Shorts', 'Pants', 'Jacket', 'Accessories'];
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     double baseWidth = 412;
@@ -13,99 +41,82 @@ class Scene extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Container(
-        // categoryg2u (2488:1249)
-        padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 11*fem),
         width: double.infinity,
         decoration: BoxDecoration (
           color: Color(0xffffffff),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              // autogroupstrsAim (EoBBFmGQ6ChM7z32L5Strs)
+            SizedBox(
               width: double.infinity,
-              height: 130*fem,
+              height: 130 * fem,
               child: Stack(
                 children: [
                   Positioned(
-                    // header7P7 (2488:1294)
-                    left: 0*fem,
-                    top: 0*fem,
-                    child: Container(
-                      width: 412*fem,
-                      height: 130*fem,
-                      decoration: BoxDecoration (
-                        border: Border.all(color: Color(0xff000000)),
-                        borderRadius: BorderRadius.only (
-                          topLeft: Radius.circular(24*fem),
-                          topRight: Radius.circular(24*fem),
-                        ),
-                      ),
+                    left: 0 * fem,
+                    top: 0 * fem,
+                    child: SizedBox(
+                      width: 412 * fem,
+                      height: 130 * fem,
                       child: Stack(
                         children: [
                           Positioned(
-                            // frameblockp2d (2488:1295)
-                            left: 0*fem,
-                            top: 40*fem,
-                            child: Container(
-                              width: 412*fem,
-                              height: 90*fem,
-                              decoration: BoxDecoration (
-                                borderRadius: BorderRadius.only (
-                                  topLeft: Radius.circular(24*fem),
-                                  topRight: Radius.circular(24*fem),
-                                ),
-                              ),
+                            left: 15 * fem,
+                            top: 40 * fem,
+                            child: SizedBox(
+                              width: 204 * fem,
+                              height: 26 * fem,
                               child: Center(
-                                child: Center(
-                                  child: Text(
-                                    'Urban Outfitters',
-                                    textAlign: TextAlign.center,
-                                    style: SafeGoogleFont (
-                                      'Alfa Slab One',
-                                      fontSize: 25*ffem,
+                                child: RichText(
+                                  text: TextSpan(
+                                    style: SafeGoogleFont(
+                                      'Be Vietnam',
+                                      fontSize: 20 * ffem,
                                       fontWeight: FontWeight.w400,
-                                      height: 1.3675*ffem/fem,
-                                      color: Color(0xff000000),
+                                      height: 1.2575 * ffem / fem,
+                                      color: const Color(0xff000000),
                                     ),
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Hello, welcome Nhung ',
+                                      ),
+                                      TextSpan(
+                                        text: '👋',
+                                        style: SafeGoogleFont(
+                                          'Be Vietnam',
+                                          fontSize: 20 * ffem,
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.2575 * ffem / fem,
+                                          color: const Color(0xff000000),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           Positioned(
-                            // frame1171274977bxV (2488:1297)
-                            left: 15*fem,
-                            top: 18.5*fem,
-                            child: Container(
-                              width: 204*fem,
-                              height: 26*fem,
+                            left: 0 * fem,
+                            top: 50 * fem,
+                            child: SizedBox(
+                              width: 412 * fem,
+                              height: 90 * fem,
                               child: Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: SafeGoogleFont (
-                                      'Be Vietnam',
-                                      fontSize: 20*ffem,
+                                child: Center(
+                                  child: Text(
+                                    'Urban Outfitters',
+                                    textAlign: TextAlign.center,
+                                    style: SafeGoogleFont(
+                                      'Alfa Slab One',
+                                      fontSize: 25 * ffem,
                                       fontWeight: FontWeight.w400,
-                                      height: 1.2575*ffem/fem,
-                                      color: Color(0xff000000),
+                                      height: 1.3675 * ffem / fem,
+                                      color: const Color(0xff000000),
                                     ),
-                                    children: [
-                                      TextSpan(
-                                        text: 'Hello, welcome Nhung ',
-                                      ),
-                                      TextSpan(
-                                        text: '👋',
-                                        style: SafeGoogleFont (
-                                          'Be Vietnam',
-                                          fontSize: 20*ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2575*ffem/fem,
-                                          color: Color(0xff000000),
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ),
@@ -116,66 +127,63 @@ class Scene extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    // iconographycaesarzkntKK (2488:1299)
-                    left: 368*fem,
-                    top: 70*fem,
+                    left: 368 * fem,
+                    top: 80 * fem,
                     child: Align(
                       child: SizedBox(
-                        width: 30*fem,
-                        height: 30*fem,
+                        width: 30 * fem,
+                        height: 30 * fem,
                         child: TextButton(
                           onPressed: () {},
-                          style: TextButton.styleFrom (
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
                           child: Image.asset(
-                            'assets/pages/images/iconography-caesarzkn-4Kj.png',
-                            width: 30*fem,
-                            height: 30*fem,
+                            'assets/pages/images/iconography-caesarzkn-iGy.png',
+                            width: 30 * fem,
+                            height: 30 * fem,
                           ),
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    // menubtnuserMih (2488:1300)
-                    left: 8*fem,
-                    top: 66*fem,
+                    left: 8 * fem,
+                    top: 76 * fem,
                     child: Align(
                       child: SizedBox(
-                        width: 40*fem,
-                        height: 40*fem,
+                        width: 40 * fem,
+                        height: 40 * fem,
                         child: TextButton(
                           onPressed: () {},
-                          style: TextButton.styleFrom (
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
                           child: Image.asset(
-                            'assets/pages/images/menu-btn-user-ZGu.png',
-                            width: 40*fem,
-                            height: 40*fem,
+                            'assets/pages/images/menu-btn-user-2ZX.png',
+                            width: 40 * fem,
+                            height: 40 * fem,
                           ),
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    // searchbuttonRCm (2488:1301)
-                    left: 42*fem,
-                    top: 70*fem,
+                    left: 38 * fem,
+                    top: 80 * fem,
                     child: Align(
                       child: SizedBox(
-                        width: 340*fem,
-                        height: 30*fem,
+                        width: 340 * fem,
+                        height: 30 * fem,
                         child: TextButton(
                           onPressed: () {},
-                          style: TextButton.styleFrom (
+                          style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
                           child: Image.asset(
-                            'assets/pages/images/search-button-3Zj.png',
-                            width: 340*fem,
-                            height: 30*fem,
+                            'assets/pages/images/search-button-N3s.png',
+                            width: 340 * fem,
+                            height: 30 * fem,
                           ),
                         ),
                       ),
@@ -185,227 +193,287 @@ class Scene extends StatelessWidget {
               ),
             ),
             Container(
-              // frame1171274982azm (2488:1250)
-              margin: EdgeInsets.fromLTRB(16*fem, 0*fem, 16*fem, 0*fem),
+              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
+              width: double.infinity,
+              height: 2 * fem,
+              decoration: const BoxDecoration(
+                color: Color(0xff000000),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(16*fem, 12*fem, 16*fem, 0*fem),
               width: double.infinity,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     // categoryWNd (2488:1251)
                     margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 17*fem),
                     padding: EdgeInsets.fromLTRB(0*fem, 11.5*fem, 0*fem, 11.5*fem),
-                    width: double.infinity,
+                    width: 412 * fem,
                     height: 55*fem,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          // allitem265 (2488:1252)
-                          padding: EdgeInsets.fromLTRB(12*fem, 7.5*fem, 27*fem, 9*fem),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 110 * fem,
                           height: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffededed)),
-                            color: Color(0xffffffff),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // vuesaxlinearcategoryZkD (2488:1253)
-                                margin: EdgeInsets.fromLTRB(0*fem, 1.5*fem, 2*fem, 0*fem),
-                                width: 14*fem,
-                                height: 14*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/vuesax-linear-category-Czd.png',
-                                  width: 14*fem,
-                                  height: 14*fem,
-                                ),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith(
+                                  (Set<MaterialState> states) {
+                                    if (whichBtn == 'All') {
+                                      return Colors.black;
+                                    }
+                                    else {
+                                      return Colors.white;
+                                    }
+                                  }
                               ),
-                              Container(
-                                // allitemscyP (2488:1254)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 0.5*fem),
-                                child: Text(
-                                  'All Items',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 10*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff000000),
-                                  ),
-                                ),
+                              foregroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'All') {
+                                      return Colors.white;
+                                    }
+                                    else {
+                                      return Colors.black;
+                                    }
+                                  }
                               ),
-                            ],
+                              side: MaterialStateProperty.resolveWith(
+                                  (Set<MaterialState> states) {
+                                    if (whichBtn == 'All') {
+                                      return BorderSide.none;
+                                    }
+                                    else {
+                                      return BorderSide(color: Color(0xffededed), width: 1);
+                                    }
+                                  }
+                              ),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent),
+                            ),
+                            onPressed: () => {
+                              setBtn('All', btnState)
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.apps, size: 17 * fem),
+                                SizedBox(width: 2 * fem,),
+                                const Text('All items'),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 10*fem,
                         ),
-                        Container(
-                          // women56H (2488:1255)
-                          padding: EdgeInsets.fromLTRB(8*fem, 7.5*fem, 20*fem, 9*fem),
+                        SizedBox(
+                          width: 80 * fem,
                           height: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xff151515)),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // vector7of (2488:1256)
-                                margin: EdgeInsets.fromLTRB(0*fem, 1.5*fem, 4*fem, 0*fem),
-                                width: 14*fem,
-                                height: 14*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/vector-H3o.png',
-                                  width: 14*fem,
-                                  height: 14*fem,
-                                ),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Men') {
+                                      return Colors.black;
+                                    }
+                                    else {
+                                      return Colors.white;
+                                    }
+                                  }
                               ),
-                              Container(
-                                // menNUh (2488:1257)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 0.5*fem),
-                                child: Text(
-                                  'Men',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 10*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xffffffff),
-                                  ),
-                                ),
+                              foregroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Men') {
+                                      return Colors.white;
+                                    }
+                                    else {
+                                      return Colors.black;
+                                    }
+                                  }
                               ),
-                            ],
+                              side: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Men') {
+                                      return BorderSide.none;
+                                    }
+                                    else {
+                                      return BorderSide(color: Color(0xffededed), width: 1);
+                                    }
+                                  }
+                              ),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent),
+                            ),
+                            onPressed: () => {
+                              setBtn('Men', btnState)
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.accessibility, size: 17 * fem),
+                                SizedBox(width: 2 * fem,),
+                                const Text('Men'),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 10*fem,
                         ),
-                        Container(
-                          // womenqdB (2488:1258)
-                          margin: EdgeInsets.fromLTRB(0*fem, 1*fem, 0*fem, 1*fem),
-                          padding: EdgeInsets.fromLTRB(8*fem, 6*fem, 19*fem, 8*fem),
+                        SizedBox(
+                          width: 100 * fem,
                           height: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffededed)),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // maskgroup74u (2488:1259)
-                                margin: EdgeInsets.fromLTRB(0*fem, 2*fem, 4*fem, 0*fem),
-                                width: 14*fem,
-                                height: 14*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/mask-group-Lw3.png',
-                                  width: 14*fem,
-                                  height: 14*fem,
-                                ),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Women') {
+                                      return Colors.black;
+                                    }
+                                    else {
+                                      return Colors.white;
+                                    }
+                                  }
                               ),
-                              Container(
-                                // womenB4m (2488:1260)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 1*fem),
-                                child: Text(
-                                  'Women',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 10*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
+                              foregroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Women') {
+                                      return Colors.white;
+                                    }
+                                    else {
+                                      return Colors.black;
+                                    }
+                                  }
                               ),
-                            ],
+                              side: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Women') {
+                                      return BorderSide.none;
+                                    }
+                                    else {
+                                      return BorderSide(color: Color(0xffededed), width: 1);
+                                    }
+                                  }
+                              ),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent),
+                            ),
+                            onPressed: () => {
+                              setBtn('Women', btnState)
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.accessibility, size: 17 * fem),
+                                SizedBox(width: 2 * fem,),
+                                const Text('Women'),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 10*fem,
                         ),
-                        Container(
-                          // kidUJm (2488:1261)
-                          padding: EdgeInsets.fromLTRB(8*fem, 8.5*fem, 19*fem, 8.5*fem),
+                        SizedBox(
+                          width: 80 * fem,
                           height: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffededed)),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // solidawardABb (2488:1262)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 4*fem, 0*fem),
-                                width: 14*fem,
-                                height: 14*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/solid-award-y4M.png',
-                                  width: 14*fem,
-                                  height: 14*fem,
-                                ),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Kid') {
+                                      return Colors.black;
+                                    }
+                                    else {
+                                      return Colors.white;
+                                    }
+                                  }
                               ),
-                              Text(
-                                // kidSuo (2488:1263)
-                                'Kid',
-                                style: SafeGoogleFont (
-                                  'Encode Sans',
-                                  fontSize: 10*ffem,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.5*ffem/fem,
-                                  color: Color(0xff1b2028),
-                                ),
+                              foregroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Kid') {
+                                      return Colors.white;
+                                    }
+                                    else {
+                                      return Colors.black;
+                                    }
+                                  }
                               ),
-                            ],
+                              side: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Kid') {
+                                      return BorderSide.none;
+                                    }
+                                    else {
+                                      return BorderSide(color: Color(0xffededed), width: 1);
+                                    }
+                                  }
+                              ),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent),
+                            ),
+                            onPressed: () => {
+                              setBtn('Kid', btnState)
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.accessibility, size: 17 * fem),
+                                SizedBox(width: 2 * fem,),
+                                const Text('Kid'),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 10*fem,
                         ),
-                        Container(
-                          // babyxt9 (2488:1264)
-                          padding: EdgeInsets.fromLTRB(8*fem, 7.5*fem, 24*fem, 9*fem),
-                          width: 73*fem,
+                        SizedBox(
+                          width: 90 * fem,
                           height: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffededed)),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // vectorDp5 (2488:1265)
-                                margin: EdgeInsets.fromLTRB(0*fem, 1.5*fem, 4*fem, 0*fem),
-                                width: 14*fem,
-                                height: 14*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/vector-tPb.png',
-                                  width: 14*fem,
-                                  height: 14*fem,
-                                ),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Baby') {
+                                      return Colors.black;
+                                    }
+                                    else {
+                                      return Colors.white;
+                                    }
+                                  }
                               ),
-                              Container(
-                                // babyXZs (2488:1266)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 0.5*fem),
-                                child: Text(
-                                  'Baby',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 10*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
+                              foregroundColor: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Baby') {
+                                      return Colors.white;
+                                    }
+                                    else {
+                                      return Colors.black;
+                                    }
+                                  }
                               ),
-                            ],
+                              side: MaterialStateProperty.resolveWith(
+                                      (Set<MaterialState> states) {
+                                    if (whichBtn == 'Baby') {
+                                      return BorderSide.none;
+                                    }
+                                    else {
+                                      return BorderSide(color: Color(0xffededed), width: 1);
+                                    }
+                                  }
+                              ),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent),
+                            ),
+                            onPressed: () => {
+                              setBtn('Baby', btnState)
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.accessibility, size: 17 * fem),
+                                SizedBox(width: 2 * fem,),
+                                const Text('Baby'),
+                              ],
+                            ),
                           ),
+                        ),
+                        SizedBox(
+                          width: 10*fem,
                         ),
                       ],
                     ),
@@ -416,345 +484,287 @@ class Scene extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          // shirtjA9 (2488:1268)
-                          margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 21*fem),
-                          padding: EdgeInsets.fromLTRB(11*fem, 7*fem, 11*fem, 7*fem),
+                        SizedBox(
                           width: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffc4c4c4)),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // shirtsBnq (2488:1269)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 287*fem, 0*fem),
-                                child: Text(
-                                  'Shirts',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 20*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                // navigationarrowforwardiosFXo (2488:1270)
-                                width: 18*fem,
-                                height: 18*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/navigation-arrowforwardios.png',
-                                  width: 18*fem,
-                                  height: 18*fem,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // trousersigH (2488:1271)
-                          padding: EdgeInsets.fromLTRB(11*fem, 7*fem, 11*fem, 7*fem),
-                          width: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffc4c4c4)),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // trousersSMP (2488:1272)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 262*fem, 0*fem),
-                                child: Text(
-                                  'Trousers',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 20*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                // navigationarrowforwardioshHK (2488:1273)
-                                width: 18*fem,
-                                height: 18*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/navigation-arrowforwardios-dff.png',
-                                  width: 18*fem,
-                                  height: 18*fem,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // autogroupebtmc9P (EoBD3DJ2Y8oC2k5EusEbTm)
-                          padding: EdgeInsets.fromLTRB(0*fem, 21*fem, 0*fem, 21*fem),
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                // hoodie7rq (2488:1274)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 1*fem, 21*fem),
-                                padding: EdgeInsets.fromLTRB(10*fem, 7*fem, 10*fem, 7*fem),
-                                width: double.infinity,
-                                decoration: BoxDecoration (
-                                  border: Border.all(color: Color(0xffc4c4c4)),
-                                  borderRadius: BorderRadius.circular(8*fem),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      // hoodieMWH (2488:1275)
-                                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 276*fem, 0*fem),
-                                      child: Text(
-                                        'Hoodie',
-                                        style: SafeGoogleFont (
-                                          'Encode Sans',
-                                          fontSize: 20*ffem,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.5*ffem/fem,
-                                          color: Color(0xff1b2028),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      // navigationarrowforwardiosqwF (2488:1276)
-                                      width: 18*fem,
-                                      height: 18*fem,
-                                      child: Image.asset(
-                                        'assets/pages/images/navigation-arrowforwardios-BhT.png',
-                                        width: 18*fem,
-                                        height: 18*fem,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                // sweaterjWq (2488:1277)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 1*fem, 0*fem),
-                                padding: EdgeInsets.fromLTRB(10*fem, 7*fem, 10*fem, 7*fem),
-                                width: double.infinity,
-                                decoration: BoxDecoration (
-                                  border: Border.all(color: Color(0xffc4c4c4)),
-                                  borderRadius: BorderRadius.circular(8*fem),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      // sweaterQss (2488:1278)
-                                      margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 266*fem, 0*fem),
-                                      child: Text(
-                                        'Sweater',
-                                        style: SafeGoogleFont (
-                                          'Encode Sans',
-                                          fontSize: 20*ffem,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.5*ffem/fem,
-                                          color: Color(0xff1b2028),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      // navigationarrowforwardiosYUH (2488:1279)
-                                      width: 18*fem,
-                                      height: 18*fem,
-                                      child: Image.asset(
-                                        'assets/pages/images/navigation-arrowforwardios-sCM.png',
-                                        width: 18*fem,
-                                        height: 18*fem,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // jacketGv5 (2488:1280)
-                          margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 21*fem),
-                          padding: EdgeInsets.fromLTRB(11*fem, 7*fem, 11*fem, 7*fem),
-                          width: double.infinity,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffc4c4c4)),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // jacketMRj (2488:1281)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 286*fem, 0*fem),
-                                child: Text(
-                                  'Jacket',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 20*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                // navigationarrowforwardiostRf (2488:1282)
-                                width: 18*fem,
-                                height: 18*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/navigation-arrowforwardios-k7j.png',
-                                  width: 18*fem,
-                                  height: 18*fem,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // accessoriesoYd (2488:1283)
-                          margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 1*fem, 21*fem),
-                          padding: EdgeInsets.fromLTRB(11*fem, 7*fem, 11*fem, 7*fem),
-                          width: double.infinity,
-                          decoration: BoxDecoration (
-                            color: Color(0xffe5e4e4),
-                            borderRadius: BorderRadius.circular(8*fem),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // accessoriesWxq (2488:1284)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 234*fem, 0*fem),
-                                child: Text(
-                                  'Accessories',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 20*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                // navigationarrowforwardiosRpu (2488:1285)
-                                width: 18*fem,
-                                height: 18*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/navigation-arrowforwardios-zpR.png',
-                                  width: 18*fem,
-                                  height: 18*fem,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // hatYuX (2488:1286)
-                          margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 21*fem),
-                          padding: EdgeInsets.fromLTRB(318*fem, 0*fem, 0*fem, 0*fem),
-                          width: double.infinity,
-                          height: 29*fem,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffc4c4c4)),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                // hatrfK (2488:1288)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 47*fem, 0*fem),
-                                child: Text(
-                                  'Hat',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 20*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                // navigationarrowforwardiosmXP (2488:1287)
-                                width: 25*fem,
-                                height: 25*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/navigation-arrowforwardios-sbF.png',
-                                  width: 25*fem,
-                                  height: 25*fem,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // glassessKX (2488:1289)
-                          margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 21*fem),
-                          padding: EdgeInsets.fromLTRB(287*fem, 0*fem, 0*fem, 0*fem),
-                          width: double.infinity,
-                          height: 29*fem,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffc4c4c4)),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                // glassesBb7 (2488:1291)
-                                margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 44*fem, 0*fem),
-                                child: Text(
-                                  'Glasses',
-                                  style: SafeGoogleFont (
-                                    'Encode Sans',
-                                    fontSize: 20*ffem,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.5*ffem/fem,
-                                    color: Color(0xff1b2028),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                // navigationarrowforwardios7Ds (2488:1290)
-                                width: 25*fem,
-                                height: 25*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/navigation-arrowforwardios-MN1.png',
-                                  width: 25*fem,
-                                  height: 25*fem,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          // necklaceqvZ (2488:1292)
-                          padding: EdgeInsets.fromLTRB(276*fem, 0*fem, 23*fem, 0*fem),
-                          width: double.infinity,
-                          height: 29*fem,
-                          decoration: BoxDecoration (
-                            border: Border.all(color: Color(0xffc4c4c4)),
-                          ),
-                          child: Text(
-                            'Necklace',
-                            style: SafeGoogleFont (
-                              'Encode Sans',
-                              fontSize: 20*ffem,
-                              fontWeight: FontWeight.w500,
-                              height: 1.5*ffem/fem,
-                              color: Color(0xff1b2028),
+                          height: 55 * fem,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.black,
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              )
                             ),
-                          ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    btnCategory[0],
+                                    style: SafeGoogleFont (
+                                      'Encode Sans',
+                                      fontSize: 20*ffem,
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.5*ffem/fem,
+                                      color: Color(0xff1b2028),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  // navigationarrowforwardiosFXo (2488:1270)
+                                  width: 18*fem,
+                                  height: 18*fem,
+                                  child: Image.asset(
+                                    'assets/pages/images/navigation-arrowforwardios.png',
+                                    width: 18*fem,
+                                    height: 18*fem,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onPressed: () => {
+
+                            },
+                          )
+                        ),
+                        SizedBox(
+                          height: 20*fem,
+                        ),
+                        SizedBox(
+                            width: double.infinity,
+                            height: 55 * fem,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      btnCategory[1],
+                                      style: SafeGoogleFont (
+                                        'Encode Sans',
+                                        fontSize: 20*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5*ffem/fem,
+                                        color: Color(0xff1b2028),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    // navigationarrowforwardiosFXo (2488:1270)
+                                    width: 18*fem,
+                                    height: 18*fem,
+                                    child: Image.asset(
+                                      'assets/pages/images/navigation-arrowforwardios.png',
+                                      width: 18*fem,
+                                      height: 18*fem,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () => {
+
+                              },
+                            )
+                        ),
+                        SizedBox(
+                          height: 20*fem,
+                        ),
+                        SizedBox(
+                            width: double.infinity,
+                            height: 55 * fem,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      btnCategory[2],
+                                      style: SafeGoogleFont (
+                                        'Encode Sans',
+                                        fontSize: 20*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5*ffem/fem,
+                                        color: Color(0xff1b2028),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    // navigationarrowforwardiosFXo (2488:1270)
+                                    width: 18*fem,
+                                    height: 18*fem,
+                                    child: Image.asset(
+                                      'assets/pages/images/navigation-arrowforwardios.png',
+                                      width: 18*fem,
+                                      height: 18*fem,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () => {
+
+                              },
+                            )
+                        ),
+                        SizedBox(
+                          height: 20*fem,
+                        ),
+                        SizedBox(
+                            width: double.infinity,
+                            height: 55 * fem,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      btnCategory[3],
+                                      style: SafeGoogleFont (
+                                        'Encode Sans',
+                                        fontSize: 20*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5*ffem/fem,
+                                        color: Color(0xff1b2028),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    // navigationarrowforwardiosFXo (2488:1270)
+                                    width: 18*fem,
+                                    height: 18*fem,
+                                    child: Image.asset(
+                                      'assets/pages/images/navigation-arrowforwardios.png',
+                                      width: 18*fem,
+                                      height: 18*fem,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () => {
+
+                              },
+                            )
+                        ),
+                        SizedBox(
+                          height: 20*fem,
+                        ),
+                        SizedBox(
+                            width: double.infinity,
+                            height: 55 * fem,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      btnCategory[4],
+                                      style: SafeGoogleFont (
+                                        'Encode Sans',
+                                        fontSize: 20*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5*ffem/fem,
+                                        color: Color(0xff1b2028),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    // navigationarrowforwardiosFXo (2488:1270)
+                                    width: 18*fem,
+                                    height: 18*fem,
+                                    child: Image.asset(
+                                      'assets/pages/images/navigation-arrowforwardios.png',
+                                      width: 18*fem,
+                                      height: 18*fem,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () => {
+
+                              },
+                            )
+                        ),
+                        SizedBox(
+                          height: 20*fem,
+                        ),
+                        SizedBox(
+                            width: double.infinity,
+                            height: 55 * fem,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      btnCategory[5],
+                                      style: SafeGoogleFont (
+                                        'Encode Sans',
+                                        fontSize: 20*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.5*ffem/fem,
+                                        color: Color(0xff1b2028),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    // navigationarrowforwardiosFXo (2488:1270)
+                                    width: 18*fem,
+                                    height: 18*fem,
+                                    child: Image.asset(
+                                      'assets/pages/images/navigation-arrowforwardios.png',
+                                      width: 18*fem,
+                                      height: 18*fem,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () => {
+
+                              },
+                            )
+                        ),
+                        SizedBox(
+                          height: 20*fem,
                         ),
                       ],
                     ),
@@ -768,3 +778,6 @@ class Scene extends StatelessWidget {
           );
   }
 }
+
+
+
