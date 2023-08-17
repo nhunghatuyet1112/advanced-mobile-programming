@@ -1,29 +1,24 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:finalproject/utils.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return Container(
+
+    return SizedBox(
       width: double.infinity,
-      child: Container(
-        // homeWK3 (2488:951)
+      child: SizedBox(
         width: double.infinity,
-        decoration: BoxDecoration (
-          color: Color(0xffffffff),
-        ),
         child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               width: double.infinity,
@@ -175,7 +170,7 @@ class Home extends StatelessWidget {
                 color: Color(0xff000000),
               ),
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 577,
               child: ListView(
@@ -184,59 +179,59 @@ class Home extends StatelessWidget {
                   CarouselSlider(
                       items: [
                         Container(
-                        decoration: const BoxDecoration (
-                        image: DecorationImage (
-                          fit: BoxFit.fill,
-                          image: AssetImage (
-                            'assets/pages/images/image-54-bg-ELy.png',
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                'assets/pages/images/image-54-bg-ELy.png',
+                              ),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              TextButton(
+                                onPressed: () {},
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.fromLTRB(
+                                      300 * fem, 270 * fem, 0 * fem, 0 * fem),
+                                ),
+                                child: SizedBox(
+                                  width: 40 * fem,
+                                  height: 40 * fem,
+                                  child: Image.asset(
+                                    'assets/pages/images/frame-1171274973-8DF.png',
+                                    width: 40 * fem,
+                                    height: 40 * fem,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.fromLTRB(
+                                      0 * fem, 230 * fem, 0 * fem, 0 * fem),
+                                ),
+                                child: SizedBox(
+                                  width: 24 * fem,
+                                  height: 24 * fem,
+                                  child: Image.asset(
+                                    'assets/pages/images/chevron-bar-down-CrD.png',
+                                    width: 24 * fem,
+                                    height: 24 * fem,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom (
-                                padding: EdgeInsets.fromLTRB(300*fem, 270*fem, 0*fem, 0*fem),
-                              ),
-                              child: Container(
-                                width: 40*fem,
-                                height: 40*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/frame-1171274973-8DF.png',
-                                  width: 40*fem,
-                                  height: 40*fem,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom (
-                                padding: EdgeInsets.fromLTRB(0 * fem, 230 * fem, 0*fem, 0*fem),
-                              ),
-                              child: Container(
-                                width: 24*fem,
-                                height: 24*fem,
-                                child: Image.asset(
-                                  'assets/pages/images/chevron-bar-down-CrD.png',
-                                  width: 24*fem,
-                                  height: 24*fem,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                    ),
-                  ),], options: CarouselOptions(
-                    height: 577,
-                    scrollDirection: Axis.vertical,
-                    enableInfiniteScroll: true,
-                    viewportFraction: 1,
-                  ))
+                      ],
+                      options: CarouselOptions(
+                        height: 577,
+                        scrollDirection: Axis.vertical,
+                        enableInfiniteScroll: true,
+                        viewportFraction: 1,
+                      ))
                 ],
               ),
             ),
@@ -296,7 +291,6 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-          );
-
+    );
   }
 }
