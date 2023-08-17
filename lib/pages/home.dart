@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
+import 'package:finalproject/pages/product.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -104,7 +105,9 @@ class Home extends StatelessWidget {
                         width: 30 * fem,
                         height: 30 * fem,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+
+                          },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
@@ -125,7 +128,11 @@ class Home extends StatelessWidget {
                         width: 40 * fem,
                         height: 40 * fem,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const Product()));
+                          },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
