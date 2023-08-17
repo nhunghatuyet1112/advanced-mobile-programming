@@ -1,5 +1,5 @@
 import 'package:finalproject/pages/auth.dart';
-import 'package:finalproject/pages/verify-email.dart';
+import 'package:finalproject/pages/verify_email.dart';
 import 'package:finalproject/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

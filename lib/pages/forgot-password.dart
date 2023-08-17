@@ -32,83 +32,86 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Urban Outfitters',
-                  textAlign: TextAlign.center,
-                  style: SafeGoogleFont(
-                    'Alfa Slab One',
-                    fontSize: 50,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xff000000),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  'Receive an email to\nreset your password',
-                  textAlign: TextAlign.center,
-                  style: SafeGoogleFont(
-                    'Be Vietnam',
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    color: const Color(0xff000000),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                TextFormField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(
-                        color: Color(0xffededed),
-                      ),
+          child: Center(
+              child: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Urban Outfitters',
+                    textAlign: TextAlign.center,
+                    style: SafeGoogleFont(
+                      'Alfa Slab One',
+                      fontSize: 50,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff000000),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(
-                        color: Color(0xffededed),
-                      ),
-                    ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   ),
-                  style: const TextStyle(fontSize: 18),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email) =>
-                      email != null && !EmailValidator.validate(email)
-                          ? 'Enter a valid email'
-                          : null,
-                ),
-                const SizedBox(height: 30),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                    backgroundColor: const Color(0xff292526),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0)),
-                  ),
-                  icon: const Icon(Icons.email_outlined),
-                  label: Text(
-                    'Reset Password',
+                  const SizedBox(height: 30),
+                  Text(
+                    'Receive an email to\nreset your password',
+                    textAlign: TextAlign.center,
                     style: SafeGoogleFont(
                       'Be Vietnam',
                       fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xffffffff),
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xff000000),
                     ),
                   ),
-                  onPressed: resetPassword,
-                )
-              ],
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(
+                          color: Color(0xffededed),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(
+                          color: Color(0xffededed),
+                        ),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    ),
+                    style: const TextStyle(fontSize: 18),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (email) =>
+                        email != null && !EmailValidator.validate(email)
+                            ? 'Enter a valid email'
+                            : null,
+                  ),
+                  const SizedBox(height: 30),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      backgroundColor: const Color(0xff292526),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0)),
+                    ),
+                    icon: const Icon(Icons.email_outlined),
+                    label: Text(
+                      'Reset Password',
+                      style: SafeGoogleFont(
+                        'Be Vietnam',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(0xffffffff),
+                      ),
+                    ),
+                    onPressed: resetPassword,
+                  )
+                ],
+              ),
             ),
-          ),
+          )),
         ),
       );
 

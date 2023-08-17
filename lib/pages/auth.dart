@@ -1,4 +1,3 @@
-import 'package:finalproject/main.dart';
 import 'package:finalproject/pages/login.dart';
 import 'package:finalproject/pages/register.dart';
 import 'package:flutter/material.dart';

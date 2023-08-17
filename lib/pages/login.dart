@@ -189,8 +189,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ForgotPassword(),
-                      )),
+                          builder: (context) => const ForgotPassword())),
                     ),
                   ),
                   TextButton(
