@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:finalproject/pages/information.dart';
+import 'package:finalproject/pages/home.dart';
 import 'package:finalproject/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   @override
   Widget build(BuildContext context) => isEmailVerified
       ? const SingleChildScrollView(
-          child: Information(),
+          child: Home(),
         )
       : Scaffold(
           appBar: AppBar(
