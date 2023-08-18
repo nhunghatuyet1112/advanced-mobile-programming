@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
-import 'package:finalproject/pages/product.dart';
+import 'package:finalproject/pages/check_out.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -106,7 +106,9 @@ class Home extends StatelessWidget {
                         height: 30 * fem,
                         child: TextButton(
                           onPressed: () {
-
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const CheckOut()));
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
@@ -129,9 +131,7 @@ class Home extends StatelessWidget {
                         height: 40 * fem,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const Product()));
+                            Scaffold.of(context).openDrawer();
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,

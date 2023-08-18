@@ -152,7 +152,9 @@ class _productDetail extends State<productDetail> {
                         width: 40 * fem,
                         height: 40 * fem,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
                           ),
