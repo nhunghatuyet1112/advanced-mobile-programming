@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0 * fem, 30 * fem, 0 * fem, 30 * fem),
+              margin: EdgeInsets.fromLTRB(0 * fem, 15 * fem, 0 * fem, 15 * fem),
               child: Text(
                 'Login',
                 textAlign: TextAlign.center,
@@ -79,7 +79,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 50 * fem),
+              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 10 * fem),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -231,6 +231,44 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Text(
+              'OR',
+              style: SafeGoogleFont(
+                'Be Vietnam',
+                fontSize: 18 * ffem,
+                fontWeight: FontWeight.w400,
+                height: 1.2575 * ffem / fem,
+                color: const Color(0xff000000),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0 * fem, 10 * fem, 0 * fem, 20 * fem),
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                icon: const Image(
+                  image: AssetImage(
+                      'assets/pages/images/google-plus.png'),
+                  width: 20.0,
+                ),
+                onPressed: () {},
+                label: Text(
+                  'Sign-In with Google',
+                  style: SafeGoogleFont(
+                    'Be Vietnam',
+                    fontSize: 20 * ffem,
+                    fontWeight: FontWeight.w600,
+                    height: 1.2575 * ffem / fem,
+                    color: const Color(0xff000000),
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(40),
+                  backgroundColor: const Color(0xffffffff),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.0)),
+                ),
               ),
             ),
             Container(

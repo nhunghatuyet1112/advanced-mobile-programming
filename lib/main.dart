@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         home: const MainPage(),
       );
 }
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -55,7 +56,7 @@ class _MainPage extends State<MainPage> {
               ExpansionTile(
                   title: const Text('All'),
                   leading: const Icon(Icons.apps),
-                  childrenPadding: EdgeInsets.only(left: 60),
+                  childrenPadding: const EdgeInsets.only(left: 60),
                   children: [
                     ListTile(
                       title: const Text('All Items'),
@@ -107,7 +108,7 @@ class _MainPage extends State<MainPage> {
               ExpansionTile(
                 title: const Text('Men'),
                 leading: const Icon(Icons.accessibility),
-                childrenPadding: EdgeInsets.only(left: 60),
+                childrenPadding: const EdgeInsets.only(left: 60),
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
@@ -159,7 +160,7 @@ class _MainPage extends State<MainPage> {
               ExpansionTile(
                 title: const Text('Women'),
                 leading: const Icon(Icons.accessibility),
-                childrenPadding: EdgeInsets.only(left: 60),
+                childrenPadding: const EdgeInsets.only(left: 60),
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
@@ -211,7 +212,7 @@ class _MainPage extends State<MainPage> {
               ExpansionTile(
                 title: const Text('Kid'),
                 leading: const Icon(Icons.accessibility),
-                childrenPadding: EdgeInsets.only(left: 60),
+                childrenPadding: const EdgeInsets.only(left: 60),
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
@@ -263,7 +264,7 @@ class _MainPage extends State<MainPage> {
               ExpansionTile(
                 title: const Text('Baby'),
                 leading: const Icon(Icons.accessibility),
-                childrenPadding: EdgeInsets.only(left: 60),
+                childrenPadding: const EdgeInsets.only(left: 60),
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
