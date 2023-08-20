@@ -66,9 +66,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? const SingleChildScrollView(
-          child: Home(),
-        )
+      ? const Home()
       : Scaffold(
           appBar: AppBar(
             title: const Text('Verify Email'),
