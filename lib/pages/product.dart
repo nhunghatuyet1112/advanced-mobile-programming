@@ -8,17 +8,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../components/navigationdrawer.dart';
 
 class Product extends StatefulWidget {
-  const Product({super.key});
-
+  final String chosenCategory;
+  const Product({super.key, required this.chosenCategory});
   @override
   _Product createState() => _Product();
 }
 
 class _Product extends State<Product> {
-  bool btnState = false;
+  bool btnState = true;
   bool likeProduct = false;
   String whichBtn = '';
-
   void setBtn(String btnName, bool btnState) {
     setState(() {
       whichBtn = btnName;
@@ -122,27 +121,6 @@ class _Product extends State<Product> {
                               ),
                             ),
                             Positioned(
-                              left: 368 * fem,
-                              top: 80 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 30 * fem,
-                                  height: 30 * fem,
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                    child: Image.asset(
-                                      'assets/pages/images/iconography-caesarzkn-iGy.png',
-                                      width: 30 * fem,
-                                      height: 30 * fem,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
                               left: 8 * fem,
                               top: 76 * fem,
                               child: Align(
@@ -160,27 +138,6 @@ class _Product extends State<Product> {
                                       'assets/pages/images/menu-btn-user-2ZX.png',
                                       width: 40 * fem,
                                       height: 40 * fem,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 38 * fem,
-                              top: 80 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 340 * fem,
-                                  height: 30 * fem,
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                    child: Image.asset(
-                                      'assets/pages/images/search-button-N3s.png',
-                                      width: 340 * fem,
-                                      height: 30 * fem,
                                     ),
                                   ),
                                 ),
@@ -223,7 +180,7 @@ class _Product extends State<Product> {
                                         backgroundColor:
                                             MaterialStateProperty.resolveWith(
                                                 (Set<MaterialState> states) {
-                                          if (whichBtn == 'All') {
+                                          if (whichBtn == 'All' && btnState) {
                                             return Colors.black;
                                           } else {
                                             return Colors.white;
@@ -232,7 +189,7 @@ class _Product extends State<Product> {
                                         foregroundColor:
                                             MaterialStateProperty.resolveWith(
                                                 (Set<MaterialState> states) {
-                                          if (whichBtn == 'All') {
+                                          if (whichBtn == 'All' && btnState) {
                                             return Colors.white;
                                           } else {
                                             return Colors.black;
@@ -240,7 +197,7 @@ class _Product extends State<Product> {
                                         }),
                                         side: MaterialStateProperty.resolveWith(
                                             (Set<MaterialState> states) {
-                                          if (whichBtn == 'All') {
+                                          if (whichBtn == 'All' && btnState) {
                                             return BorderSide.none;
                                           } else {
                                             return const BorderSide(
@@ -259,7 +216,7 @@ class _Product extends State<Product> {
                                           SizedBox(
                                             width: 2 * fem,
                                           ),
-                                          const Text('All items'),
+                                          Text('All items'),
                                         ],
                                       ),
                                     ),

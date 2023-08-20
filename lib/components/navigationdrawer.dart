@@ -58,7 +58,7 @@ class MyNavigationDrawer extends StatelessWidget {
                         title: const Text('All Products'),
                         onTap: () {
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product())
+                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'All',))
                           );
                         },
                       ),
@@ -66,7 +66,7 @@ class MyNavigationDrawer extends StatelessWidget {
                         title: const Text('Men'),
                         onTap: () {
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product())
+                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Men',))
                           );
                         },
                       ),
@@ -74,7 +74,7 @@ class MyNavigationDrawer extends StatelessWidget {
                         title: const Text('Women'),
                         onTap: () {
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product())
+                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Women',))
                           );
                         },
                       ),
@@ -82,7 +82,7 @@ class MyNavigationDrawer extends StatelessWidget {
                         title: const Text('Kid'),
                         onTap: () {
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product())
+                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Kid',))
                           );
                         },
                       ),
@@ -90,7 +90,7 @@ class MyNavigationDrawer extends StatelessWidget {
                         title: const Text('Baby'),
                         onTap: () {
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product())
+                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Baby',))
                           );
                         },
                       ),

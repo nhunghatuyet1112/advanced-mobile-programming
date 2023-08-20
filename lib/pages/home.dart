@@ -108,33 +108,6 @@ class Home extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              left: 368 * fem,
-                              top: 80 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 30 * fem,
-                                  height: 30 * fem,
-                                  child: TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const CheckOut()));
-                                    },
-                                    style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                    child: Image.asset(
-                                      'assets/pages/images/iconography-caesarzkn-iGy.png',
-                                      width: 30 * fem,
-                                      height: 30 * fem,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
                               left: 8 * fem,
                               top: 76 * fem,
                               child: Align(
@@ -152,27 +125,6 @@ class Home extends StatelessWidget {
                                       'assets/pages/images/menu-btn-user-2ZX.png',
                                       width: 40 * fem,
                                       height: 40 * fem,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              left: 38 * fem,
-                              top: 80 * fem,
-                              child: Align(
-                                child: SizedBox(
-                                  width: 340 * fem,
-                                  height: 30 * fem,
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    style: TextButton.styleFrom(
-                                      padding: EdgeInsets.zero,
-                                    ),
-                                    child: Image.asset(
-                                      'assets/pages/images/search-button-N3s.png',
-                                      width: 340 * fem,
-                                      height: 30 * fem,
                                     ),
                                   ),
                                 ),
