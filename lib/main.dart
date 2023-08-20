@@ -356,7 +356,7 @@ class _MainPage extends State<MainPage> {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Something went wrong!'));
             } else if (snapshot.hasData) {
-              return const PersonalProfile();
+              return const VerifyEmail();
             } else {
               return const SingleChildScrollView(
                 child: Auth(),
