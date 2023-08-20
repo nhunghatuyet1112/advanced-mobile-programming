@@ -222,10 +222,15 @@ class Information extends StatelessWidget {
                                                     5 * fem),
                                                 width: 20 * fem,
                                                 height: 20 * fem,
-                                                child: Image.asset(
-                                                  'assets/pages/images/iconography-caesarzkn-qzH.png',
-                                                  width: 20.03 * fem,
-                                                  height: 21.2 * fem,
+                                                child: InkWell(
+                                                  splashColor: Colors.black26,
+                                                  onTap: () {},
+                                                  child: Image.asset(
+                                                    'assets/pages/images/iconography-caesarzkn-qzH.png',
+                                                    width: 20 * fem,
+                                                    height: 20 * fem,
+                                                      fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -1318,8 +1323,6 @@ class Information extends StatelessWidget {
                                                                 ),
                                                               ),
                                                               SizedBox(
-                                                                width: double
-                                                                    .infinity,
                                                                 child: Row(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
