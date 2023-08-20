@@ -673,4 +673,13 @@ class _RegisterState extends State<Register> {
     final json = user.toJson();
     await docUser.set(json);
   }
+
+  Future<UserModel> getUserDetail(String email) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .where("Email", isEqualTo: email)
+        .get();
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    return userData;
+  }
 }

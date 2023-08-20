@@ -39,7 +39,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPage extends State<MainPage> {
-
   @override
   Widget build(BuildContext context) => Scaffold(
         drawer: Drawer(
@@ -48,62 +47,73 @@ class _MainPage extends State<MainPage> {
             padding: EdgeInsets.zero,
             children: [
               const UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(color: Colors.grey),
-                  accountName: Text('Ha Tuyet Nhung', style: TextStyle(fontWeight: FontWeight.bold),),
-                  accountEmail: Text('nhunghatuyet1112@gmail.com', style: TextStyle(fontWeight: FontWeight.bold),),
-                  currentAccountPicture: FlutterLogo(),
+                decoration: BoxDecoration(color: Colors.grey),
+                accountName: Text(
+                  'Ha Tuyet Nhung',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                accountEmail: Text(
+                  'nhunghatuyet1112@gmail.com',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                currentAccountPicture: FlutterLogo(),
               ),
               ExpansionTile(
-                  title: const Text('All'),
-                  leading: const Icon(Icons.apps),
-                  childrenPadding: const EdgeInsets.only(left: 60),
-                  children: [
-                    ListTile(
-                      title: const Text('All Items'),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Product()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('Men'),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Product()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('Women'),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Product()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('Kid'),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Product()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: const Text('Baby'),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Product()),
-                        );
-                      },
-                    ),
-                  ],
+                title: const Text('All'),
+                leading: const Icon(Icons.apps),
+                childrenPadding: const EdgeInsets.only(left: 60),
+                children: [
+                  ListTile(
+                    title: const Text('All Items'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Men'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Women'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Kid'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Baby'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
+                      );
+                    },
+                  ),
+                ],
               ),
               ExpansionTile(
                 title: const Text('Men'),
@@ -112,46 +122,51 @@ class _MainPage extends State<MainPage> {
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Pants'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Jacket'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Hoodie'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Accessories'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
@@ -164,46 +179,51 @@ class _MainPage extends State<MainPage> {
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Pants'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Skirt'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Shorts'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Accessories'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
@@ -216,46 +236,51 @@ class _MainPage extends State<MainPage> {
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Pants'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Jacket'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Hoodie'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Accessories'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
@@ -268,46 +293,51 @@ class _MainPage extends State<MainPage> {
                 children: [
                   ListTile(
                     title: const Text('Shirt'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Pants'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Jacket'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Hoodie'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
                   ListTile(
                     title: const Text('Accessories'),
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Product()),
+                        MaterialPageRoute(
+                            builder: (context) => const Product()),
                       );
                     },
                   ),
