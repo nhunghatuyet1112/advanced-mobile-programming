@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/components/navigationdrawer.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class BlogList extends StatelessWidget {
     double ffem = fem * 0.97;
 
     return Scaffold(
+      drawer: const MyNavigationDrawer(),
       body: SingleChildScrollView(
         child: SizedBox(
           child: FutureBuilder(

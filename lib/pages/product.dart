@@ -5,6 +5,8 @@ import 'package:finalproject/utils.dart';
 import 'package:finalproject/pages/product_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../components/navigationdrawer.dart';
+
 class Product extends StatefulWidget {
   const Product({super.key});
 
@@ -32,6 +34,7 @@ class _Product extends State<Product> {
     double ffem = fem * 0.97;
 
     return Scaffold(
+      drawer: const MyNavigationDrawer(),
       body: SingleChildScrollView(
         child: SizedBox(
           child: FutureBuilder(
@@ -147,7 +150,9 @@ class _Product extends State<Product> {
                                   width: 40 * fem,
                                   height: 40 * fem,
                                   child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Scaffold.of(context).openDrawer();
+                                    },
                                     style: TextButton.styleFrom(
                                       padding: EdgeInsets.zero,
                                     ),

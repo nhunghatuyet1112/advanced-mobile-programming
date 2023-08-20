@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 
+import '../components/navigationdrawer.dart';
+
 class CheckOut extends StatelessWidget {
   const CheckOut({super.key});
 
@@ -16,6 +18,7 @@ class CheckOut extends StatelessWidget {
     double ffem = fem * 0.97;
 
     return Scaffold(
+      drawer: const MyNavigationDrawer(),
       body: SingleChildScrollView(
         child: SizedBox(
           child: FutureBuilder(
