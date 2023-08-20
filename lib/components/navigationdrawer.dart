@@ -9,7 +9,6 @@ import 'package:finalproject/pages/product.dart';
 
 import '../models/user_model.dart';
 
-
 class MyNavigationDrawer extends StatelessWidget {
   const MyNavigationDrawer({Key? key}) : super(key: key);
 
@@ -21,7 +20,7 @@ class MyNavigationDrawer extends StatelessWidget {
       child: FutureBuilder(
         future: getUserDetail(user.email!),
         builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               UserModel userData = snapshot.data as UserModel;
               return ListView(
@@ -29,7 +28,7 @@ class MyNavigationDrawer extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 children: [
                   UserAccountsDrawerHeader(
-                    decoration: BoxDecoration(color: Colors.grey),
+                    decoration: const BoxDecoration(color: Colors.grey),
                     accountName: Text(
                       userData.fullName,
                       style: const TextStyle(fontWeight: FontWeight.bold),
@@ -38,15 +37,14 @@ class MyNavigationDrawer extends StatelessWidget {
                       userData.email,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    currentAccountPicture: FlutterLogo(),
+                    currentAccountPicture: const FlutterLogo(),
                   ),
                   ListTile(
-                    title: Text('Home'),
-                    leading: Icon(Icons.home),
+                    title: const Text('Home'),
+                    leading: const Icon(Icons.home),
                     onTap: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const Home())
-                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const Home()));
                     },
                   ),
                   ExpansionTile(
@@ -57,90 +55,94 @@ class MyNavigationDrawer extends StatelessWidget {
                       ListTile(
                         title: const Text('All Products'),
                         onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'All',))
-                          );
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const Product(
+                                        chosenCategory: 'All',
+                                      )));
                         },
                       ),
                       ListTile(
                         title: const Text('Men'),
                         onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Men',))
-                          );
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const Product(
+                                        chosenCategory: 'Men',
+                                      )));
                         },
                       ),
                       ListTile(
                         title: const Text('Women'),
                         onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Women',))
-                          );
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const Product(
+                                        chosenCategory: 'Women',
+                                      )));
                         },
                       ),
                       ListTile(
                         title: const Text('Kid'),
                         onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Kid',))
-                          );
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const Product(
+                                        chosenCategory: 'Kid',
+                                      )));
                         },
                       ),
                       ListTile(
                         title: const Text('Baby'),
                         onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => const Product(chosenCategory: 'Baby',))
-                          );
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const Product(
+                                        chosenCategory: 'Baby',
+                                      )));
                         },
                       ),
                     ],
                   ),
                   ListTile(
-                    title: Text('Blog'),
-                    leading: Icon(Icons.newspaper),
+                    title: const Text('Blog'),
+                    leading: const Icon(Icons.newspaper),
                     onTap: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const BlogList())
-                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const BlogList()));
                     },
                   ),
                   ListTile(
-                    title: Text('Account Info'),
-                    leading: Icon(Icons.account_circle),
+                    title: const Text('Account Info'),
+                    leading: const Icon(Icons.account_circle),
                     onTap: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const Information())
-                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const Information()));
                     },
                   ),
                   ListTile(
-                    title: Text('Cart'),
-                    leading: Icon(Icons.shopping_cart_outlined),
+                    title: const Text('Cart'),
+                    leading: const Icon(Icons.shopping_cart_outlined),
                     onTap: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => const CheckOut())
-                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const CheckOut()));
                     },
                   ),
                   ListTile(
-                    title: Text('Sign Out'),
-                    leading: Icon(Icons.output),
+                    title: const Text('Sign Out'),
+                    leading: const Icon(Icons.output),
                     onTap: () {
                       FirebaseAuth.instance.signOut();
                     },
                   ),
-
                 ],
               );
-            }
-            else if (snapshot.hasError) {
+            } else if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             } else {
               return const Center(child: Text('Something went wrong'));
             }
-          }
-          else {
+          } else {
             return SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
@@ -161,4 +163,3 @@ class MyNavigationDrawer extends StatelessWidget {
     return userData;
   }
 }
-

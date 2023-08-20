@@ -640,10 +640,10 @@ class _RegisterState extends State<Register> {
 
     final user = UserModel(
         fullName: fullNameController.text,
-        dateOfBirth: dateOfBirthController.text,
-        gender: genderController.text,
-        phoneNumber: phoneNumberController.text,
-        email: emailController.text);
+        dateOfBirth: dateOfBirthController.text.trim(),
+        gender: genderController.text.trim(),
+        phoneNumber: phoneNumberController.text.trim(),
+        email: emailController.text.trim());
 
     showDialog(
         context: context,

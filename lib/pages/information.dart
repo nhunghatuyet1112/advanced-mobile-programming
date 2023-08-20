@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/models/user_model.dart';
+import 'package:finalproject/pages/personal_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
@@ -185,12 +186,18 @@ class Information extends StatelessWidget {
                                                 height: 20 * fem,
                                                 child: InkWell(
                                                   splashColor: Colors.black26,
-                                                  onTap: () {},
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const PersonalProfile()));
+                                                  },
                                                   child: Image.asset(
                                                     'assets/pages/images/iconography-caesarzkn-qzH.png',
                                                     width: 20 * fem,
                                                     height: 20 * fem,
-                                                      fit: BoxFit.cover,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
@@ -1942,65 +1949,6 @@ class Information extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        GestureDetector(
-                                          onTap: () =>
-                                              FirebaseAuth.instance.signOut(),
-                                          child: SizedBox(
-                                            width: double.infinity,
-                                            height: 31 * fem,
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                SizedBox(
-                                                  height: double.infinity,
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Container(
-                                                          margin: EdgeInsets
-                                                              .fromLTRB(
-                                                                  0 * fem,
-                                                                  0 * fem,
-                                                                  15 * fem,
-                                                                  0 * fem),
-                                                          width: 15 * fem,
-                                                          height: 15 * fem,
-                                                          child: const Icon(
-                                                              Icons.arrow_back,
-                                                              size: 17)),
-                                                      Text(
-                                                        'Log Out',
-                                                        style: SafeGoogleFont(
-                                                          'Encode Sans',
-                                                          fontSize: 15 * ffem,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          height:
-                                                              1.25 * ffem / fem,
-                                                          color: const Color(
-                                                              0xff000000),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                SizedBox(
-                                                  width: 17 * fem,
-                                                  height: 17 * fem,
-                                                  child: Image.asset(
-                                                    'assets/pages/images/frame-1171274910-C4R.png',
-                                                    width: 17 * fem,
-                                                    height: 17 * fem,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
                                       ],
                                     ),
                                   ),

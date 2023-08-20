@@ -1,7 +1,4 @@
 import 'package:finalproject/pages/auth.dart';
-import 'package:finalproject/pages/information.dart';
-import 'package:finalproject/pages/personal_profile.dart';
-import 'package:finalproject/pages/product.dart';
 import 'package:finalproject/pages/verify_email.dart';
 import 'package:finalproject/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
