@@ -9,8 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-
-import '../main.dart';
+import 'package:finalproject/main.dart';
 
 class Register extends StatefulWidget {
   final Function() onClickedSignIn;

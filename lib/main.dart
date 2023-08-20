@@ -1,4 +1,6 @@
 import 'package:finalproject/pages/auth.dart';
+import 'package:finalproject/pages/information.dart';
+import 'package:finalproject/pages/personal_profile.dart';
 import 'package:finalproject/pages/product.dart';
 import 'package:finalproject/pages/verify_email.dart';
 import 'package:finalproject/toast.dart';
@@ -354,7 +356,7 @@ class _MainPage extends State<MainPage> {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Something went wrong!'));
             } else if (snapshot.hasData) {
-              return const VerifyEmail();
+              return const PersonalProfile();
             } else {
               return const SingleChildScrollView(
                 child: Auth(),
