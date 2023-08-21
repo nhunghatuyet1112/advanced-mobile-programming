@@ -4,7 +4,6 @@ import 'package:finalproject/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
-import 'package:finalproject/pages/check_out.dart';
 import 'package:finalproject/components/navigationdrawer.dart';
 
 class Home extends StatelessWidget {

@@ -21,11 +21,13 @@ class _Product extends State<Product> {
   bool btnState = true;
   bool likeProduct = false;
   String whichBtn = '';
+  String category = 'All';
 
   void setBtn(String btnName, bool btnState) {
     setState(() {
       whichBtn = btnName;
       btnState = !btnState;
+      category = btnName;
     });
   }
 
@@ -443,7 +445,7 @@ class _Product extends State<Product> {
                         ),
                       ),
                       FutureBuilder<List<ProductModel>>(
-                          future: getProductCategory("All items"),
+                          future: getProductCategory(category),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
@@ -451,7 +453,7 @@ class _Product extends State<Product> {
                                 return Container(
                                   padding:
                                       const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                  height: 1000,
+                                  height: category == 'All' ? 980 : 500,
                                   child: GridView.builder(
                                       scrollDirection: Axis.vertical,
                                       gridDelegate:
