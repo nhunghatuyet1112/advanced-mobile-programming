@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/arguments/product_data.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import '../components/navigationdrawer.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
+
+  static const routeName = '/productDetail';
 
   @override
   _ProductDetail createState() => _ProductDetail();
@@ -36,6 +39,7 @@ class _ProductDetail extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    final args = ModalRoute.of(context)!.settings.arguments as ProductData;
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -180,7 +184,7 @@ class _ProductDetail extends State<ProductDetail> {
                                     margin: EdgeInsets.fromLTRB(
                                         0 * fem, 0 * fem, 0 * fem, 2.5 * fem),
                                     child: Text(
-                                      'Modern Light Clothes',
+                                      args.name,
                                       style: SafeGoogleFont(
                                         'Encode Sans',
                                         fontSize: 20 * ffem,
@@ -324,10 +328,10 @@ class _ProductDetail extends State<ProductDetail> {
                                   ),
                                   Container(
                                     constraints: BoxConstraints(
-                                      maxWidth: 353 * fem,
+                                      maxWidth: 390 * fem,
                                     ),
                                     child: Text(
-                                      'Smooth fabric with the look of cotton. Dry technology for lasting freshness.',
+                                      args.description,
                                       style: SafeGoogleFont(
                                         'Encode Sans',
                                         fontSize: 14 * ffem,
@@ -915,7 +919,7 @@ class _ProductDetail extends State<ProductDetail> {
                                     ),
                                   ),
                                   Text(
-                                    '\$212.99',
+                                    args.price,
                                     style: SafeGoogleFont(
                                       'Encode Sans',
                                       fontSize: 16 * ffem,
