@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/models/cart_model.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,8 @@ class CheckOut extends StatefulWidget {
 
 class _CheckOutState extends State<CheckOut> {
   late int quantity = 0;
+  String imageUrl = '';
+  final storage = FirebaseStorage.instance.ref().child('products_image');
 
   @override
   Widget build(BuildContext context) {
@@ -242,31 +245,40 @@ class _CheckOutState extends State<CheckOut> {
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                SizedBox(
-                                                                  width:
-                                                                      82 * fem,
-                                                                  height:
-                                                                      105 * fem,
-                                                                  child: Align(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .centerRight,
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width: 100 *
-                                                                          fem,
-                                                                      height:
-                                                                          105 *
-                                                                              fem,
-                                                                      child: Image
-                                                                          .asset(
-                                                                        'assets/pages/images/image-43-xim.png',
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
+                                                                FutureBuilder(
+                                                                    future: getProductImage(snapshot.data![index].product["ImageUrl"]),
+                                                                    builder: (context, snapshot) {
+                                                                      if (snapshot.connectionState == ConnectionState.done) {
+                                                                        return SizedBox(
+                                                                          width:
+                                                                          82 * fem,
+                                                                          height:
+                                                                          105 * fem,
+                                                                          child: Align(
+                                                                            alignment:
+                                                                            Alignment
+                                                                                .centerRight,
+                                                                            child:
+                                                                            SizedBox(
+                                                                              width: 100 *
+                                                                                  fem,
+                                                                              height:
+                                                                              105 *
+                                                                                  fem,
+                                                                              child: Image
+                                                                                  .network(
+                                                                                snapshot.data.toString(),
+                                                                                fit: BoxFit
+                                                                                    .cover,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                      else {
+                                                                        return const CircularProgressIndicator();
+                                                                      }
+                                                                    }),
                                                                 SizedBox(
                                                                   width:
                                                                       210 * fem,
@@ -944,5 +956,19 @@ class _CheckOutState extends State<CheckOut> {
 
   Future<void> deleteCart(String id) async {
     await FirebaseFirestore.instance.collection('Carts').doc(id).delete();
+  }
+
+  Future getProductImage(String imgName) async {
+    try {
+      await downloadURL(imgName);
+      return imageUrl;
+    } catch(e) {
+      debugPrint("Error - $e");
+      return null;
+    }
+  }
+
+  Future<void> downloadURL(String imgName) async {
+    imageUrl = await storage.child('all/$imgName.png').getDownloadURL();
   }
 }

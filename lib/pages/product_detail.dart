@@ -1093,6 +1093,7 @@ class _ProductDetail extends State<ProductDetail> {
                                             "Size": productSize,
                                             "Quantity": quantity.toString(),
                                             "Price": args.price,
+                                            "ImageUrl": args.imageUrl,
                                           },
                                         );
 
