@@ -133,6 +133,8 @@ class MyNavigationDrawer extends StatelessWidget {
                     leading: const Icon(Icons.output),
                     onTap: () {
                       FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const Home()));
                     },
                   ),
                 ],

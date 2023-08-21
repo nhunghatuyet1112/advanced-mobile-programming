@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/arguments/product_data.dart';
 import 'package:finalproject/models/product_model.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -469,11 +470,17 @@ class _Product extends State<Product> {
                                           children: [
                                             InkWell(
                                               onTap: () => {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ProductDetail()))
+                                                Navigator.pushNamed(context,
+                                                    ProductDetail.routeName,
+                                                    arguments: ProductData(
+                                                        snapshot
+                                                            .data![index].id,
+                                                        snapshot
+                                                            .data![index].name,
+                                                        snapshot.data![index]
+                                                            .description,
+                                                        snapshot.data![index]
+                                                            .price))
                                               },
                                               child: Stack(
                                                 children: [

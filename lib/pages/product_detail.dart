@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/arguments/product_data.dart';
+import 'package:finalproject/models/cart_model.dart';
 import 'package:finalproject/models/user_model.dart';
+import 'package:finalproject/pages/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
@@ -9,12 +12,15 @@ import '../components/navigationdrawer.dart';
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
 
+  static const routeName = '/productDetail';
+
   @override
   _ProductDetail createState() => _ProductDetail();
 }
 
 class _ProductDetail extends State<ProductDetail> {
   int noRating = 0;
+  int quantity = 1;
   bool likeProduct = false;
   String productColor = 'BLUE';
   String productSize = 'S';
@@ -31,11 +37,10 @@ class _ProductDetail extends State<ProductDetail> {
     productSize = size;
   }
 
-  int quantity = 1;
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    final args = ModalRoute.of(context)!.settings.arguments as ProductData;
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -180,7 +185,7 @@ class _ProductDetail extends State<ProductDetail> {
                                     margin: EdgeInsets.fromLTRB(
                                         0 * fem, 0 * fem, 0 * fem, 2.5 * fem),
                                     child: Text(
-                                      'Modern Light Clothes',
+                                      args.name,
                                       style: SafeGoogleFont(
                                         'Encode Sans',
                                         fontSize: 20 * ffem,
@@ -324,10 +329,10 @@ class _ProductDetail extends State<ProductDetail> {
                                   ),
                                   Container(
                                     constraints: BoxConstraints(
-                                      maxWidth: 353 * fem,
+                                      maxWidth: 390 * fem,
                                     ),
                                     child: Text(
-                                      'Smooth fabric with the look of cotton. Dry technology for lasting freshness.',
+                                      args.description,
                                       style: SafeGoogleFont(
                                         'Encode Sans',
                                         fontSize: 14 * ffem,
@@ -915,7 +920,7 @@ class _ProductDetail extends State<ProductDetail> {
                                     ),
                                   ),
                                   Text(
-                                    '\$212.99',
+                                    args.price,
                                     style: SafeGoogleFont(
                                       'Encode Sans',
                                       fontSize: 16 * ffem,
@@ -1007,9 +1012,11 @@ class _ProductDetail extends State<ProductDetail> {
                                                   padding: EdgeInsets.zero,
                                                 ),
                                                 onPressed: () {
-                                                  setState(() {
-                                                    --quantity;
-                                                  });
+                                                  if (quantity > 1) {
+                                                    setState(() {
+                                                      --quantity;
+                                                    });
+                                                  }
                                                 },
                                                 child: Icon(
                                                   Icons
@@ -1063,7 +1070,28 @@ class _ProductDetail extends State<ProductDetail> {
                                             borderRadius:
                                                 BorderRadius.circular(5)),
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        final cart = CartModel(
+                                          userId: userData.id,
+                                          product: {
+                                            "Id": args.id,
+                                            "Name": args.name,
+                                            "Color": productColor,
+                                            "Size": productSize,
+                                            "Quantity": quantity.toString(),
+                                            "Price": args.price,
+                                          },
+                                        );
+
+                                        await createCart(cart);
+
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Product(
+                                                        chosenCategory: '')));
+                                      },
                                       child: SizedBox(
                                         width: double.infinity,
                                         height: 43 * fem,
@@ -1109,5 +1137,13 @@ class _ProductDetail extends State<ProductDetail> {
         .get();
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
+  }
+
+  Future createCart(CartModel cart) async {
+    final docCart = FirebaseFirestore.instance.collection('Carts').doc();
+    cart.id = docCart.id;
+
+    final json = cart.toJson();
+    await docCart.set(json);
   }
 }
