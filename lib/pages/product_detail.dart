@@ -4,6 +4,7 @@ import 'package:finalproject/models/cart_model.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:finalproject/pages/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 
@@ -24,6 +25,8 @@ class _ProductDetail extends State<ProductDetail> {
   bool likeProduct = false;
   String productColor = 'BLUE';
   String productSize = 'S';
+  String imageUrl = '';
+  final storage = FirebaseStorage.instance.ref().child('products_image');
 
   void setRating(noStar) {
     if (noRating == noStar) {
@@ -143,6 +146,7 @@ class _ProductDetail extends State<ProductDetail> {
                                   child: TextButton(
                                     onPressed: () {
                                       Scaffold.of(context).openDrawer();
+                                      debugPrint(args.imageUrl);
                                     },
                                     style: TextButton.styleFrom(
                                       padding: EdgeInsets.zero,
@@ -353,24 +357,33 @@ class _ProductDetail extends State<ProductDetail> {
                               ),
                               child: Stack(
                                 children: [
-                                  Positioned(
-                                    left: 17 * fem,
-                                    top: 8 * fem,
-                                    child: Align(
-                                      child: SizedBox(
-                                        width: 350 * fem,
-                                        height: 260.62 * fem,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(25 * fem),
-                                          child: Image.asset(
-                                            'assets/pages/images/image-44.png',
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  FutureBuilder(
+                                      future: getProductImage(args.imageUrl),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.done) {
+                                          return Positioned(
+                                            left: 17 * fem,
+                                            top: 8 * fem,
+                                            child: Align(
+                                              child: SizedBox(
+                                                width: 350 * fem,
+                                                height: 260.62 * fem,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                  BorderRadius.circular(25 * fem),
+                                                  child: Image.network(
+                                                    snapshot.data.toString(),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        else {
+                                          return const CircularProgressIndicator();
+                                        }
+                                      }),
                                   Positioned(
                                     left: 320 * fem,
                                     top: 22 * fem,
@@ -1145,5 +1158,18 @@ class _ProductDetail extends State<ProductDetail> {
 
     final json = cart.toJson();
     await docCart.set(json);
+  }
+  Future getProductImage(String imgName) async {
+    try {
+      await downloadURL(imgName);
+      return imageUrl;
+    } catch(e) {
+      debugPrint("Error - $e");
+      return null;
+    }
+  }
+
+  Future<void> downloadURL(String imgName) async {
+    imageUrl = await storage.child('all/$imgName.png').getDownloadURL();
   }
 }

@@ -7,6 +7,7 @@ class ProductModel {
   final String price;
   final String star;
   final String category;
+  final String imageUrl;
 
   ProductModel(
       {this.id = "",
@@ -14,7 +15,8 @@ class ProductModel {
       required this.description,
       required this.price,
       required this.star,
-      required this.category});
+      required this.category,
+      required this.imageUrl,});
 
   toJson() {
     return {
@@ -24,6 +26,7 @@ class ProductModel {
       "Price": price,
       "Star": star,
       "Category": category,
+      "ImageUrl": imageUrl,
     };
   }
 
@@ -38,6 +41,7 @@ class ProductModel {
       price: data["Price"],
       star: data["Star"],
       category: data["Category"],
+      imageUrl: data["ImageUrl"],
     );
   }
 }

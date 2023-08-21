@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/arguments/product_data.dart';
 import 'package:finalproject/models/product_model.dart';
 import 'package:finalproject/models/user_model.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 import 'package:finalproject/pages/product_detail.dart';
@@ -23,6 +26,8 @@ class _Product extends State<Product> {
   bool likeProduct = false;
   String whichBtn = '';
   String category = 'All';
+  String imageUrl = '';
+  final storage = FirebaseStorage.instance.ref().child('products_image');
 
   void setBtn(String btnName, bool btnState) {
     setState(() {
@@ -183,7 +188,7 @@ class _Product extends State<Product> {
                                         backgroundColor:
                                             MaterialStateProperty.resolveWith(
                                                 (Set<MaterialState> states) {
-                                          if (whichBtn == 'All' && btnState) {
+                                          if (category == 'All' && btnState) {
                                             return Colors.black;
                                           } else {
                                             return Colors.white;
@@ -192,7 +197,7 @@ class _Product extends State<Product> {
                                         foregroundColor:
                                             MaterialStateProperty.resolveWith(
                                                 (Set<MaterialState> states) {
-                                          if (whichBtn == 'All' && btnState) {
+                                          if (category == 'All' && btnState) {
                                             return Colors.white;
                                           } else {
                                             return Colors.black;
@@ -200,7 +205,7 @@ class _Product extends State<Product> {
                                         }),
                                         side: MaterialStateProperty.resolveWith(
                                             (Set<MaterialState> states) {
-                                          if (whichBtn == 'All' && btnState) {
+                                          if (category == 'All' && btnState) {
                                             return BorderSide.none;
                                           } else {
                                             return const BorderSide(
@@ -341,7 +346,7 @@ class _Product extends State<Product> {
                                         backgroundColor:
                                             MaterialStateProperty.resolveWith(
                                                 (Set<MaterialState> states) {
-                                          if (whichBtn == 'Kid') {
+                                          if (whichBtn == 'Kids') {
                                             return Colors.black;
                                           } else {
                                             return Colors.white;
@@ -350,7 +355,7 @@ class _Product extends State<Product> {
                                         foregroundColor:
                                             MaterialStateProperty.resolveWith(
                                                 (Set<MaterialState> states) {
-                                          if (whichBtn == 'Kid') {
+                                          if (whichBtn == 'Kids') {
                                             return Colors.white;
                                           } else {
                                             return Colors.black;
@@ -358,7 +363,7 @@ class _Product extends State<Product> {
                                         }),
                                         side: MaterialStateProperty.resolveWith(
                                             (Set<MaterialState> states) {
-                                          if (whichBtn == 'Kid') {
+                                          if (whichBtn == 'Kids') {
                                             return BorderSide.none;
                                           } else {
                                             return const BorderSide(
@@ -370,7 +375,7 @@ class _Product extends State<Product> {
                                             Colors.transparent),
                                       ),
                                       onPressed: () =>
-                                          {setBtn('Kid', btnState)},
+                                          {setBtn('Kids', btnState)},
                                       child: Row(
                                         children: [
                                           Icon(Icons.accessibility,
@@ -454,19 +459,20 @@ class _Product extends State<Product> {
                                 return Container(
                                   padding:
                                       const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                  height: category == 'All' ? 980 : 500,
+                                  height: category == 'All' ? 1200 : 500,
                                   child: GridView.builder(
                                       scrollDirection: Axis.vertical,
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2,
-                                              childAspectRatio: 1),
+                                              childAspectRatio: 0.85),
                                       physics: const ScrollPhysics(),
                                       itemCount: snapshot.data!.length,
                                       itemBuilder: (context, index) {
                                         return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             InkWell(
                                               onTap: () => {
@@ -480,26 +486,26 @@ class _Product extends State<Product> {
                                                         snapshot.data![index]
                                                             .description,
                                                         snapshot.data![index]
-                                                            .price))
+                                                            .price,
+                                                        snapshot.data![index]
+                                                            .imageUrl,))
                                               },
                                               child: Stack(
                                                 children: [
-                                                  Container(
-                                                    width: 175,
-                                                    height: 140,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              1 * fem),
-                                                      image:
-                                                          const DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: AssetImage(
-                                                          'assets/pages/images/image-43-bg-Row.png',
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  FutureBuilder(
+                                                      future: getProductImage(category, snapshot.data![index].imageUrl),
+                                                      builder: (context, snapshot) {
+                                                        if (snapshot.connectionState == ConnectionState.done) {
+                                                          return SizedBox(
+                                                            width: 175,
+                                                            height: 180,
+                                                            child: Image.network(snapshot.data.toString()),
+                                                          );
+                                                        }
+                                                        else {
+                                                          return const CircularProgressIndicator();
+                                                        }
+                                                      }),
                                                   const Positioned(
                                                     top: 8,
                                                     right: 8,
@@ -516,7 +522,7 @@ class _Product extends State<Product> {
                                               width: 175,
                                               child: Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     margin: const EdgeInsets
@@ -525,12 +531,12 @@ class _Product extends State<Product> {
                                                       snapshot
                                                           .data![index].name,
                                                       textAlign:
-                                                          TextAlign.start,
+                                                      TextAlign.start,
                                                       style: SafeGoogleFont(
                                                         'Be Vietnam',
                                                         fontSize: 14,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                        FontWeight.w600,
                                                         color: const Color(
                                                             0xff000000),
                                                       ),
@@ -542,12 +548,12 @@ class _Product extends State<Product> {
                                                         snapshot
                                                             .data![index].price,
                                                         textAlign:
-                                                            TextAlign.start,
+                                                        TextAlign.start,
                                                         style: SafeGoogleFont(
                                                           'Be Vietnam',
                                                           fontSize: 15,
                                                           fontWeight:
-                                                              FontWeight.w500,
+                                                          FontWeight.w500,
                                                           color: const Color(
                                                               0xff000000),
                                                         ),
@@ -560,27 +566,27 @@ class _Product extends State<Product> {
                                                                 .star_rate_rounded,
                                                             size: 20,
                                                             color:
-                                                                Colors.yellow,
+                                                            Colors.yellow,
                                                           ),
                                                           Container(
                                                             margin:
-                                                                const EdgeInsets
-                                                                        .fromLTRB(
-                                                                    4, 0, 0, 0),
+                                                            const EdgeInsets
+                                                                .fromLTRB(
+                                                                4, 0, 0, 0),
                                                             child: Text(
                                                               snapshot
                                                                   .data![index]
                                                                   .star,
                                                               textAlign:
-                                                                  TextAlign
-                                                                      .start,
+                                                              TextAlign
+                                                                  .start,
                                                               style:
-                                                                  SafeGoogleFont(
+                                                              SafeGoogleFont(
                                                                 'Be Vietnam',
                                                                 fontSize: 15,
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                FontWeight
+                                                                    .w500,
                                                                 color: const Color(
                                                                     0xff000000),
                                                               ),
@@ -646,5 +652,19 @@ class _Product extends State<Product> {
     final productCategoryData =
         snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
     return productCategoryData;
+  }
+
+  Future getProductImage(String category, String imgName) async {
+      try {
+        await downloadURL(category, imgName);
+        return imageUrl;
+      } catch(e) {
+        debugPrint("Error - $e");
+        return null;
+      }
+  }
+
+  Future<void> downloadURL(String category, String imgName) async {
+    imageUrl = await storage.child('${category.toLowerCase()}/$imgName.png').getDownloadURL();
   }
 }
