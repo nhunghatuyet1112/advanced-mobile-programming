@@ -44,6 +44,7 @@ dependencies:
   email_validator: any
   get: ^4.6.5
   dropdownfield2: any
+  firebase_storage: ^11.2.6
 
 dev_dependencies:
   flutter_test:
