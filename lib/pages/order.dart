@@ -10,14 +10,14 @@ import 'package:finalproject/utils.dart';
 import 'package:finalproject/components/navigationdrawer.dart';
 import 'package:intl/intl.dart';
 
-class Order extends StatefulWidget {
-  const Order({super.key});
+class OrderHistory extends StatefulWidget {
+  const OrderHistory({super.key});
 
   @override
-  _OrderState createState() => _OrderState();
+  _OrderHistoryState createState() => _OrderHistoryState();
 }
 
-class _OrderState extends State<Order> {
+class _OrderHistoryState extends State<OrderHistory> {
   final storage = FirebaseStorage.instance.ref().child('products_image');
   Map<String, String> shippingInformation = {};
   String imageUrl = '';

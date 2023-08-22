@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/pages/order.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:finalproject/pages/blog_list.dart';
 import 'package:finalproject/pages/check_out.dart';
@@ -126,6 +127,14 @@ class MyNavigationDrawer extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => const CheckOut()));
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Order'),
+                    leading: const Icon(Icons.payment_rounded),
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const OrderHistory()));
                     },
                   ),
                   ListTile(
