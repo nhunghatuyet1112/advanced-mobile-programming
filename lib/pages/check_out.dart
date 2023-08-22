@@ -4,7 +4,7 @@ import 'package:finalproject/models/cart_model.dart';
 import 'package:finalproject/models/order_model.dart';
 import 'package:finalproject/models/shipping_model.dart';
 import 'package:finalproject/models/user_model.dart';
-import 'package:finalproject/pages/home.dart';
+import 'package:finalproject/pages/order.dart';
 import 'package:finalproject/pages/shipping_information.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -204,7 +204,6 @@ class _CheckOutState extends State<CheckOut> {
                                         }
                                       });
                                     }
-
                                     return Column(
                                       children: [
                                         Container(
@@ -250,7 +249,9 @@ class _CheckOutState extends State<CheckOut> {
                                                               .start,
                                                       children: [
                                                         Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
                                                           children: [
                                                             Row(
                                                               children: [
@@ -907,7 +908,11 @@ class _CheckOutState extends State<CheckOut> {
                                                 ),
                                               ),
                                               onPressed: () async {
-                                                if (products.isEmpty) return;
+                                                if (products.isEmpty ||
+                                                    shippingInformation
+                                                        .isEmpty) {
+                                                  return;
+                                                }
 
                                                 final order = OrderModel(
                                                   userId: userData.id,
@@ -927,11 +932,15 @@ class _CheckOutState extends State<CheckOut> {
 
                                                 await createOrder(order);
 
+                                                for (var value in cart) {
+                                                  await deleteCart(value.id);
+                                                }
+
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const Home()));
+                                                            const OrderHistory()));
                                               },
                                             ),
                                           ),

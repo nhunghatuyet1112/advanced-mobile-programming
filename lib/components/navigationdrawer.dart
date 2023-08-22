@@ -48,62 +48,15 @@ class MyNavigationDrawer extends StatelessWidget {
                           builder: (context) => const Home()));
                     },
                   ),
-                  ExpansionTile(
+                  ListTile(
                     title: const Text('Product'),
                     leading: const Icon(Icons.apps),
-                    childrenPadding: const EdgeInsets.only(left: 60),
-                    children: [
-                      ListTile(
-                        title: const Text('All Products'),
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const Product(
-                                        chosenCategory: 'All',
-                                      )));
-                        },
-                      ),
-                      ListTile(
-                        title: const Text('Men'),
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const Product(
-                                        chosenCategory: 'Men',
-                                      )));
-                        },
-                      ),
-                      ListTile(
-                        title: const Text('Women'),
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const Product(
-                                        chosenCategory: 'Women',
-                                      )));
-                        },
-                      ),
-                      ListTile(
-                        title: const Text('Kid'),
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const Product(
-                                        chosenCategory: 'Kid',
-                                      )));
-                        },
-                      ),
-                      ListTile(
-                        title: const Text('Baby'),
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const Product(
-                                        chosenCategory: 'Baby',
-                                      )));
-                        },
-                      ),
-                    ],
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const Product(
+                                chosenCategory: 'All',
+                              )));
+                    },
                   ),
                   ListTile(
                     title: const Text('Blog'),
@@ -114,7 +67,7 @@ class MyNavigationDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text('Account Info'),
+                    title: const Text('Account'),
                     leading: const Icon(Icons.account_circle),
                     onTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -138,7 +91,7 @@ class MyNavigationDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: const Text('Sign Out'),
+                    title: const Text('Exit'),
                     leading: const Icon(Icons.output),
                     onTap: () {
                       FirebaseAuth.instance.signOut();

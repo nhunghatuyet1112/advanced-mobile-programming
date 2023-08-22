@@ -469,38 +469,48 @@ class _Product extends State<Product> {
                                       itemBuilder: (context, index) {
                                         return Column(
                                           mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             InkWell(
                                               onTap: () => {
                                                 Navigator.pushNamed(context,
                                                     ProductDetail.routeName,
                                                     arguments: ProductData(
-                                                        snapshot
-                                                            .data![index].id,
-                                                        snapshot
-                                                            .data![index].name,
-                                                        snapshot.data![index]
-                                                            .description,
-                                                        snapshot.data![index]
-                                                            .price,
-                                                        snapshot.data![index]
-                                                            .imageUrl,))
+                                                      snapshot.data![index].id,
+                                                      snapshot
+                                                          .data![index].name,
+                                                      snapshot.data![index]
+                                                          .description,
+                                                      snapshot
+                                                          .data![index].price,
+                                                      snapshot.data![index]
+                                                          .imageUrl,
+                                                    ))
                                               },
                                               child: Stack(
                                                 children: [
                                                   FutureBuilder(
-                                                      future: getProductImage(category, snapshot.data![index].imageUrl),
-                                                      builder: (context, snapshot) {
-                                                        if (snapshot.connectionState == ConnectionState.done) {
+                                                      future: getProductImage(
+                                                          category,
+                                                          snapshot.data![index]
+                                                              .imageUrl),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        if (snapshot
+                                                                .connectionState ==
+                                                            ConnectionState
+                                                                .done) {
                                                           return SizedBox(
                                                             width: 175,
                                                             height: 180,
-                                                            child: Image.network(snapshot.data.toString()),
+                                                            child: Image.network(
+                                                                snapshot.data
+                                                                    .toString()),
                                                           );
-                                                        }
-                                                        else {
+                                                        } else {
                                                           return const CircularProgressIndicator();
                                                         }
                                                       }),
@@ -520,7 +530,7 @@ class _Product extends State<Product> {
                                               width: 175,
                                               child: Column(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     margin: const EdgeInsets
@@ -529,12 +539,12 @@ class _Product extends State<Product> {
                                                       snapshot
                                                           .data![index].name,
                                                       textAlign:
-                                                      TextAlign.start,
+                                                          TextAlign.start,
                                                       style: SafeGoogleFont(
                                                         'Be Vietnam',
                                                         fontSize: 14,
                                                         fontWeight:
-                                                        FontWeight.w600,
+                                                            FontWeight.w600,
                                                         color: const Color(
                                                             0xff000000),
                                                       ),
@@ -546,12 +556,12 @@ class _Product extends State<Product> {
                                                         snapshot
                                                             .data![index].price,
                                                         textAlign:
-                                                        TextAlign.start,
+                                                            TextAlign.start,
                                                         style: SafeGoogleFont(
                                                           'Be Vietnam',
                                                           fontSize: 15,
                                                           fontWeight:
-                                                          FontWeight.w500,
+                                                              FontWeight.w500,
                                                           color: const Color(
                                                               0xff000000),
                                                         ),
@@ -564,27 +574,27 @@ class _Product extends State<Product> {
                                                                 .star_rate_rounded,
                                                             size: 20,
                                                             color:
-                                                            Colors.yellow,
+                                                                Colors.yellow,
                                                           ),
                                                           Container(
                                                             margin:
-                                                            const EdgeInsets
-                                                                .fromLTRB(
-                                                                4, 0, 0, 0),
+                                                                const EdgeInsets
+                                                                        .fromLTRB(
+                                                                    4, 0, 0, 0),
                                                             child: Text(
                                                               snapshot
                                                                   .data![index]
                                                                   .star,
                                                               textAlign:
-                                                              TextAlign
-                                                                  .start,
+                                                                  TextAlign
+                                                                      .start,
                                                               style:
-                                                              SafeGoogleFont(
+                                                                  SafeGoogleFont(
                                                                 'Be Vietnam',
                                                                 fontSize: 15,
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .w500,
+                                                                    FontWeight
+                                                                        .w500,
                                                                 color: const Color(
                                                                     0xff000000),
                                                               ),
@@ -653,16 +663,18 @@ class _Product extends State<Product> {
   }
 
   Future getProductImage(String category, String imgName) async {
-      try {
-        await downloadURL(category, imgName);
-        return imageUrl;
-      } catch(e) {
-        debugPrint("Error - $e");
-        return null;
-      }
+    try {
+      await downloadURL(category, imgName);
+      return imageUrl;
+    } catch (e) {
+      debugPrint("Error - $e");
+      return null;
+    }
   }
 
   Future<void> downloadURL(String category, String imgName) async {
-    imageUrl = await storage.child('${category.toLowerCase()}/$imgName.png').getDownloadURL();
+    imageUrl = await storage
+        .child('${category.toLowerCase()}/$imgName.png')
+        .getDownloadURL();
   }
 }
