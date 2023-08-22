@@ -7,8 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
-
-import '../components/navigationdrawer.dart';
+import 'package:finalproject/components/navigationdrawer.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key});
@@ -164,8 +163,6 @@ class _ProductDetail extends State<ProductDetail> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 0 * fem),
                         width: double.infinity,
                         height: 2 * fem,
                         decoration: const BoxDecoration(
@@ -360,7 +357,8 @@ class _ProductDetail extends State<ProductDetail> {
                                   FutureBuilder(
                                       future: getProductImage(args.imageUrl),
                                       builder: (context, snapshot) {
-                                        if (snapshot.connectionState == ConnectionState.done) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.done) {
                                           return Positioned(
                                             left: 17 * fem,
                                             top: 8 * fem,
@@ -370,7 +368,8 @@ class _ProductDetail extends State<ProductDetail> {
                                                 height: 260.62 * fem,
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                  BorderRadius.circular(25 * fem),
+                                                      BorderRadius.circular(
+                                                          25 * fem),
                                                   child: Image.network(
                                                     snapshot.data.toString(),
                                                     fit: BoxFit.cover,
@@ -379,8 +378,7 @@ class _ProductDetail extends State<ProductDetail> {
                                               ),
                                             ),
                                           );
-                                        }
-                                        else {
+                                        } else {
                                           return const CircularProgressIndicator();
                                         }
                                       }),
@@ -1069,9 +1067,7 @@ class _ProductDetail extends State<ProductDetail> {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 0 * fem, 0 * fem, 0 * fem),
+                                  SizedBox(
                                     width: double.infinity,
                                     height: 43 * fem,
                                     child: Center(
@@ -1165,7 +1161,7 @@ class _ProductDetail extends State<ProductDetail> {
     try {
       await downloadURL(imgName);
       return imageUrl;
-    } catch(e) {
+    } catch (e) {
       debugPrint("Error - $e");
       return null;
     }

@@ -649,24 +649,16 @@ class _OrderDetailState extends State<OrderDetail> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem),
-                                                    child: Text(
-                                                      'Shipping Fee',
-                                                      style: SafeGoogleFont(
-                                                        'Encode Sans',
-                                                        fontSize: 16 * ffem,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        height:
-                                                            1.25 * ffem / fem,
-                                                        color: const Color(
-                                                            0xff1b2028),
-                                                      ),
+                                                  Text(
+                                                    'Shipping Fee',
+                                                    style: SafeGoogleFont(
+                                                      'Encode Sans',
+                                                      fontSize: 16 * ffem,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      height: 1.25 * ffem / fem,
+                                                      color: const Color(
+                                                          0xff1b2028),
                                                     ),
                                                   ),
                                                   Text(
@@ -780,20 +772,6 @@ class _OrderDetailState extends State<OrderDetail> {
     await FirebaseFirestore.instance.collection('Carts').doc(id).delete();
   }
 
-  Future getProductImage(String imgName) async {
-    try {
-      await downloadURL(imgName);
-      return imageUrl;
-    } catch (e) {
-      debugPrint("Error - $e");
-      return null;
-    }
-  }
-
-  Future<void> downloadURL(String imgName) async {
-    imageUrl = await storage.child('all/$imgName.png').getDownloadURL();
-  }
-
   Future<List<ShippingModel>> getShippingInformation(String userId) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('Shippings')
@@ -810,5 +788,19 @@ class _OrderDetailState extends State<OrderDetail> {
 
     final json = order.toJson();
     await docOrder.set(json);
+  }
+
+  Future getProductImage(String imgName) async {
+    try {
+      await downloadURL(imgName);
+      return imageUrl;
+    } catch (e) {
+      debugPrint("Error - $e");
+      return null;
+    }
+  }
+
+  Future<void> downloadURL(String imgName) async {
+    imageUrl = await storage.child('all/$imgName.png').getDownloadURL();
   }
 }

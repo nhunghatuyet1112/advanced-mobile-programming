@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 import 'package:finalproject/pages/product_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../components/navigationdrawer.dart';
+import 'package:finalproject/components/navigationdrawer.dart';
 
 class Product extends StatefulWidget {
   final String chosenCategory;
@@ -270,7 +269,7 @@ class _Product extends State<Product> {
                                           {setBtn('Men', btnState)},
                                       child: Row(
                                         children: [
-                                          Icon(Icons.accessibility,
+                                          Icon(Icons.man_rounded,
                                               size: 17 * fem),
                                           SizedBox(
                                             width: 2 * fem,
@@ -323,7 +322,7 @@ class _Product extends State<Product> {
                                           {setBtn('Women', btnState)},
                                       child: Row(
                                         children: [
-                                          Icon(Icons.accessibility,
+                                          Icon(Icons.woman_rounded,
                                               size: 17 * fem),
                                           SizedBox(
                                             width: 2 * fem,
@@ -376,7 +375,7 @@ class _Product extends State<Product> {
                                           {setBtn('Kids', btnState)},
                                       child: Row(
                                         children: [
-                                          Icon(Icons.accessibility,
+                                          Icon(Icons.accessibility_rounded,
                                               size: 17 * fem),
                                           SizedBox(
                                             width: 2 * fem,
@@ -429,7 +428,9 @@ class _Product extends State<Product> {
                                           {setBtn('Baby', btnState)},
                                       child: Row(
                                         children: [
-                                          Icon(Icons.accessibility,
+                                          Icon(
+                                              Icons
+                                                  .baby_changing_station_rounded,
                                               size: 17 * fem),
                                           SizedBox(
                                             width: 2 * fem,

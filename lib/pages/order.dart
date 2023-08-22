@@ -403,31 +403,24 @@ class _OrderHistoryState extends State<OrderHistory> {
                                                                   const SizedBox(
                                                                       height:
                                                                           80),
-                                                                  Container(
-                                                                    margin: EdgeInsets.fromLTRB(
-                                                                        0 * fem,
-                                                                        0 * fem,
-                                                                        0 * fem,
-                                                                        0 * fem),
-                                                                    child: Text(
-                                                                      snapshot
-                                                                          .data![
-                                                                              index]
-                                                                          .subTotal,
-                                                                      style:
-                                                                          SafeGoogleFont(
-                                                                        'Encode Sans',
-                                                                        fontSize:
-                                                                            18 *
-                                                                                ffem,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        height: 1.25 *
-                                                                            ffem /
-                                                                            fem,
-                                                                        color: const Color(
-                                                                            0xff1b2028),
-                                                                      ),
+                                                                  Text(
+                                                                    snapshot
+                                                                        .data![
+                                                                            index]
+                                                                        .subTotal,
+                                                                    style:
+                                                                        SafeGoogleFont(
+                                                                      'Encode Sans',
+                                                                      fontSize:
+                                                                          18 *
+                                                                              ffem,
+                                                                      fontWeight:
+                                                                          FontWeight.w600,
+                                                                      height: 1.25 *
+                                                                          ffem /
+                                                                          fem,
+                                                                      color: const Color(
+                                                                          0xff1b2028),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -494,19 +487,5 @@ class _OrderHistoryState extends State<OrderHistory> {
     final orderData =
         snapshot.docs.map((e) => OrderModel.fromSnapshot(e)).toList();
     return orderData;
-  }
-
-  Future getProductImage(String imgName) async {
-    try {
-      await downloadURL(imgName);
-      return imageUrl;
-    } catch (e) {
-      debugPrint("Error - $e");
-      return null;
-    }
-  }
-
-  Future<void> downloadURL(String imgName) async {
-    imageUrl = await storage.child('all/$imgName.png').getDownloadURL();
   }
 }

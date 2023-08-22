@@ -66,7 +66,6 @@ class _RegisterState extends State<Register> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
               constraints: BoxConstraints(
                 maxWidth: 261 * fem,
               ),
@@ -556,70 +555,66 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(
-                                0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(
-                                      0 * fem, 0 * fem, 0 * fem, 10 * fem),
-                                  child: Text(
-                                    'Have an account ?',
-                                    textAlign: TextAlign.center,
-                                    style: SafeGoogleFont(
-                                      'Be Vietnam',
-                                      fontSize: 18 * ffem,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1.2575 * ffem / fem,
-                                      color: const Color(0xff000000),
-                                    ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.fromLTRB(
+                                    0 * fem, 0 * fem, 0 * fem, 10 * fem),
+                                child: Text(
+                                  'Have an account ?',
+                                  textAlign: TextAlign.center,
+                                  style: SafeGoogleFont(
+                                    'Be Vietnam',
+                                    fontSize: 18 * ffem,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1.2575 * ffem / fem,
+                                    color: const Color(0xff000000),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        style: SafeGoogleFont(
-                                          'Be Vietnam',
-                                          fontSize: 20 * ffem,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.2575 * ffem / fem,
-                                          color: const Color(0xff000000),
-                                        ),
-                                        text: 'Click ',
-                                        children: [
-                                          TextSpan(
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = widget.onClickedSignIn,
-                                            text: 'here',
-                                            style: SafeGoogleFont(
-                                              'Be Vietnam',
-                                              fontSize: 20 * ffem,
-                                              fontWeight: FontWeight.w700,
-                                              height: 1.2575 * ffem / fem,
-                                              color: const Color(0xff000000),
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: ' to log in',
-                                            style: SafeGoogleFont(
-                                              'Be Vietnam',
-                                              fontSize: 20 * ffem,
-                                              fontWeight: FontWeight.w400,
-                                              height: 1.2575 * ffem / fem,
-                                              color: const Color(0xff000000),
-                                            ),
-                                          ),
-                                        ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style: SafeGoogleFont(
+                                        'Be Vietnam',
+                                        fontSize: 20 * ffem,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.2575 * ffem / fem,
+                                        color: const Color(0xff000000),
                                       ),
+                                      text: 'Click ',
+                                      children: [
+                                        TextSpan(
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = widget.onClickedSignIn,
+                                          text: 'here',
+                                          style: SafeGoogleFont(
+                                            'Be Vietnam',
+                                            fontSize: 20 * ffem,
+                                            fontWeight: FontWeight.w700,
+                                            height: 1.2575 * ffem / fem,
+                                            color: const Color(0xff000000),
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: ' to log in',
+                                          style: SafeGoogleFont(
+                                            'Be Vietnam',
+                                            fontSize: 20 * ffem,
+                                            fontWeight: FontWeight.w400,
+                                            height: 1.2575 * ffem / fem,
+                                            color: const Color(0xff000000),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),

@@ -48,7 +48,6 @@ class _LoginState extends State<Login> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
               constraints: BoxConstraints(
                 maxWidth: 261 * fem,
               ),
@@ -233,11 +232,11 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
+            SizedBox(
               width: double.infinity,
               child: Container(
-                margin: EdgeInsets.fromLTRB(0 * fem, 35 * fem, 0 * fem, 0 * fem),
+                margin:
+                    EdgeInsets.fromLTRB(0 * fem, 35 * fem, 0 * fem, 0 * fem),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

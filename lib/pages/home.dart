@@ -133,8 +133,6 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 0 * fem),
                         width: double.infinity,
                         height: 2 * fem,
                         decoration: const BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalproject/pages/auth.dart';
 import 'package:finalproject/pages/order.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:finalproject/pages/blog_list.dart';
@@ -7,8 +8,7 @@ import 'package:finalproject/pages/home.dart';
 import 'package:finalproject/pages/information.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/pages/product.dart';
-
-import '../models/user_model.dart';
+import 'package:finalproject/models/user_model.dart';
 
 class MyNavigationDrawer extends StatelessWidget {
   const MyNavigationDrawer({Key? key}) : super(key: key);
@@ -96,7 +96,11 @@ class MyNavigationDrawer extends StatelessWidget {
                     onTap: () {
                       FirebaseAuth.instance.signOut();
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const Home()));
+                          builder: (context) => const Scaffold(
+                                body: SingleChildScrollView(
+                                  child: Auth(),
+                                ),
+                              )));
                     },
                   ),
                 ],
