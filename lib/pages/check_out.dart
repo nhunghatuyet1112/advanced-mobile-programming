@@ -1,7 +1,9 @@
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/models/cart_model.dart';
+import 'package:finalproject/models/shipping_model.dart';
 import 'package:finalproject/models/user_model.dart';
+import 'package:finalproject/pages/shipping_information.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class _CheckOutState extends State<CheckOut> {
   late int quantity = 0;
   String imageUrl = '';
   final storage = FirebaseStorage.instance.ref().child('products_image');
+  String selectedItem = "";
 
   @override
   Widget build(BuildContext context) {
@@ -246,36 +249,39 @@ class _CheckOutState extends State<CheckOut> {
                                                             Row(
                                                               children: [
                                                                 FutureBuilder(
-                                                                    future: getProductImage(snapshot.data![index].product["ImageUrl"]),
-                                                                    builder: (context, snapshot) {
-                                                                      if (snapshot.connectionState == ConnectionState.done) {
+                                                                    future: getProductImage(snapshot
+                                                                            .data![
+                                                                                index]
+                                                                            .product[
+                                                                        "ImageUrl"]),
+                                                                    builder:
+                                                                        (context,
+                                                                            snapshot) {
+                                                                      if (snapshot
+                                                                              .connectionState ==
+                                                                          ConnectionState
+                                                                              .done) {
                                                                         return SizedBox(
                                                                           width:
-                                                                          82 * fem,
+                                                                              82 * fem,
                                                                           height:
-                                                                          105 * fem,
-                                                                          child: Align(
+                                                                              105 * fem,
+                                                                          child:
+                                                                              Align(
                                                                             alignment:
-                                                                            Alignment
-                                                                                .centerRight,
+                                                                                Alignment.centerRight,
                                                                             child:
-                                                                            SizedBox(
-                                                                              width: 100 *
-                                                                                  fem,
-                                                                              height:
-                                                                              105 *
-                                                                                  fem,
-                                                                              child: Image
-                                                                                  .network(
+                                                                                SizedBox(
+                                                                              width: 100 * fem,
+                                                                              height: 105 * fem,
+                                                                              child: Image.network(
                                                                                 snapshot.data.toString(),
-                                                                                fit: BoxFit
-                                                                                    .cover,
+                                                                                fit: BoxFit.cover,
                                                                               ),
                                                                             ),
                                                                           ),
                                                                         );
-                                                                      }
-                                                                      else {
+                                                                      } else {
                                                                         return const CircularProgressIndicator();
                                                                       }
                                                                     }),
@@ -515,143 +521,131 @@ class _CheckOutState extends State<CheckOut> {
                                                               .center,
                                                       children: [
                                                         Container(
-                                                          margin: EdgeInsets
-                                                              .fromLTRB(
-                                                                  40 * fem,
-                                                                  10 * fem,
-                                                                  40 * fem,
-                                                                  20 * fem),
-                                                          padding: EdgeInsets
-                                                              .fromLTRB(
-                                                                  20 * fem,
-                                                                  15 * fem,
-                                                                  20 * fem,
-                                                                  15 * fem),
-                                                          width:
-                                                              double.infinity,
-                                                          height: 50 * fem,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.grey,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8 * fem),
-                                                          ),
-                                                          child: SizedBox(
-                                                            width:
-                                                                double.infinity,
-                                                            height:
-                                                                double.infinity,
-                                                            child: Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Container(
-                                                                  margin: EdgeInsets
+                                                          margin:
+                                                              const EdgeInsets
                                                                       .fromLTRB(
-                                                                          0 *
-                                                                              fem,
-                                                                          0 *
-                                                                              fem,
-                                                                          40 *
-                                                                              fem,
-                                                                          0 * fem),
-                                                                  height: double
-                                                                      .infinity,
-                                                                  child: Row(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Container(
-                                                                        margin: EdgeInsets.fromLTRB(
-                                                                            0 *
-                                                                                fem,
-                                                                            0 *
-                                                                                fem,
-                                                                            10 *
-                                                                                fem,
-                                                                            0 * fem),
-                                                                        width: 24 *
-                                                                            fem,
-                                                                        height: 24 *
-                                                                            fem,
-                                                                        child: Image
-                                                                            .asset(
-                                                                          'assets/pages/images/tab-bar.png',
+                                                                  0, 10, 0, 10),
+                                                          child: Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              FutureBuilder<
+                                                                      List<
+                                                                          ShippingModel>>(
+                                                                  future: getShippingInformation(
+                                                                      userData
+                                                                          .id),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    if (snapshot
+                                                                            .connectionState ==
+                                                                        ConnectionState
+                                                                            .done) {
+                                                                      if (snapshot
+                                                                          .hasData) {
+                                                                        final List
+                                                                            shipping =
+                                                                            snapshot.data
+                                                                                as List;
+                                                                        late List<String>
+                                                                            addresses =
+                                                                            [];
+
+                                                                        for (var value
+                                                                            in shipping) {
+                                                                          addresses
+                                                                              .add(value.address);
+                                                                        }
+
+                                                                        return SizedBox(
                                                                           width:
-                                                                              24 * fem,
+                                                                              250,
                                                                           height:
-                                                                              24 * fem,
-                                                                        ),
-                                                                      ),
-                                                                      RichText(
-                                                                        text:
-                                                                            TextSpan(
-                                                                          style:
-                                                                              SafeGoogleFont(
-                                                                            'Encode Sans',
-                                                                            fontSize:
-                                                                                18 * ffem,
-                                                                            fontWeight:
-                                                                                FontWeight.w600,
-                                                                            height: 1.3999999364 *
-                                                                                ffem /
-                                                                                fem,
-                                                                            color:
-                                                                                const Color(0xff1b2028),
+                                                                              60,
+                                                                          child:
+                                                                              DropdownButtonFormField<String>(
+                                                                            isExpanded:
+                                                                                true,
+                                                                            hint:
+                                                                                const Text("Select address"),
+                                                                            decoration:
+                                                                                InputDecoration(
+                                                                              contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                                                              enabledBorder: OutlineInputBorder(
+                                                                                borderRadius: BorderRadius.circular(10),
+                                                                                borderSide: const BorderSide(
+                                                                                  width: 1,
+                                                                                  color: Color(0xff000000),
+                                                                                ),
+                                                                              ),
+                                                                              focusedBorder: OutlineInputBorder(
+                                                                                borderRadius: BorderRadius.circular(10),
+                                                                                borderSide: const BorderSide(
+                                                                                  width: 1,
+                                                                                  color: Color(0xff000000),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            value: selectedItem == ""
+                                                                                ? null
+                                                                                : selectedItem,
+                                                                            items: addresses
+                                                                                .map((item) => DropdownMenuItem(
+                                                                                      value: item,
+                                                                                      child: Text(item, style: const TextStyle(fontSize: 16)),
+                                                                                    ))
+                                                                                .toList(),
+                                                                            onChanged: (item) =>
+                                                                                setState(() => selectedItem = item!),
                                                                           ),
-                                                                          children: [
-                                                                            TextSpan(
-                                                                              text: '**** **** **** ',
-                                                                              style: SafeGoogleFont(
-                                                                                'Encode Sans',
-                                                                                fontSize: 18 * ffem,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                height: 1.3999999364 * ffem / fem,
-                                                                                color: const Color(0xff1b2028),
-                                                                              ),
-                                                                            ),
-                                                                            TextSpan(
-                                                                              text: '2143',
-                                                                              style: SafeGoogleFont(
-                                                                                'Encode Sans',
-                                                                                fontSize: 18 * ffem,
-                                                                                fontWeight: FontWeight.w400,
-                                                                                height: 1.3999999364 * ffem / fem,
-                                                                                color: const Color(0xff1b2028),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
+                                                                        );
+                                                                      } else if (snapshot
+                                                                          .hasError) {
+                                                                        return Center(
+                                                                            child:
+                                                                                Text(snapshot.error.toString()));
+                                                                      } else {
+                                                                        return const Center(
+                                                                            child:
+                                                                                Text('Something went wrong'));
+                                                                      }
+                                                                    } else {
+                                                                      return const SizedBox
+                                                                          .shrink();
+                                                                    }
+                                                                  }),
+                                                              Container(
+                                                                margin: const EdgeInsets
+                                                                        .fromLTRB(
+                                                                    15,
+                                                                    0,
+                                                                    0,
+                                                                    10),
+                                                                height: 50,
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                child:
+                                                                    IconButton(
+                                                                  icon: const Icon(
+                                                                      Icons
+                                                                          .add_box_rounded,
+                                                                      size: 25),
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                const ShippingInformation()));
+                                                                  },
                                                                 ),
-                                                                Container(
-                                                                  margin: EdgeInsets
-                                                                      .fromLTRB(
-                                                                          0 * fem,
-                                                                          0 * fem,
-                                                                          0 * fem,
-                                                                          1 * fem),
-                                                                  width:
-                                                                      24 * fem,
-                                                                  height:
-                                                                      24 * fem,
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/pages/images/vuesax-linear-arrow-down-5sP.png',
-                                                                    width: 24 *
-                                                                        fem,
-                                                                    height: 24 *
-                                                                        fem,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                              )
+                                                            ],
                                                           ),
                                                         ),
                                                         Container(
@@ -815,8 +809,7 @@ class _CheckOutState extends State<CheckOut> {
                                                                     SafeGoogleFont(
                                                                   'Encode Sans',
                                                                   fontSize:
-                                                                      16 *
-                                                                          ffem,
+                                                                      16 * ffem,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
@@ -962,7 +955,7 @@ class _CheckOutState extends State<CheckOut> {
     try {
       await downloadURL(imgName);
       return imageUrl;
-    } catch(e) {
+    } catch (e) {
       debugPrint("Error - $e");
       return null;
     }
@@ -970,5 +963,15 @@ class _CheckOutState extends State<CheckOut> {
 
   Future<void> downloadURL(String imgName) async {
     imageUrl = await storage.child('all/$imgName.png').getDownloadURL();
+  }
+
+  Future<List<ShippingModel>> getShippingInformation(String userId) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Shippings')
+        .where('UserId', isEqualTo: userId)
+        .get();
+    final shippingInformationData =
+        snapshot.docs.map((e) => ShippingModel.fromSnapshot(e)).toList();
+    return shippingInformationData;
   }
 }

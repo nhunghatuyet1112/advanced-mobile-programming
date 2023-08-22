@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/arguments/product_data.dart';
 import 'package:finalproject/models/product_model.dart';
