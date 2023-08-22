@@ -558,9 +558,13 @@ class _CheckOutState extends State<CheckOut> {
                                                                             shipping =
                                                                             snapshot.data
                                                                                 as List;
-                                                                        late List<String>
+                                                                        List<String>
                                                                             addresses =
                                                                             [];
+                                                                        Map<String,
+                                                                                String>
+                                                                            shippingDelete =
+                                                                            {};
 
                                                                         for (var value
                                                                             in shipping) {
@@ -581,6 +585,18 @@ class _CheckOutState extends State<CheckOut> {
                                                                           }
                                                                         }
 
+                                                                        if (selectedItem !=
+                                                                            "") {
+                                                                          for (var value
+                                                                              in shipping) {
+                                                                            if (value.address ==
+                                                                                selectedItem) {
+                                                                              shippingDelete["Id"] = value.id;
+                                                                              shippingDelete["Address"] = value.address;
+                                                                            }
+                                                                          }
+                                                                        }
+
                                                                         return SizedBox(
                                                                           width:
                                                                               250,
@@ -594,6 +610,22 @@ class _CheckOutState extends State<CheckOut> {
                                                                                 const Text("Select address"),
                                                                             decoration:
                                                                                 InputDecoration(
+                                                                              suffixIcon: IconButton(
+                                                                                icon: const Icon(
+                                                                                  Icons.delete_rounded,
+                                                                                  color: Colors.black,
+                                                                                ),
+                                                                                onPressed: () async {
+                                                                                  if (shippingDelete.isEmpty || selectedItem == "") return;
+
+                                                                                  addresses.removeWhere((element) => element == shippingDelete["Address"]);
+                                                                                  await deleteShippingInformation(shippingDelete["Id"]!);
+                                                                                  setState(() {
+                                                                                    shippingDelete = {};
+                                                                                    selectedItem = "";
+                                                                                  });
+                                                                                },
+                                                                              ),
                                                                               contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                                                                               enabledBorder: OutlineInputBorder(
                                                                                 borderRadius: BorderRadius.circular(10),
@@ -623,7 +655,7 @@ class _CheckOutState extends State<CheckOut> {
                                                                                     ))
                                                                                 .toList(),
                                                                             onChanged: (item) =>
-                                                                                setState(() => selectedItem = item!),
+                                                                                setState(() {}),
                                                                           ),
                                                                         );
                                                                       } else if (snapshot
@@ -765,8 +797,7 @@ class _CheckOutState extends State<CheckOut> {
                                                                     SafeGoogleFont(
                                                                   'Encode Sans',
                                                                   fontSize:
-                                                                      16 *
-                                                                          ffem,
+                                                                      16 * ffem,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400,
@@ -1006,6 +1037,10 @@ class _CheckOutState extends State<CheckOut> {
     final shippingInformationData =
         snapshot.docs.map((e) => ShippingModel.fromSnapshot(e)).toList();
     return shippingInformationData;
+  }
+
+  Future<void> deleteShippingInformation(String id) async {
+    await FirebaseFirestore.instance.collection('Shippings').doc(id).delete();
   }
 
   Future createOrder(OrderModel order) async {
