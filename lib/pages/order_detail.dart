@@ -160,76 +160,79 @@ class _OrderDetailState extends State<OrderDetail> {
                             Column(
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      15, 0, 15, 0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   height: 300,
                                   child: GridView.builder(
                                       scrollDirection: Axis.vertical,
                                       gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 1,
                                         childAspectRatio:
-                                        MediaQuery.of(context)
-                                            .size
-                                            .width /
-                                            (MediaQuery.of(context)
-                                                .size
-                                                .height /
-                                                5.4),
+                                            MediaQuery.of(context).size.width /
+                                                (MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    5.4),
                                       ),
                                       itemCount: args.products.length,
                                       itemBuilder: (context, index) {
                                         return Container(
-                                          margin:
-                                          const EdgeInsets.fromLTRB(
+                                          margin: const EdgeInsets.fromLTRB(
                                               0, 0, 0, 10),
                                           width: double.infinity,
                                           height: 105 * fem,
-                                          decoration:
-                                          const BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             border: Border(
                                                 bottom: BorderSide(
-                                                  color: Color(0xff000000),
-                                                  width: 1.0,
-                                                )),
+                                              color: Color(0xff000000),
+                                              width: 1.0,
+                                            )),
                                           ),
                                           child: Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment
-                                                  .start,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .start,
+                                                  MainAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   children: [
                                                     Row(
                                                       children: [
                                                         FutureBuilder(
-                                                            future: getProductImage(args.products[index]["ImageUrl"]),
-                                                            builder:
-                                                                (context,
+                                                            future: getProductImage(
+                                                                args.products[
+                                                                        index][
+                                                                    "ImageUrl"]),
+                                                            builder: (context,
                                                                 snapshot) {
                                                               if (snapshot
-                                                                  .connectionState ==
+                                                                      .connectionState ==
                                                                   ConnectionState
                                                                       .done) {
                                                                 return SizedBox(
                                                                   width:
-                                                                  82 * fem,
+                                                                      82 * fem,
                                                                   height:
-                                                                  105 * fem,
-                                                                  child:
-                                                                  Align(
+                                                                      105 * fem,
+                                                                  child: Align(
                                                                     alignment:
-                                                                    Alignment.centerRight,
+                                                                        Alignment
+                                                                            .centerRight,
                                                                     child:
-                                                                    SizedBox(
-                                                                      width: 100 * fem,
-                                                                      height: 105 * fem,
-                                                                      child: Image.network(
-                                                                        snapshot.data.toString(),
-                                                                        fit: BoxFit.cover,
+                                                                        SizedBox(
+                                                                      width: 100 *
+                                                                          fem,
+                                                                      height:
+                                                                          105 *
+                                                                              fem,
+                                                                      child: Image
+                                                                          .network(
+                                                                        snapshot
+                                                                            .data
+                                                                            .toString(),
+                                                                        fit: BoxFit
+                                                                            .cover,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -239,45 +242,57 @@ class _OrderDetailState extends State<OrderDetail> {
                                                               }
                                                             }),
                                                         SizedBox(
-                                                          width:
-                                                          210 * fem,
+                                                          width: 210 * fem,
                                                           child: Column(
                                                             crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                             mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
                                                             children: [
                                                               Container(
-                                                                margin: EdgeInsets.fromLTRB(
-                                                                    10 *
-                                                                        fem,
-                                                                    0 * fem,
-                                                                    0 * fem,
-                                                                    0 * fem),
+                                                                margin: EdgeInsets
+                                                                    .fromLTRB(
+                                                                        10 *
+                                                                            fem,
+                                                                        0 * fem,
+                                                                        0 * fem,
+                                                                        0 * fem),
                                                                 width: double
                                                                     .infinity,
-                                                                child:
-                                                                Column(
+                                                                child: Column(
                                                                   crossAxisAlignment:
-                                                                  CrossAxisAlignment.start,
+                                                                      CrossAxisAlignment
+                                                                          .start,
                                                                   children: [
                                                                     Text(
-                                                                      args.products[index]["Name"],
-                                                                      style: SafeGoogleFont(
+                                                                      args.products[
+                                                                              index]
+                                                                          [
+                                                                          "Name"],
+                                                                      style:
+                                                                          SafeGoogleFont(
                                                                         'Encode Sans',
-                                                                        fontSize: 17 * ffem,
-                                                                        fontWeight: FontWeight.w600,
-                                                                        color: const Color(0xff1b2028),
+                                                                        fontSize:
+                                                                            17 *
+                                                                                ffem,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        color: const Color(
+                                                                            0xff1b2028),
                                                                       ),
                                                                     ),
-                                                                    const SizedBox(height: 5),
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            5),
                                                                     Row(
                                                                       children: [
                                                                         RichText(
-                                                                          text: TextSpan(
-                                                                            style: SafeGoogleFont(
+                                                                          text:
+                                                                              TextSpan(
+                                                                            style:
+                                                                                SafeGoogleFont(
                                                                               'Encode Sans',
                                                                               fontSize: 14 * ffem,
                                                                               fontWeight: FontWeight.w400,
@@ -299,10 +314,14 @@ class _OrderDetailState extends State<OrderDetail> {
                                                                             ],
                                                                           ),
                                                                         ),
-                                                                        const SizedBox(width: 10),
+                                                                        const SizedBox(
+                                                                            width:
+                                                                                10),
                                                                         RichText(
-                                                                          text: TextSpan(
-                                                                            style: SafeGoogleFont(
+                                                                          text:
+                                                                              TextSpan(
+                                                                            style:
+                                                                                SafeGoogleFont(
                                                                               'Encode Sans',
                                                                               fontSize: 14 * ffem,
                                                                               fontWeight: FontWeight.w400,
@@ -330,33 +349,45 @@ class _OrderDetailState extends State<OrderDetail> {
                                                                 ),
                                                               ),
                                                               Container(
-                                                                margin: const EdgeInsets.fromLTRB(
+                                                                margin: const EdgeInsets
+                                                                        .fromLTRB(
                                                                     10,
                                                                     40,
                                                                     0,
                                                                     0),
-                                                                child:
-                                                                RichText(
+                                                                child: RichText(
                                                                   text:
-                                                                  TextSpan(
+                                                                      TextSpan(
                                                                     style:
-                                                                    SafeGoogleFont(
+                                                                        SafeGoogleFont(
                                                                       'Encode Sans',
-                                                                      fontSize: 17 * ffem,
-                                                                      fontWeight: FontWeight.w400,
-                                                                      color: const Color(0xffa4aaad),
+                                                                      fontSize:
+                                                                          17 *
+                                                                              ffem,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w400,
+                                                                      color: const Color(
+                                                                          0xffa4aaad),
                                                                     ),
                                                                     children: [
                                                                       const TextSpan(
-                                                                        text: 'Quantity: ',
+                                                                        text:
+                                                                            'Quantity: ',
                                                                       ),
                                                                       TextSpan(
-                                                                        text: args.products[index]["Quantity"],
-                                                                        style: SafeGoogleFont(
+                                                                        text: args.products[index]
+                                                                            [
+                                                                            "Quantity"],
+                                                                        style:
+                                                                            SafeGoogleFont(
                                                                           'Encode Sans',
-                                                                          fontSize: 17 * ffem,
-                                                                          fontWeight: FontWeight.w500,
-                                                                          color: const Color(0xff1b2028),
+                                                                          fontSize:
+                                                                              17 * ffem,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          color:
+                                                                              const Color(0xff1b2028),
                                                                         ),
                                                                       )
                                                                     ],
@@ -370,29 +401,29 @@ class _OrderDetailState extends State<OrderDetail> {
                                                     ),
                                                     Column(
                                                       crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .end,
+                                                          CrossAxisAlignment
+                                                              .end,
                                                       children: [
                                                         const SizedBox(
                                                             height: 85),
                                                         Container(
                                                           padding: EdgeInsets
                                                               .fromLTRB(
-                                                              5 * fem,
-                                                              0 * fem,
-                                                              5 * fem,
-                                                              0 * fem),
+                                                                  5 * fem,
+                                                                  0 * fem,
+                                                                  5 * fem,
+                                                                  0 * fem),
                                                           child: Text(
-                                                            args.products[index]["Price"],
+                                                            args.products[index]
+                                                                ["Price"],
                                                             style:
-                                                            SafeGoogleFont(
+                                                                SafeGoogleFont(
                                                               'Encode Sans',
                                                               fontSize:
-                                                              18 *
-                                                                  ffem,
+                                                                  18 * ffem,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                               height: 1.25 *
                                                                   ffem /
                                                                   fem,
@@ -410,26 +441,20 @@ class _OrderDetailState extends State<OrderDetail> {
                                       }),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.fromLTRB(20 * fem,
-                                      10 * fem, 20 * fem, 0 * fem),
+                                  padding: EdgeInsets.fromLTRB(
+                                      20 * fem, 10 * fem, 20 * fem, 0 * fem),
                                   width: double.infinity,
                                   height: 240 * fem,
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         width: double.infinity,
-                                        margin: EdgeInsets.fromLTRB(
-                                            0 * fem,
-                                            0 * fem,
-                                            0 * fem,
-                                            10 * fem),
-                                        padding: EdgeInsets.fromLTRB(
-                                            0 * fem,
-                                            0 * fem,
-                                            0 * fem,
-                                            10 * fem),
+                                        margin: EdgeInsets.fromLTRB(0 * fem,
+                                            0 * fem, 0 * fem, 10 * fem),
+                                        padding: EdgeInsets.fromLTRB(0 * fem,
+                                            0 * fem, 0 * fem, 10 * fem),
                                         decoration: const BoxDecoration(
                                           border: Border(
                                             bottom: BorderSide(
@@ -440,7 +465,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                         ),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Center(
                                               child: Text(
@@ -448,11 +473,10 @@ class _OrderDetailState extends State<OrderDetail> {
                                                 style: SafeGoogleFont(
                                                   'Encode Sans',
                                                   fontSize: 18 * ffem,
-                                                  fontWeight:
-                                                  FontWeight.w400,
+                                                  fontWeight: FontWeight.w400,
                                                   fontStyle: FontStyle.italic,
-                                                  color: const Color(
-                                                      0xff000000),
+                                                  color:
+                                                      const Color(0xff000000),
                                                 ),
                                               ),
                                             ),
@@ -462,10 +486,9 @@ class _OrderDetailState extends State<OrderDetail> {
                                                 style: SafeGoogleFont(
                                                   'Encode Sans',
                                                   fontSize: 16 * ffem,
-                                                  fontWeight:
-                                                  FontWeight.w400,
-                                                  color: const Color(
-                                                      0xff1b2028),
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      const Color(0xff1b2028),
                                                 ),
                                                 children: [
                                                   const TextSpan(
@@ -473,16 +496,13 @@ class _OrderDetailState extends State<OrderDetail> {
                                                   ),
                                                   TextSpan(
                                                     text:
-                                                    args.shippingInformation[
-                                                    "FullName"],
-                                                    style:
-                                                    SafeGoogleFont(
+                                                        args.shippingInformation[
+                                                            "FullName"],
+                                                    style: SafeGoogleFont(
                                                       'Encode Sans',
-                                                      fontSize:
-                                                      17 * ffem,
+                                                      fontSize: 17 * ffem,
                                                       fontWeight:
-                                                      FontWeight
-                                                          .w600,
+                                                          FontWeight.w600,
                                                       color: const Color(
                                                           0xff1b2028),
                                                     ),
@@ -496,10 +516,9 @@ class _OrderDetailState extends State<OrderDetail> {
                                                 style: SafeGoogleFont(
                                                   'Encode Sans',
                                                   fontSize: 16 * ffem,
-                                                  fontWeight:
-                                                  FontWeight.w400,
-                                                  color: const Color(
-                                                      0xff1b2028),
+                                                  fontWeight: FontWeight.w400,
+                                                  color:
+                                                      const Color(0xff1b2028),
                                                 ),
                                                 children: [
                                                   const TextSpan(
@@ -507,16 +526,13 @@ class _OrderDetailState extends State<OrderDetail> {
                                                   ),
                                                   TextSpan(
                                                     text:
-                                                    args.shippingInformation[
-                                                    "PhoneNumber"],
-                                                    style:
-                                                    SafeGoogleFont(
+                                                        args.shippingInformation[
+                                                            "PhoneNumber"],
+                                                    style: SafeGoogleFont(
                                                       'Encode Sans',
-                                                      fontSize:
-                                                      17 * ffem,
+                                                      fontSize: 17 * ffem,
                                                       fontWeight:
-                                                      FontWeight
-                                                          .w600,
+                                                          FontWeight.w600,
                                                       color: const Color(
                                                           0xff1b2028),
                                                     ),
@@ -525,38 +541,33 @@ class _OrderDetailState extends State<OrderDetail> {
                                               ),
                                             ),
                                             const SizedBox(height: 5),
-                                            RichText(
-                                              text: TextSpan(
-                                                style: SafeGoogleFont(
-                                                  'Encode Sans',
-                                                  fontSize: 16 * ffem,
-                                                  fontWeight:
-                                                  FontWeight.w400,
-                                                  color: const Color(
-                                                      0xff1b2028),
-                                                ),
-                                                children: [
-                                                  const TextSpan(
-                                                    text: 'Address: ',
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Address: ',
+                                                  style: SafeGoogleFont(
+                                                    'Encode Sans',
+                                                    fontSize: 16 * ffem,
+                                                    fontWeight: FontWeight.w400,
+                                                    color:
+                                                        const Color(0xff1b2028),
                                                   ),
-                                                  TextSpan(
-                                                    text:
-                                                    args.shippingInformation[
-                                                    "Address"],
-                                                    style:
-                                                    SafeGoogleFont(
-                                                      'Encode Sans',
-                                                      fontSize:
-                                                      17 * ffem,
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w600,
-                                                      color: const Color(
-                                                          0xff1b2028),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
+                                                ),
+                                                Expanded(
+                                                    child: Text(
+                                                  args.shippingInformation[
+                                                      "Address"],
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: SafeGoogleFont(
+                                                    'Encode Sans',
+                                                    fontSize: 17 * ffem,
+                                                    fontWeight: FontWeight.w600,
+                                                    color:
+                                                        const Color(0xff1b2028),
+                                                  ),
+                                                )),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -565,13 +576,12 @@ class _OrderDetailState extends State<OrderDetail> {
                                         width: double.infinity,
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Container(
-                                              margin:
-                                              EdgeInsets.fromLTRB(
+                                              margin: EdgeInsets.fromLTRB(
                                                   0 * fem,
                                                   0 * fem,
                                                   0 * fem,
@@ -579,57 +589,45 @@ class _OrderDetailState extends State<OrderDetail> {
                                               width: double.infinity,
                                               child: Row(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
+                                                    CrossAxisAlignment.center,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   RichText(
                                                     text: TextSpan(
-                                                      style:
-                                                      SafeGoogleFont(
+                                                      style: SafeGoogleFont(
                                                         'Encode Sans',
-                                                        fontSize:
-                                                        16 * ffem,
+                                                        fontSize: 16 * ffem,
                                                         fontWeight:
-                                                        FontWeight
-                                                            .w400,
-                                                        height: 1.25 *
-                                                            ffem /
-                                                            fem,
+                                                            FontWeight.w400,
+                                                        height:
+                                                            1.25 * ffem / fem,
                                                         color: const Color(
                                                             0xff1b2028),
                                                       ),
                                                       children: [
                                                         const TextSpan(
-                                                          text:
-                                                          'Total (',
+                                                          text: 'Total (',
                                                         ),
                                                         TextSpan(
-                                                          text: args
-                                                              .totalProduct,
+                                                          text:
+                                                              args.totalProduct,
                                                         ),
                                                         const TextSpan(
-                                                          text:
-                                                          ' items)',
+                                                          text: ' items)',
                                                         ),
                                                       ],
                                                     ),
                                                   ),
                                                   Text(
                                                     args.total,
-                                                    style:
-                                                    SafeGoogleFont(
+                                                    style: SafeGoogleFont(
                                                       'Encode Sans',
-                                                      fontSize:
-                                                      16 * ffem,
+                                                      fontSize: 16 * ffem,
                                                       fontWeight:
-                                                      FontWeight
-                                                          .w400,
-                                                      height: 1.25 *
-                                                          ffem /
-                                                          fem,
+                                                          FontWeight.w400,
+                                                      height: 1.25 * ffem / fem,
                                                       color: const Color(
                                                           0xff1b2028),
                                                     ),
@@ -638,8 +636,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                               ),
                                             ),
                                             Container(
-                                              margin:
-                                              EdgeInsets.fromLTRB(
+                                              margin: EdgeInsets.fromLTRB(
                                                   0 * fem,
                                                   0 * fem,
                                                   0 * fem,
@@ -647,32 +644,26 @@ class _OrderDetailState extends State<OrderDetail> {
                                               width: double.infinity,
                                               child: Row(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
+                                                    CrossAxisAlignment.center,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Container(
-                                                    margin: EdgeInsets
-                                                        .fromLTRB(
+                                                    margin: EdgeInsets.fromLTRB(
                                                         0 * fem,
                                                         0 * fem,
                                                         0 * fem,
                                                         0 * fem),
                                                     child: Text(
                                                       'Shipping Fee',
-                                                      style:
-                                                      SafeGoogleFont(
+                                                      style: SafeGoogleFont(
                                                         'Encode Sans',
-                                                        fontSize:
-                                                        16 * ffem,
+                                                        fontSize: 16 * ffem,
                                                         fontWeight:
-                                                        FontWeight
-                                                            .w400,
-                                                        height: 1.25 *
-                                                            ffem /
-                                                            fem,
+                                                            FontWeight.w400,
+                                                        height:
+                                                            1.25 * ffem / fem,
                                                         color: const Color(
                                                             0xff1b2028),
                                                       ),
@@ -680,17 +671,12 @@ class _OrderDetailState extends State<OrderDetail> {
                                                   ),
                                                   Text(
                                                     args.shippingFee,
-                                                    style:
-                                                    SafeGoogleFont(
+                                                    style: SafeGoogleFont(
                                                       'Encode Sans',
-                                                      fontSize:
-                                                      16 * ffem,
+                                                      fontSize: 16 * ffem,
                                                       fontWeight:
-                                                      FontWeight
-                                                          .w400,
-                                                      height: 1.25 *
-                                                          ffem /
-                                                          fem,
+                                                          FontWeight.w400,
+                                                      height: 1.25 * ffem / fem,
                                                       color: const Color(
                                                           0xff1b2028),
                                                     ),
@@ -699,8 +685,7 @@ class _OrderDetailState extends State<OrderDetail> {
                                               ),
                                             ),
                                             Container(
-                                              margin:
-                                              EdgeInsets.fromLTRB(
+                                              margin: EdgeInsets.fromLTRB(
                                                   0 * fem,
                                                   0 * fem,
                                                   0 * fem,
@@ -708,42 +693,31 @@ class _OrderDetailState extends State<OrderDetail> {
                                               width: double.infinity,
                                               child: Row(
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
+                                                    CrossAxisAlignment.center,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Text(
                                                     'Sub Total',
-                                                    style:
-                                                    SafeGoogleFont(
+                                                    style: SafeGoogleFont(
                                                       'Encode Sans',
-                                                      fontSize:
-                                                      16 * ffem,
+                                                      fontSize: 16 * ffem,
                                                       fontWeight:
-                                                      FontWeight
-                                                          .w400,
-                                                      height: 1.25 *
-                                                          ffem /
-                                                          fem,
+                                                          FontWeight.w400,
+                                                      height: 1.25 * ffem / fem,
                                                       color: const Color(
                                                           0xff1b2028),
                                                     ),
                                                   ),
                                                   Text(
                                                     args.subTotal,
-                                                    style:
-                                                    SafeGoogleFont(
+                                                    style: SafeGoogleFont(
                                                       'Encode Sans',
-                                                      fontSize:
-                                                      16 * ffem,
+                                                      fontSize: 16 * ffem,
                                                       fontWeight:
-                                                      FontWeight
-                                                          .w600,
-                                                      height: 1.25 *
-                                                          ffem /
-                                                          fem,
+                                                          FontWeight.w600,
+                                                      height: 1.25 * ffem / fem,
                                                       color: const Color(
                                                           0xff1b2028),
                                                     ),
