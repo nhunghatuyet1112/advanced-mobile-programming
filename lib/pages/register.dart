@@ -656,7 +656,7 @@ class _RegisterState extends State<Register> {
         password: passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       Toast.showSnackBar(e.message);
     }
 

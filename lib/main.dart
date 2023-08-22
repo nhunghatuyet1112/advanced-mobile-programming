@@ -1,4 +1,5 @@
 import 'package:finalproject/pages/auth.dart';
+import 'package:finalproject/pages/order_detail.dart';
 import 'package:finalproject/pages/product_detail.dart';
 import 'package:finalproject/pages/verify_email.dart';
 import 'package:finalproject/toast.dart';
@@ -24,15 +25,16 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter',
         theme: ThemeData(
-          pageTransitionsTheme: const PageTransitionsTheme(
-            builders: {
-              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-            }
-          ),
+          pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          }),
           primarySwatch: Colors.blue,
         ),
         home: const MainPage(),
-        routes: {ProductDetail.routeName: (context) => const ProductDetail()},
+        routes: {
+          ProductDetail.routeName: (context) => const ProductDetail(),
+          OrderDetail.routeName: (context) => const OrderDetail()
+        },
       );
 }
 

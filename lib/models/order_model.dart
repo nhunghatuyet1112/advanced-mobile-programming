@@ -5,6 +5,7 @@ class OrderModel {
   final String userId;
   final List products;
   final Map shippingInformation;
+  final String totalProduct;
   final String total;
   final String shippingFee;
   final String subTotal;
@@ -14,6 +15,7 @@ class OrderModel {
     required this.userId,
     required this.products,
     required this.shippingInformation,
+    required this.totalProduct,
     required this.total,
     required this.shippingFee,
     required this.subTotal,
@@ -25,6 +27,7 @@ class OrderModel {
       "UserId": userId,
       "Products": products,
       "ShippingInformation": shippingInformation,
+      "TotalProduct": totalProduct,
       "Total": total,
       "ShippingFee": shippingFee,
       "SubTotal": subTotal,
@@ -40,6 +43,7 @@ class OrderModel {
       userId: data["UserId"],
       products: data["Products"],
       shippingInformation: data["ShippingInformation"],
+      totalProduct: data["TotalProduct"],
       total: data["Total"],
       shippingFee: data["ShippingFee"],
       subTotal: data["SubTotal"],

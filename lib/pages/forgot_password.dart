@@ -127,7 +127,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       Toast.showSnackBar('Reset Password Email Sent !');
       Navigator.of(context).popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       Toast.showSnackBar(e.message);
       Navigator.of(context).pop();
     }

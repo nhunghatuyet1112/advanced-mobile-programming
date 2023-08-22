@@ -26,7 +26,6 @@ class _CheckOutState extends State<CheckOut> {
   String imageUrl = '';
   String selectedItem = "";
   int shippingFee = 5000;
-  int subToTal = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +250,7 @@ class _CheckOutState extends State<CheckOut> {
                                                               .start,
                                                       children: [
                                                         Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
                                                             Row(
                                                               children: [
@@ -567,11 +567,16 @@ class _CheckOutState extends State<CheckOut> {
                                                                               .add(value.address);
                                                                         }
 
-                                                                        for (var value in shipping) {
-                                                                          if(value.address == selectedItem) {
-                                                                            shippingInformation["FullName"] = value.fullName;
-                                                                            shippingInformation["PhoneNumber"] = value.phoneNumber;
-                                                                            shippingInformation["Address"] = value.address;
+                                                                        for (var value
+                                                                            in shipping) {
+                                                                          if (value.address ==
+                                                                              selectedItem) {
+                                                                            shippingInformation["FullName"] =
+                                                                                value.fullName;
+                                                                            shippingInformation["PhoneNumber"] =
+                                                                                value.phoneNumber;
+                                                                            shippingInformation["Address"] =
+                                                                                value.address;
                                                                           }
                                                                         }
 
@@ -725,7 +730,7 @@ class _CheckOutState extends State<CheckOut> {
                                                                       16 * ffem,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w600,
+                                                                          .w400,
                                                                   height: 1.25 *
                                                                       ffem /
                                                                       fem,
@@ -783,7 +788,8 @@ class _CheckOutState extends State<CheckOut> {
                                                                 snapshot.data!
                                                                         .isNotEmpty
                                                                     ? formatCurrency(
-                                                                        shippingFee * quantity)
+                                                                        shippingFee *
+                                                                            quantity)
                                                                     : '0',
                                                                 style:
                                                                     SafeGoogleFont(
@@ -840,9 +846,9 @@ class _CheckOutState extends State<CheckOut> {
                                                               Text(
                                                                 snapshot.data!
                                                                         .isNotEmpty
-                                                                    ? formatCurrency(
-                                                                        total +
-                                                                            shippingFee)
+                                                                    ? formatCurrency(total +
+                                                                        (shippingFee *
+                                                                            quantity))
                                                                     : '0',
                                                                 style:
                                                                     SafeGoogleFont(
@@ -906,10 +912,17 @@ class _CheckOutState extends State<CheckOut> {
                                                 final order = OrderModel(
                                                   userId: userData.id,
                                                   products: products,
-                                                  shippingInformation: shippingInformation,
-                                                  total: total.toString(),
-                                                  shippingFee: shippingFee.toString(),
-                                                  subTotal: (total + shippingFee).toString()
+                                                  shippingInformation:
+                                                      shippingInformation,
+                                                  totalProduct:
+                                                      quantity.toString(),
+                                                  total: formatCurrency(total),
+                                                  shippingFee: formatCurrency(
+                                                      shippingFee * quantity),
+                                                  subTotal: formatCurrency(
+                                                      total +
+                                                          (shippingFee *
+                                                              quantity)),
                                                 );
 
                                                 await createOrder(order);
@@ -918,7 +931,7 @@ class _CheckOutState extends State<CheckOut> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                        const Home()));
+                                                            const Home()));
                                               },
                                             ),
                                           ),

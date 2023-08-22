@@ -1,5 +1,5 @@
 import 'package:finalproject/main.dart';
-import 'package:finalproject/pages/forgot-password.dart';
+import 'package:finalproject/pages/forgot_password.dart';
 import 'package:finalproject/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -318,7 +318,7 @@ class _LoginState extends State<Login> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
-      print(e);
+      debugPrint(e.toString());
       Toast.showSnackBar(e.message);
     }
 
