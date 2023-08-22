@@ -2,15 +2,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/components/navigationdrawer.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
+import 'package:intl/intl.dart';
+import '../arguments/blog_data.dart';
 
-class Blog extends StatelessWidget {
-  const Blog({super.key});
+class BlogDetail extends StatefulWidget {
+  const BlogDetail({super.key});
 
+  static const routeName = 'blogDetail';
+  @override
+  State<BlogDetail> createState() => _BlogDetail();
+}
+
+class _BlogDetail extends State<BlogDetail> {
+  String imageUrl = '';
+  final storage = FirebaseStorage.instance.ref();
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    final args = ModalRoute.of(context)!.settings.arguments as BlogData;
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -68,7 +80,7 @@ class Blog extends StatelessWidget {
                                                   fontWeight: FontWeight.w400,
                                                   height: 1.2575 * ffem / fem,
                                                   color:
-                                                      const Color(0xff000000),
+                                                  const Color(0xff000000),
                                                 ),
                                               ),
                                             ],
@@ -140,268 +152,84 @@ class Blog extends StatelessWidget {
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(
-                            35 * fem, 0 * fem, 35 * fem, 0 * fem),
+                            10 * fem, 0 * fem, 10 * fem, 0 * fem),
                         width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              height: 180 * fem,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    left: 65 * fem,
-                                    top: 82.5 * fem,
-                                    child: Align(
-                                      child: SizedBox(
-                                        width: 69 * fem,
-                                        height: 26 * fem,
-                                        child: Text(
-                                          'CHANEL',
-                                          style: SafeGoogleFont(
-                                            'Be Vietnam',
-                                            fontSize: 20 * ffem,
-                                            fontWeight: FontWeight.w500,
-                                            height: 1.2575 * ffem / fem,
-                                            fontStyle: FontStyle.italic,
-                                            color: const Color(0xff000000),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    // image43v65 (2488:707)
-                                    left: 0 * fem,
-                                    top: 0 * fem,
-                                    child: Align(
-                                      child: SizedBox(
-                                        width: 350 * fem,
-                                        height: 180 * fem,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20 * fem),
-                                          child: Image.asset(
-                                            'assets/pages/images/image-43-KLu.png',
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(
-                                  0 * fem, 10 * fem, 0 * fem, 10 * fem),
-                              child: Text(
-                                'The Top 5 Trending Products',
-                                style: SafeGoogleFont(
-                                  'Be Vietnam',
-                                  fontSize: 18 * ffem,
-                                  fontWeight: FontWeight.w700,
-                                  height: 1.2575 * ffem / fem,
-                                  color: const Color(0xff000000),
+                        height: 555,
+                        child: ListView.builder(
+                          physics: const ScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          padding: EdgeInsets.zero,
+                          itemCount: 1,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                FutureBuilder(
+                                    future: getBlogImage(args.thumbnailImg),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState == ConnectionState.done) {
+                                        return SizedBox(
+                                          child: Image.network(snapshot.data.toString()),
+                                        );
+                                      }
+                                      else {
+                                        return const CircularProgressIndicator();
+                                      }
+                                    }),
+                                SizedBox(
+                                  height: 10 * fem,
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              height: 430 * fem,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 95.33 * fem,
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          left: 77 * fem,
-                                          top: 50.5 * fem,
-                                          child: Align(
-                                            child: SizedBox(
-                                              width: 106 * fem,
-                                              height: 19 * fem,
-                                              child: Text(
-                                                '@chanelofficial',
-                                                style: SafeGoogleFont(
-                                                  'Be Vietnam',
-                                                  fontSize: 15 * ffem,
-                                                  fontWeight: FontWeight.w800,
-                                                  height: 1.2575 * ffem / fem,
-                                                  fontStyle: FontStyle.italic,
-                                                  color:
-                                                      const Color(0xff000000),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: 210 * fem,
-                                          top: 29 * fem,
-                                          child: Container(
-                                            width: 132 * fem,
-                                            height: 38 * fem,
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xff292526),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      40 * fem),
-                                            ),
-                                            child: Center(
-                                              child: Center(
-                                                child: Text(
-                                                  'Follow',
-                                                  textAlign: TextAlign.center,
-                                                  style: SafeGoogleFont(
-                                                    'Encode Sans',
-                                                    fontSize: 14 * ffem,
-                                                    fontWeight: FontWeight.w700,
-                                                    height: 1.4000000272 *
-                                                        ffem /
-                                                        fem,
-                                                    color:
-                                                        const Color(0xffffffff),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: 7 * fem,
-                                          top: 18 * fem,
-                                          child: Align(
-                                            child: SizedBox(
-                                              width: 62.37 * fem,
-                                              height: 60 * fem,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        289.5 * fem),
-                                                child: Image.asset(
-                                                  'assets/pages/images/image-46.png',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: 0 * fem,
-                                          top: 0 * fem,
-                                          child: Align(
-                                            child: SizedBox(
-                                              width: 350.41 * fem,
-                                              height: 95.33 * fem,
-                                              child: Image.asset(
-                                                'assets/pages/images/line-2.png',
-                                                width: 350.41 * fem,
-                                                height: 95.33 * fem,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          left: 77 * fem,
-                                          top: 18 * fem,
-                                          child: Align(
-                                            child: SizedBox(
-                                              width: 83 * fem,
-                                              height: 31 * fem,
-                                              child: Text(
-                                                'CHANEL',
-                                                style: SafeGoogleFont(
-                                                  'Be Vietnam',
-                                                  fontSize: 24 * ffem,
-                                                  fontWeight: FontWeight.w500,
-                                                  height: 1.2575 * ffem / fem,
-                                                  fontStyle: FontStyle.italic,
-                                                  color:
-                                                      const Color(0xff000000),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                Container(
+                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  decoration: const BoxDecoration(
+                                      border: Border(bottom: BorderSide(color: Colors.grey,width: 0.7))
+                                  ),
+                                  child: Text(
+                                    args.title,
+                                    style: const TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold
                                     ),
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 20 * fem, 0 * fem, 20 * fem),
-                                    width: double.infinity,
-                                    height: 45 * fem,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(0 * fem,
-                                              0 * fem, 20 * fem, 0 * fem),
-                                          width: 110 * fem,
-                                          height: double.infinity,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: const Color(0xff000000)),
-                                            color: const Color(0xffffffff),
-                                            borderRadius:
-                                                BorderRadius.circular(10 * fem),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              'Fashion',
-                                              textAlign: TextAlign.center,
-                                              style: SafeGoogleFont(
-                                                'Encode Sans',
-                                                fontSize: 14 * ffem,
-                                                fontWeight: FontWeight.w700,
-                                                height:
-                                                    1.4000000272 * ffem / fem,
-                                                color: const Color(0xff000000),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          '3 days ago',
-                                          textAlign: TextAlign.center,
-                                          style: SafeGoogleFont(
-                                            'Encode Sans',
-                                            fontSize: 14 * ffem,
-                                            fontWeight: FontWeight.w100,
-                                            height: 1.4000000272 * ffem / fem,
-                                            color: const Color(0xff000000),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  decoration: const BoxDecoration(
+                                      border: Border(bottom: BorderSide(color: Colors.grey,width: 0.7))
                                   ),
-                                  Container(
-                                    constraints: BoxConstraints(
-                                      maxWidth: 351 * fem,
-                                    ),
-                                    child: Text(
-                                      'Digital fashion brand Chanel has unveiled a collection of digital wearables inspired by the ‘90s rom-com Clueless under license from Paramount Consumer Products.\n\nThe 15-piece collection will launch on Roblox through a pop-up store within the House of Blueberry Experience on July 25 and will feature looks inspired by the classic outfits that Cher, Dionne, and Tai wore in the hit film, such as Cher’s yellow plaid outfit, and red dress and boa.',
-                                      textAlign: TextAlign.justify,
-                                      style: SafeGoogleFont(
-                                        'Encode Sans',
-                                        fontSize: 16 * ffem,
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.3999999762 * ffem / fem,
-                                        color: const Color(0xff000000),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'By: ${args.authorName}',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400,
+                                          fontStyle: FontStyle.italic,
+                                        ),
                                       ),
-                                    ),
+                                      SizedBox(
+                                        height: 5 * fem,
+                                      ),
+                                      Text(
+                                        'Post On: ${DateFormat('dd-MM-yyyy').format(args.postDate.toDate())}',
+                                      )
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                for (var item in args.content) Container(
+                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  child: Text(item, style: const TextStyle(fontSize: 16))
+                                )
+                              ],
+                            );
+                          },
+                        )
                       ),
                     ],
                   );
@@ -423,7 +251,6 @@ class Blog extends StatelessWidget {
       ),
     );
   }
-
   Future<UserModel> getUserDetail(String email) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('Users')
@@ -432,4 +259,19 @@ class Blog extends StatelessWidget {
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
   }
+
+  Future getBlogImage(String imgName) async {
+    try {
+      await downloadURL(imgName);
+      return imageUrl;
+    } catch(e) {
+      debugPrint("Error - $e");
+      return null;
+    }
+  }
+
+  Future<void> downloadURL(String imgName) async {
+    imageUrl = await storage.child('blogs_image/$imgName.png').getDownloadURL();
+  }
 }
+

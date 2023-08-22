@@ -1,4 +1,5 @@
 import 'package:finalproject/pages/auth.dart';
+import 'package:finalproject/pages/blog.dart';
 import 'package:finalproject/pages/order_detail.dart';
 import 'package:finalproject/pages/product_detail.dart';
 import 'package:finalproject/pages/verify_email.dart';
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         home: const MainPage(),
         routes: {
           ProductDetail.routeName: (context) => const ProductDetail(),
-          OrderDetail.routeName: (context) => const OrderDetail()
+          OrderDetail.routeName: (context) => const OrderDetail(),
+          BlogDetail.routeName: (context) => const BlogDetail(),
         },
       );
 }
