@@ -1,16 +1,17 @@
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/models/cart_model.dart';
+import 'package:finalproject/models/order_model.dart';
 import 'package:finalproject/models/shipping_model.dart';
 import 'package:finalproject/models/user_model.dart';
+import 'package:finalproject/pages/home.dart';
 import 'package:finalproject/pages/shipping_information.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 import 'package:intl/intl.dart';
-
-import '../components/navigationdrawer.dart';
+import 'package:finalproject/components/navigationdrawer.dart';
 
 class CheckOut extends StatefulWidget {
   const CheckOut({super.key});
@@ -20,15 +21,16 @@ class CheckOut extends StatefulWidget {
 }
 
 class _CheckOutState extends State<CheckOut> {
-  late int quantity = 0;
-  String imageUrl = '';
   final storage = FirebaseStorage.instance.ref().child('products_image');
+  Map<String, String> shippingInformation = {};
+  String imageUrl = '';
   String selectedItem = "";
+  int shippingFee = 5000;
+  int subToTal = 0;
 
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-    int shippingFee = 15000;
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
@@ -171,11 +173,14 @@ class _CheckOutState extends State<CheckOut> {
                                   if (snapshot.hasData) {
                                     final List cart = snapshot.data as List;
                                     late List<int> quantities = [];
-                                    int quantity = 0;
-                                    int total = 0;
+                                    late List<Map> products = [];
                                     int index = 0;
+                                    int total = 0;
+                                    int quantity = 0;
 
                                     for (var value in cart) {
+                                      products.add(value.product);
+
                                       value.product.forEach((key, value) {
                                         if (key == "Quantity") {
                                           quantity =
@@ -200,6 +205,7 @@ class _CheckOutState extends State<CheckOut> {
                                         }
                                       });
                                     }
+
                                     return Column(
                                       children: [
                                         Container(
@@ -478,7 +484,7 @@ class _CheckOutState extends State<CheckOut> {
                                           padding: EdgeInsets.fromLTRB(20 * fem,
                                               10 * fem, 20 * fem, 0 * fem),
                                           width: double.infinity,
-                                          height: 291 * fem,
+                                          height: 220 * fem,
                                           child: ClipRect(
                                             child: BackdropFilter(
                                               filter: ImageFilter.blur(
@@ -561,6 +567,14 @@ class _CheckOutState extends State<CheckOut> {
                                                                               .add(value.address);
                                                                         }
 
+                                                                        for (var value in shipping) {
+                                                                          if(value.address == selectedItem) {
+                                                                            shippingInformation["FullName"] = value.fullName;
+                                                                            shippingInformation["PhoneNumber"] = value.phoneNumber;
+                                                                            shippingInformation["Address"] = value.address;
+                                                                          }
+                                                                        }
+
                                                                         return SizedBox(
                                                                           width:
                                                                               250,
@@ -597,6 +611,9 @@ class _CheckOutState extends State<CheckOut> {
                                                                                 .map((item) => DropdownMenuItem(
                                                                                       value: item,
                                                                                       child: Text(item, style: const TextStyle(fontSize: 16)),
+                                                                                      onTap: () {
+                                                                                        setState(() => selectedItem = item);
+                                                                                      },
                                                                                     ))
                                                                                 .toList(),
                                                                             onChanged: (item) =>
@@ -766,7 +783,7 @@ class _CheckOutState extends State<CheckOut> {
                                                                 snapshot.data!
                                                                         .isNotEmpty
                                                                     ? formatCurrency(
-                                                                        shippingFee)
+                                                                        shippingFee * quantity)
                                                                     : '0',
                                                                 style:
                                                                     SafeGoogleFont(
@@ -845,48 +862,64 @@ class _CheckOutState extends State<CheckOut> {
                                                             ],
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width: 347 * fem,
-                                                          height: 44 * fem,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: const Color(
-                                                                0xff292526),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        40 *
-                                                                            fem),
-                                                          ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Pay',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style:
-                                                                  SafeGoogleFont(
-                                                                'Encode Sans',
-                                                                fontSize:
-                                                                    14 * ffem,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                height:
-                                                                    1.4000000272 *
-                                                                        ffem /
-                                                                        fem,
-                                                                color: const Color(
-                                                                    0xffffffff),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
                                                       ],
                                                     ),
                                                   ),
                                                 ],
                                               ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 300,
+                                          height: 35,
+                                          child: Center(
+                                            child: ElevatedButton.icon(
+                                              style: ElevatedButton.styleFrom(
+                                                minimumSize:
+                                                    const Size.fromHeight(35),
+                                                backgroundColor:
+                                                    const Color(0xff292526),
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40.0)),
+                                              ),
+                                              icon: const Icon(
+                                                  Icons.payment_rounded,
+                                                  size: 20),
+                                              label: Text(
+                                                'Order',
+                                                textAlign: TextAlign.center,
+                                                style: SafeGoogleFont(
+                                                  'Be Vietnam',
+                                                  fontSize: 20 * ffem,
+                                                  fontWeight: FontWeight.w700,
+                                                  height: 1.2575 * ffem / fem,
+                                                  color:
+                                                      const Color(0xffffffff),
+                                                ),
+                                              ),
+                                              onPressed: () async {
+                                                if (products.isEmpty) return;
+
+                                                final order = OrderModel(
+                                                  userId: userData.id,
+                                                  products: products,
+                                                  shippingInformation: shippingInformation,
+                                                  total: total.toString(),
+                                                  shippingFee: shippingFee.toString(),
+                                                  subTotal: (total + shippingFee).toString()
+                                                );
+
+                                                await createOrder(order);
+
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                        const Home()));
+                                              },
                                             ),
                                           ),
                                         ),
@@ -973,5 +1006,13 @@ class _CheckOutState extends State<CheckOut> {
     final shippingInformationData =
         snapshot.docs.map((e) => ShippingModel.fromSnapshot(e)).toList();
     return shippingInformationData;
+  }
+
+  Future createOrder(OrderModel order) async {
+    final docOrder = FirebaseFirestore.instance.collection('Orders').doc();
+    order.id = docOrder.id;
+
+    final json = order.toJson();
+    await docOrder.set(json);
   }
 }

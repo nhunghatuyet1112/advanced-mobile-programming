@@ -1160,6 +1160,7 @@ class _ProductDetail extends State<ProductDetail> {
     final json = cart.toJson();
     await docCart.set(json);
   }
+
   Future getProductImage(String imgName) async {
     try {
       await downloadURL(imgName);
