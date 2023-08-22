@@ -2,14 +2,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/components/navigationdrawer.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 
-class BlogList extends StatelessWidget {
+import '../arguments/blog_data.dart';
+import '../models/blog_model.dart';
+import 'blog.dart';
+
+class BlogList extends StatefulWidget {
   const BlogList({super.key});
 
   @override
+  State<BlogList> createState() => _BlogList();
+}
+
+class _BlogList extends State<BlogList> {
+  String imageUrl = '';
+  final storage = FirebaseStorage.instance.ref();
+  @override
   Widget build(BuildContext context) {
+
     final user = FirebaseAuth.instance.currentUser!;
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -68,7 +81,7 @@ class BlogList extends StatelessWidget {
                                                   fontWeight: FontWeight.w400,
                                                   height: 1.2575 * ffem / fem,
                                                   color:
-                                                      const Color(0xff000000),
+                                                  const Color(0xff000000),
                                                 ),
                                               ),
                                             ],
@@ -138,677 +151,158 @@ class BlogList extends StatelessWidget {
                           color: Color(0xff000000),
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          'Blog',
-                          textAlign: TextAlign.center,
-                          style: SafeGoogleFont(
-                            'Be Vietnam',
-                            fontSize: 25 * ffem,
-                            fontWeight: FontWeight.w700,
-                            height: 1.2575 * ffem / fem,
-                            color: const Color(0xff000000),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 540,
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 10 * fem, 0 * fem, 0 * fem),
-                        padding: EdgeInsets.fromLTRB(
-                            15 * fem, 0 * fem, 15 * fem, 0 * fem),
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 129 * fem,
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xffd9d9d9)),
-                                borderRadius: BorderRadius.circular(15 * fem),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                      width: 106.69 * fem,
-                                      height: 129 * fem,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                        child: Image.asset(
-                                          'assets/pages/images/image-53-nbb.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                    width: 260 * fem,
-                                    height: double.infinity,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 10 * fem, 0 * fem),
-                                          child: Text(
-                                            'The Top 5 Trending Products',
-                                            style: SafeGoogleFont(
-                                              'Be Vietnam',
-                                              fontSize: 18 * ffem,
-                                              fontWeight: FontWeight.w700,
-                                              height: 1.2575 * ffem / fem,
-                                              color: const Color(0xff000000),
+                      FutureBuilder<List<BlogModel>>(
+                          future: getBlogList(),
+                          builder: (context,snapshot) {
+                            if(snapshot.connectionState == ConnectionState.done) {
+                              if(snapshot.hasData) {
+                                return SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 590 * fem,
+                                    child: ListView.builder(
+                                        shrinkWrap: false,
+                                        physics: const ScrollPhysics(),
+                                        padding: EdgeInsets.fromLTRB(10 * fem, 0 * fem, 10 * fem, 0 * fem),
+                                        itemCount: snapshot.data!.length,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                  context,
+                                                  BlogDetail.routeName,
+                                                  arguments: BlogData(
+                                                      snapshot
+                                                          .data![index].id,
+                                                      snapshot
+                                                          .data![index].title,
+                                                      snapshot
+                                                          .data![index].content,
+                                                      snapshot
+                                                          .data![index].authorName,
+                                                      snapshot
+                                                          .data![index].postDate,
+                                                      snapshot
+                                                          .data![index].thumbnailImg));
+                                            },
+                                            child: Container(
+                                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 10 * fem),
+                                                width: 402 * fem,
+                                                height: 150 * fem,
+                                                decoration: const BoxDecoration(
+                                                  border: Border(bottom: BorderSide(width: 1)),
+                                                ),
+                                                child: SizedBox(
+                                                  height: 140 * fem,
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      FutureBuilder(
+                                                          future: getBlogImage(snapshot.data![index].thumbnailImg),
+                                                          builder: (context, snapshot) {
+                                                            if (snapshot.connectionState == ConnectionState.done) {
+                                                              if (snapshot.hasData) {
+                                                                return Container(
+                                                                  margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 5 * fem, 0 * fem),
+                                                                  width: 130,
+                                                                  height: 140,
+                                                                  child: Image.network(snapshot.data.toString(), fit: BoxFit.cover,),
+                                                                );
+                                                              }
+                                                              else if (snapshot.hasError) {
+                                                                return Center(child: Text(snapshot.error.toString()),);
+                                                              } else {
+                                                                return const Center(child: Text('Something went wrong'),);
+                                                              }
+                                                            }
+                                                            else {
+                                                              return const CircularProgressIndicator();
+                                                            }
+                                                          }),
+                                                      Expanded(
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Expanded(
+                                                                  flex: 0,
+                                                                  child: Text(
+                                                                    maxLines: 3,
+                                                                    snapshot.data![index].title,
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    style: const TextStyle(
+                                                                      fontSize: 22,
+                                                                      fontWeight: FontWeight.bold,
+                                                                    ),
+                                                                  )
+                                                              ),
+                                                              SizedBox(
+                                                                height: 3 * fem,
+                                                              ),
+                                                              Expanded(
+                                                                  flex: 0,
+                                                                  child: Text(
+                                                                    maxLines: 2,
+                                                                    snapshot.data![index].content[0].toString(),
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    style: const TextStyle(
+                                                                      fontSize: 13,
+                                                                      fontWeight: FontWeight.w400,
+                                                                    ),
+                                                                  )
+                                                              ),
+                                                              SizedBox(
+                                                                height: 15 * fem,
+                                                              ),
+                                                              Text(
+                                                                snapshot.data![index].authorName,
+                                                                style: const TextStyle(
+                                                                  fontSize: 18,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontStyle: FontStyle.italic,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 3 * fem,
+                                                              ),
+                                                              Expanded(
+                                                                  flex: 0,
+                                                                  child: Text(
+                                                                    maxLines: 3,
+                                                                    DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays > 1
+                                                                        ? "${DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays} days ago"
+                                                                        : "${DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays} day ago",
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    style: const TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontSize: 16,
+                                                                      fontWeight: FontWeight.w300,
+                                                                      fontStyle: FontStyle.italic,
+                                                                    ),
+                                                                  )
+                                                              ),
+                                                            ],
+                                                          )
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
                                             ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    0 * fem,
-                                                    0 * fem,
-                                                    10 * fem,
-                                                    0 * fem),
-                                                width: 20 * fem,
-                                                height: 20 * fem,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100 * fem),
-                                                  child: Image.asset(
-                                                    'assets/pages/images/image-51.png',
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 43 * fem,
-                                                height: 19 * fem,
-                                                child: Text(
-                                                  'PRADA',
-                                                  style: SafeGoogleFont(
-                                                    'Be Vietnam',
-                                                    fontSize: 15 * ffem,
-                                                    fontWeight: FontWeight.w500,
-                                                    height: 1.2575 * ffem / fem,
-                                                    fontStyle: FontStyle.italic,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              0 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  '3 days ago',
-                                                  textAlign: TextAlign.center,
-                                                  style: SafeGoogleFont(
-                                                    'Encode Sans',
-                                                    fontSize: 14 * ffem,
-                                                    fontWeight: FontWeight.w100,
-                                                    height: 1.4000000272 *
-                                                        ffem /
-                                                        fem,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                Row(children: [
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        20 * fem,
-                                                        0 * fem),
-                                                    width: 16.02 * fem,
-                                                    height: 17.58 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-pLh.png',
-                                                      width: 16.02 * fem,
-                                                      height: 17.58 * fem,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem),
-                                                    width: 6.01 * fem,
-                                                    height: 17.69 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-PYD.png',
-                                                      width: 6.01 * fem,
-                                                      height: 17.69 * fem,
-                                                    ),
-                                                  ),
-                                                ])
-                                              ]),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5 * fem,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 129 * fem,
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xffd9d9d9)),
-                                borderRadius: BorderRadius.circular(15 * fem),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                      width: 106.69 * fem,
-                                      height: 129 * fem,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                        child: Image.asset(
-                                          'assets/pages/images/image-53-nbb.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                    width: 260 * fem,
-                                    height: double.infinity,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 10 * fem, 0 * fem),
-                                          child: Text(
-                                            'The Top 5 Trending Products',
-                                            style: SafeGoogleFont(
-                                              'Be Vietnam',
-                                              fontSize: 18 * ffem,
-                                              fontWeight: FontWeight.w700,
-                                              height: 1.2575 * ffem / fem,
-                                              color: const Color(0xff000000),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    0 * fem,
-                                                    0 * fem,
-                                                    10 * fem,
-                                                    0 * fem),
-                                                width: 20 * fem,
-                                                height: 20 * fem,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100 * fem),
-                                                  child: Image.asset(
-                                                    'assets/pages/images/image-51.png',
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 43 * fem,
-                                                height: 19 * fem,
-                                                child: Text(
-                                                  'PRADA',
-                                                  style: SafeGoogleFont(
-                                                    'Be Vietnam',
-                                                    fontSize: 15 * ffem,
-                                                    fontWeight: FontWeight.w500,
-                                                    height: 1.2575 * ffem / fem,
-                                                    fontStyle: FontStyle.italic,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              0 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  '3 days ago',
-                                                  textAlign: TextAlign.center,
-                                                  style: SafeGoogleFont(
-                                                    'Encode Sans',
-                                                    fontSize: 14 * ffem,
-                                                    fontWeight: FontWeight.w100,
-                                                    height: 1.4000000272 *
-                                                        ffem /
-                                                        fem,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                Row(children: [
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        20 * fem,
-                                                        0 * fem),
-                                                    width: 16.02 * fem,
-                                                    height: 17.58 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-pLh.png',
-                                                      width: 16.02 * fem,
-                                                      height: 17.58 * fem,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem),
-                                                    width: 6.01 * fem,
-                                                    height: 17.69 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-PYD.png',
-                                                      width: 6.01 * fem,
-                                                      height: 17.69 * fem,
-                                                    ),
-                                                  ),
-                                                ])
-                                              ]),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5 * fem,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 129 * fem,
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xffd9d9d9)),
-                                borderRadius: BorderRadius.circular(15 * fem),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                      width: 106.69 * fem,
-                                      height: 129 * fem,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                        child: Image.asset(
-                                          'assets/pages/images/image-53-nbb.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                    width: 260 * fem,
-                                    height: double.infinity,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 10 * fem, 0 * fem),
-                                          child: Text(
-                                            'The Top 5 Trending Products',
-                                            style: SafeGoogleFont(
-                                              'Be Vietnam',
-                                              fontSize: 18 * ffem,
-                                              fontWeight: FontWeight.w700,
-                                              height: 1.2575 * ffem / fem,
-                                              color: const Color(0xff000000),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    0 * fem,
-                                                    0 * fem,
-                                                    10 * fem,
-                                                    0 * fem),
-                                                width: 20 * fem,
-                                                height: 20 * fem,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100 * fem),
-                                                  child: Image.asset(
-                                                    'assets/pages/images/image-51.png',
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 43 * fem,
-                                                height: 19 * fem,
-                                                child: Text(
-                                                  'PRADA',
-                                                  style: SafeGoogleFont(
-                                                    'Be Vietnam',
-                                                    fontSize: 15 * ffem,
-                                                    fontWeight: FontWeight.w500,
-                                                    height: 1.2575 * ffem / fem,
-                                                    fontStyle: FontStyle.italic,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              0 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  '3 days ago',
-                                                  textAlign: TextAlign.center,
-                                                  style: SafeGoogleFont(
-                                                    'Encode Sans',
-                                                    fontSize: 14 * ffem,
-                                                    fontWeight: FontWeight.w100,
-                                                    height: 1.4000000272 *
-                                                        ffem /
-                                                        fem,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                Row(children: [
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        20 * fem,
-                                                        0 * fem),
-                                                    width: 16.02 * fem,
-                                                    height: 17.58 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-pLh.png',
-                                                      width: 16.02 * fem,
-                                                      height: 17.58 * fem,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem),
-                                                    width: 6.01 * fem,
-                                                    height: 17.69 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-PYD.png',
-                                                      width: 6.01 * fem,
-                                                      height: 17.69 * fem,
-                                                    ),
-                                                  ),
-                                                ])
-                                              ]),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5 * fem,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 129 * fem,
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xffd9d9d9)),
-                                borderRadius: BorderRadius.circular(15 * fem),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Container(
-                                      margin: EdgeInsets.fromLTRB(
-                                          0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                      width: 106.69 * fem,
-                                      height: 129 * fem,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(15 * fem),
-                                        child: Image.asset(
-                                          'assets/pages/images/image-53-nbb.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(
-                                        0 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                    width: 260 * fem,
-                                    height: double.infinity,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 10 * fem, 0 * fem),
-                                          child: Text(
-                                            'The Top 5 Trending Products',
-                                            style: SafeGoogleFont(
-                                              'Be Vietnam',
-                                              fontSize: 18 * ffem,
-                                              fontWeight: FontWeight.w700,
-                                              height: 1.2575 * ffem / fem,
-                                              color: const Color(0xff000000),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              8 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    0 * fem,
-                                                    0 * fem,
-                                                    10 * fem,
-                                                    0 * fem),
-                                                width: 20 * fem,
-                                                height: 20 * fem,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100 * fem),
-                                                  child: Image.asset(
-                                                    'assets/pages/images/image-51.png',
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 43 * fem,
-                                                height: 19 * fem,
-                                                child: Text(
-                                                  'PRADA',
-                                                  style: SafeGoogleFont(
-                                                    'Be Vietnam',
-                                                    fontSize: 15 * ffem,
-                                                    fontWeight: FontWeight.w500,
-                                                    height: 1.2575 * ffem / fem,
-                                                    fontStyle: FontStyle.italic,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.fromLTRB(10 * fem,
-                                              0 * fem, 0 * fem, 0 * fem),
-                                          width: double.infinity,
-                                          height: 39 * fem,
-                                          child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  '3 days ago',
-                                                  textAlign: TextAlign.center,
-                                                  style: SafeGoogleFont(
-                                                    'Encode Sans',
-                                                    fontSize: 14 * ffem,
-                                                    fontWeight: FontWeight.w100,
-                                                    height: 1.4000000272 *
-                                                        ffem /
-                                                        fem,
-                                                    color:
-                                                        const Color(0xff000000),
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                Row(children: [
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        20 * fem,
-                                                        0 * fem),
-                                                    width: 16.02 * fem,
-                                                    height: 17.58 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-pLh.png',
-                                                      width: 16.02 * fem,
-                                                      height: 17.58 * fem,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem,
-                                                        0 * fem),
-                                                    width: 6.01 * fem,
-                                                    height: 17.69 * fem,
-                                                    child: Image.asset(
-                                                      'assets/pages/images/iconography-caesarzkn-PYD.png',
-                                                      width: 6.01 * fem,
-                                                      height: 17.69 * fem,
-                                                    ),
-                                                  ),
-                                                ])
-                                              ]),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                                          );
+                                        })
+                                );
+                              } else if (snapshot.hasError) {
+                                return Center(child: Text(snapshot.error.toString()),);
+                              }  else {
+                                return const Center(child: Text('Something went wrong'),);
+                              }
+                            } else {
+                              return SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                child: const Center(child: CircularProgressIndicator()),
+                              );
+                            }
+                          }
+                      )
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -838,4 +332,26 @@ class BlogList extends StatelessWidget {
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
   }
+
+  Future<List<BlogModel>> getBlogList() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Blogs').get();
+    final blogListData = snapshot.docs.map((e) => BlogModel.fromSnapshot(e)).toList();
+    return blogListData;
+  }
+
+  Future getBlogImage(String imgName) async {
+    try {
+      await downloadURL(imgName);
+      return imageUrl;
+    } catch(e) {
+      debugPrint("Error - $e");
+      return null;
+    }
+  }
+
+  Future<void> downloadURL(String imgName) async {
+    imageUrl = await storage.child('blogs_image/$imgName.png').getDownloadURL();
+  }
 }
+
