@@ -2,18 +2,30 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalproject/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
 import 'package:finalproject/components/navigationdrawer.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _Home();
+}
+
+class _Home extends State<Home> {
+  String imageUrl = '';
+  final storage = FirebaseStorage.instance.ref().child('dashboard_image');
+  final storage1 = FirebaseStorage.instance.ref();
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     double baseWidth = 412;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double fem = MediaQuery
+        .of(context)
+        .size
+        .width / baseWidth;
     double ffem = fem * 0.97;
 
     return Scaffold(
@@ -71,7 +83,7 @@ class Home extends StatelessWidget {
                                                   fontWeight: FontWeight.w400,
                                                   height: 1.2575 * ffem / fem,
                                                   color:
-                                                      const Color(0xff000000),
+                                                  const Color(0xff000000),
                                                 ),
                                               ),
                                             ],
@@ -139,78 +151,191 @@ class Home extends StatelessWidget {
                           color: Color(0xff000000),
                         ),
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 577,
+                      Container(
+                        width: 412,
+                        height: 575,
                         child: ListView(
                           padding: EdgeInsets.zero,
                           children: [
-                            CarouselSlider(
-                                items: [
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: AssetImage(
-                                          'assets/pages/images/image-54-bg-ELy.png',
-                                        ),
-                                      ),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {},
-                                          style: TextButton.styleFrom(
-                                            padding: EdgeInsets.fromLTRB(
-                                                300 * fem,
-                                                270 * fem,
-                                                0 * fem,
-                                                0 * fem),
-                                          ),
-                                          child: SizedBox(
-                                            width: 40 * fem,
-                                            height: 40 * fem,
-                                            child: Image.asset(
-                                              'assets/pages/images/frame-1171274973-8DF.png',
-                                              width: 40 * fem,
-                                              height: 40 * fem,
-                                            ),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {},
-                                          style: TextButton.styleFrom(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0 * fem,
-                                                230 * fem,
-                                                0 * fem,
-                                                0 * fem),
-                                          ),
-                                          child: SizedBox(
-                                            width: 24 * fem,
-                                            height: 24 * fem,
-                                            child: Image.asset(
-                                              'assets/pages/images/chevron-bar-down-CrD.png',
-                                              width: 24 * fem,
-                                              height: 24 * fem,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                                options: CarouselOptions(
-                                  height: 577,
-                                  scrollDirection: Axis.vertical,
-                                  enableInfiniteScroll: true,
-                                  viewportFraction: 1,
-                                ))
+                            FutureBuilder(
+                                future: getListUrls('women'),
+                                builder: (context, snapshot) {
+                                  return SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 575,
+                                    child: PageView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return FutureBuilder(
+                                            future: getProductImage(snapshot.data![index].toString()),
+                                            builder: (context, snapshot) {
+                                              if(snapshot.connectionState == ConnectionState.done) {
+                                                if (snapshot.hasData) {
+                                                  return Stack(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 575,
+                                                        width: 500,
+                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
+                                                      ),
+                                                      const Positioned.fill(
+                                                        child: Align(
+                                                          alignment: Alignment.center,
+                                                          child: Text('"WOMEN"', style: TextStyle(color: Colors.white)),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }
+                                                else if (snapshot.hasError) {
+                                                  return Text(snapshot.error.toString());
+                                                } else {
+                                                  return const Text('Something went wrong');
+                                                }
+                                              } else {
+                                                return const CircularProgressIndicator();
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  );
+                                }),
+                            FutureBuilder(
+                                future: getListUrls('men'),
+                                builder: (context, snapshot) {
+                                  return SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 575,
+                                    child: PageView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return FutureBuilder(
+                                            future: getProductImage(snapshot.data![index].toString()),
+                                            builder: (context, snapshot) {
+                                              if(snapshot.connectionState == ConnectionState.done) {
+                                                if (snapshot.hasData) {
+                                                  return Stack(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 575,
+                                                        width: 500,
+                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
+                                                      ),
+                                                      const Positioned.fill(
+                                                        child: Align(
+                                                          alignment: Alignment.center,
+                                                          child: Text('"MEN"', style: TextStyle(color: Colors.white)),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }
+                                                else if (snapshot.hasError) {
+                                                  return Text(snapshot.error.toString());
+                                                } else {
+                                                  return const Text('Something went wrong');
+                                                }
+                                              } else {
+                                                return const CircularProgressIndicator();
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  );
+                                }),
+                            FutureBuilder(
+                                future: getListUrls('kid'),
+                                builder: (context, snapshot) {
+                                  return SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 575,
+                                    child: PageView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return FutureBuilder(
+                                            future: getProductImage(snapshot.data![index].toString()),
+                                            builder: (context, snapshot) {
+                                              if(snapshot.connectionState == ConnectionState.done) {
+                                                if (snapshot.hasData) {
+                                                  return Stack(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 575,
+                                                        width: 500,
+                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
+                                                      ),
+                                                      const Positioned.fill(
+                                                        child: Align(
+                                                          alignment: Alignment.center,
+                                                          child: Text('"KID"', style: TextStyle(color: Colors.white)),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }
+                                                else if (snapshot.hasError) {
+                                                  return Text(snapshot.error.toString());
+                                                } else {
+                                                  return const Text('Something went wrong');
+                                                }
+                                              } else {
+                                                return const CircularProgressIndicator();
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  );
+                                }),
+                            FutureBuilder(
+                                future: getListUrls('baby'),
+                                builder: (context, snapshot) {
+                                  return SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 575,
+                                    child: PageView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder: (context, index) {
+                                          return FutureBuilder(
+                                            future: getProductImage(snapshot.data![index].toString()),
+                                            builder: (context, snapshot) {
+                                              if(snapshot.connectionState == ConnectionState.done) {
+                                                if (snapshot.hasData) {
+                                                  return Stack(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 575,
+                                                        width: 500,
+                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
+                                                      ),
+                                                      const Positioned.fill(
+                                                        child: Align(
+                                                          alignment: Alignment.center,
+                                                          child: Text('"BABY"', style: TextStyle(color: Colors.white)),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }
+                                                else if (snapshot.hasError) {
+                                                  return Text(snapshot.error.toString());
+                                                } else {
+                                                  return const Text('Something went wrong');
+                                                }
+                                              } else {
+                                                return const CircularProgressIndicator();
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  );
+                                }),
                           ],
                         ),
-                      ),
+                      )
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -220,8 +345,14 @@ class Home extends StatelessWidget {
                 }
               } else {
                 return SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height,
                   child: const Center(child: CircularProgressIndicator()),
                 );
               }
@@ -237,7 +368,34 @@ class Home extends StatelessWidget {
         .collection('Users')
         .where("Email", isEqualTo: email)
         .get();
-    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    final userData = snapshot.docs
+        .map((e) => UserModel.fromSnapshot(e))
+        .single;
     return userData;
+  }
+
+  Future getProductImage(String url) async {
+    try {
+      await downloadUrls(url);
+      return imageUrl;
+    } catch (e) {
+      debugPrint("Error - $e");
+      return null;
+    }
+  }
+
+  Future<List<String>> getListUrls(String folderName) async {
+    var result = await storage.child(folderName).listAll();
+    List<String> imageUrls = [];
+
+    for (var element in result.items) {
+      imageUrls.add(element.fullPath);
+    }
+
+    return imageUrls;
+  }
+
+  Future<void> downloadUrls(url) async {
+    imageUrl = await storage1.child(url).getDownloadURL();
   }
 }
