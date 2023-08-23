@@ -5,10 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:finalproject/utils.dart';
-
-import '../arguments/blog_data.dart';
-import '../models/blog_model.dart';
-import 'blog.dart';
+import 'package:finalproject/arguments/blog_data.dart';
+import 'package:finalproject/models/blog_model.dart';
+import 'package:finalproject/pages/blog.dart';
 
 class BlogList extends StatefulWidget {
   const BlogList({super.key});
@@ -20,9 +19,9 @@ class BlogList extends StatefulWidget {
 class _BlogList extends State<BlogList> {
   String imageUrl = '';
   final storage = FirebaseStorage.instance.ref();
+
   @override
   Widget build(BuildContext context) {
-
     final user = FirebaseAuth.instance.currentUser!;
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -81,7 +80,7 @@ class _BlogList extends State<BlogList> {
                                                   fontWeight: FontWeight.w400,
                                                   height: 1.2575 * ffem / fem,
                                                   color:
-                                                  const Color(0xff000000),
+                                                      const Color(0xff000000),
                                                 ),
                                               ),
                                             ],
@@ -153,156 +152,226 @@ class _BlogList extends State<BlogList> {
                       ),
                       FutureBuilder<List<BlogModel>>(
                           future: getBlogList(),
-                          builder: (context,snapshot) {
-                            if(snapshot.connectionState == ConnectionState.done) {
-                              if(snapshot.hasData) {
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (snapshot.hasData) {
                                 return SizedBox(
                                     width: MediaQuery.of(context).size.width,
                                     height: 590 * fem,
                                     child: ListView.builder(
                                         shrinkWrap: false,
                                         physics: const ScrollPhysics(),
-                                        padding: EdgeInsets.fromLTRB(10 * fem, 0 * fem, 10 * fem, 0 * fem),
+                                        padding: EdgeInsets.fromLTRB(10 * fem,
+                                            0 * fem, 10 * fem, 0 * fem),
                                         itemCount: snapshot.data!.length,
                                         itemBuilder: (context, index) {
                                           return InkWell(
                                             onTap: () {
                                               Navigator.pushNamed(
-                                                  context,
-                                                  BlogDetail.routeName,
+                                                  context, BlogDetail.routeName,
                                                   arguments: BlogData(
-                                                      snapshot
-                                                          .data![index].id,
+                                                      snapshot.data![index].id,
                                                       snapshot
                                                           .data![index].title,
                                                       snapshot
                                                           .data![index].content,
-                                                      snapshot
-                                                          .data![index].authorName,
-                                                      snapshot
-                                                          .data![index].postDate,
-                                                      snapshot
-                                                          .data![index].thumbnailImg));
+                                                      snapshot.data![index]
+                                                          .authorName,
+                                                      snapshot.data![index]
+                                                          .postDate,
+                                                      snapshot.data![index]
+                                                          .thumbnailImg));
                                             },
                                             child: Container(
-                                                margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 10 * fem),
+                                                margin: EdgeInsets.fromLTRB(
+                                                    0 * fem,
+                                                    0 * fem,
+                                                    0 * fem,
+                                                    10 * fem),
                                                 width: 402 * fem,
                                                 height: 150 * fem,
                                                 decoration: const BoxDecoration(
-                                                  border: Border(bottom: BorderSide(width: 1)),
+                                                  border: Border(
+                                                      bottom:
+                                                          BorderSide(width: 1)),
                                                 ),
                                                 child: SizedBox(
                                                   height: 140 * fem,
                                                   child: Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       FutureBuilder(
-                                                          future: getBlogImage(snapshot.data![index].thumbnailImg),
-                                                          builder: (context, snapshot) {
-                                                            if (snapshot.connectionState == ConnectionState.done) {
-                                                              if (snapshot.hasData) {
+                                                          future: getBlogImage(
+                                                              snapshot
+                                                                  .data![index]
+                                                                  .thumbnailImg),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .done) {
+                                                              if (snapshot
+                                                                  .hasData) {
                                                                 return Container(
-                                                                  margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 5 * fem, 0 * fem),
+                                                                  margin: EdgeInsets
+                                                                      .fromLTRB(
+                                                                          0 * fem,
+                                                                          0 * fem,
+                                                                          5 * fem,
+                                                                          0 * fem),
                                                                   width: 130,
                                                                   height: 140,
-                                                                  child: Image.network(snapshot.data.toString(), fit: BoxFit.cover,),
+                                                                  child: Image
+                                                                      .network(
+                                                                    snapshot
+                                                                        .data
+                                                                        .toString(),
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                );
+                                                              } else if (snapshot
+                                                                  .hasError) {
+                                                                return Center(
+                                                                  child: Text(
+                                                                      snapshot
+                                                                          .error
+                                                                          .toString()),
+                                                                );
+                                                              } else {
+                                                                return const Center(
+                                                                  child: Text(
+                                                                      'Something went wrong'),
                                                                 );
                                                               }
-                                                              else if (snapshot.hasError) {
-                                                                return Center(child: Text(snapshot.error.toString()),);
-                                                              } else {
-                                                                return const Center(child: Text('Something went wrong'),);
-                                                              }
-                                                            }
-                                                            else {
+                                                            } else {
                                                               return const CircularProgressIndicator();
                                                             }
                                                           }),
                                                       Expanded(
                                                           child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Expanded(
-                                                                  flex: 0,
-                                                                  child: Text(
-                                                                    maxLines: 3,
-                                                                    snapshot.data![index].title,
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    style: const TextStyle(
-                                                                      fontSize: 22,
-                                                                      fontWeight: FontWeight.bold,
-                                                                    ),
-                                                                  )
-                                                              ),
-                                                              SizedBox(
-                                                                height: 3 * fem,
-                                                              ),
-                                                              Expanded(
-                                                                  flex: 0,
-                                                                  child: Text(
-                                                                    maxLines: 2,
-                                                                    snapshot.data![index].content[0].toString(),
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    style: const TextStyle(
-                                                                      fontSize: 13,
-                                                                      fontWeight: FontWeight.w400,
-                                                                    ),
-                                                                  )
-                                                              ),
-                                                              SizedBox(
-                                                                height: 15 * fem,
-                                                              ),
-                                                              Text(
-                                                                snapshot.data![index].authorName,
-                                                                style: const TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontStyle: FontStyle.italic,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Expanded(
+                                                              flex: 0,
+                                                              child: Text(
+                                                                maxLines: 3,
+                                                                snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .title,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 22,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
                                                                 ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 3 * fem,
-                                                              ),
-                                                              Expanded(
-                                                                  flex: 0,
-                                                                  child: Text(
-                                                                    maxLines: 3,
-                                                                    DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays > 1
-                                                                        ? "${DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays} days ago"
-                                                                        : "${DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays} day ago",
-                                                                    overflow: TextOverflow.ellipsis,
-                                                                    style: const TextStyle(
-                                                                      color: Colors.black,
-                                                                      fontSize: 16,
-                                                                      fontWeight: FontWeight.w300,
-                                                                      fontStyle: FontStyle.italic,
-                                                                    ),
-                                                                  )
-                                                              ),
-                                                            ],
-                                                          )
-                                                      ),
+                                                              )),
+                                                          SizedBox(
+                                                            height: 3 * fem,
+                                                          ),
+                                                          Expanded(
+                                                              flex: 0,
+                                                              child: Text(
+                                                                maxLines: 2,
+                                                                snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .content[0]
+                                                                    .toString(),
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontSize: 13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
+                                                              )),
+                                                          SizedBox(
+                                                            height: 15 * fem,
+                                                          ),
+                                                          Text(
+                                                            snapshot
+                                                                .data![index]
+                                                                .authorName,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 3 * fem,
+                                                          ),
+                                                          Expanded(
+                                                              flex: 0,
+                                                              child: Text(
+                                                                maxLines: 3,
+                                                                DateTime.now()
+                                                                            .difference(snapshot.data![index].postDate.toDate())
+                                                                            .inDays >
+                                                                        1
+                                                                    ? "${DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays} days ago"
+                                                                    : "${DateTime.now().difference(snapshot.data![index].postDate.toDate()).inDays} day ago",
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300,
+                                                                  fontStyle:
+                                                                      FontStyle
+                                                                          .italic,
+                                                                ),
+                                                              )),
+                                                        ],
+                                                      )),
                                                     ],
                                                   ),
-                                                )
-                                            ),
+                                                )),
                                           );
-                                        })
-                                );
+                                        }));
                               } else if (snapshot.hasError) {
-                                return Center(child: Text(snapshot.error.toString()),);
-                              }  else {
-                                return const Center(child: Text('Something went wrong'),);
+                                return Center(
+                                  child: Text(snapshot.error.toString()),
+                                );
+                              } else {
+                                return const Center(
+                                  child: Text('Something went wrong'),
+                                );
                               }
                             } else {
                               return SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height,
-                                child: const Center(child: CircularProgressIndicator()),
+                                child: const Center(
+                                    child: CircularProgressIndicator()),
                               );
                             }
-                          }
-                      )
+                          })
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -334,9 +403,9 @@ class _BlogList extends State<BlogList> {
   }
 
   Future<List<BlogModel>> getBlogList() async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Blogs').get();
-    final blogListData = snapshot.docs.map((e) => BlogModel.fromSnapshot(e)).toList();
+    final snapshot = await FirebaseFirestore.instance.collection('Blogs').get();
+    final blogListData =
+        snapshot.docs.map((e) => BlogModel.fromSnapshot(e)).toList();
     return blogListData;
   }
 
@@ -344,7 +413,7 @@ class _BlogList extends State<BlogList> {
     try {
       await downloadURL(imgName);
       return imageUrl;
-    } catch(e) {
+    } catch (e) {
       debugPrint("Error - $e");
       return null;
     }
@@ -354,4 +423,3 @@ class _BlogList extends State<BlogList> {
     imageUrl = await storage.child('blogs_image/$imgName.png').getDownloadURL();
   }
 }
-

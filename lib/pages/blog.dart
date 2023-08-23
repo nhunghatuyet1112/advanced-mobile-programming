@@ -12,6 +12,7 @@ class BlogDetail extends StatefulWidget {
   const BlogDetail({super.key});
 
   static const routeName = 'blogDetail';
+
   @override
   State<BlogDetail> createState() => _BlogDetail();
 }
@@ -19,6 +20,7 @@ class BlogDetail extends StatefulWidget {
 class _BlogDetail extends State<BlogDetail> {
   String imageUrl = '';
   final storage = FirebaseStorage.instance.ref();
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
@@ -80,7 +82,7 @@ class _BlogDetail extends State<BlogDetail> {
                                                   fontWeight: FontWeight.w400,
                                                   height: 1.2575 * ffem / fem,
                                                   color:
-                                                  const Color(0xff000000),
+                                                      const Color(0xff000000),
                                                 ),
                                               ),
                                             ],
@@ -151,86 +153,97 @@ class _BlogDetail extends State<BlogDetail> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(
-                            10 * fem, 0 * fem, 10 * fem, 0 * fem),
-                        width: double.infinity,
-                        height: 555,
-                        child: ListView.builder(
-                          physics: const ScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          padding: EdgeInsets.zero,
-                          itemCount: 1,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                FutureBuilder(
-                                    future: getBlogImage(args.thumbnailImg),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.done) {
-                                        return SizedBox(
-                                          child: Image.network(snapshot.data.toString()),
-                                        );
-                                      }
-                                      else {
-                                        return const CircularProgressIndicator();
-                                      }
-                                    }),
-                                SizedBox(
-                                  height: 10 * fem,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                  decoration: const BoxDecoration(
-                                      border: Border(bottom: BorderSide(color: Colors.grey,width: 0.7))
+                          padding: EdgeInsets.fromLTRB(
+                              10 * fem, 0 * fem, 10 * fem, 0 * fem),
+                          width: double.infinity,
+                          height: 555,
+                          child: ListView.builder(
+                            physics: const ScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.zero,
+                            itemCount: 1,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  FutureBuilder(
+                                      future: getBlogImage(args.thumbnailImg),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.done) {
+                                          return SizedBox(
+                                            child: Image.network(
+                                                snapshot.data.toString()),
+                                          );
+                                        } else {
+                                          return const CircularProgressIndicator();
+                                        }
+                                      }),
+                                  SizedBox(
+                                    height: 10 * fem,
                                   ),
-                                  child: Text(
-                                    args.title,
-                                    style: const TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold
+                                  Container(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                    decoration: const BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.grey,
+                                                width: 0.7))),
+                                    child: Text(
+                                      args.title,
+                                      style: const TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                  decoration: const BoxDecoration(
-                                      border: Border(bottom: BorderSide(color: Colors.grey,width: 0.7))
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'By: ${args.authorName}',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.italic,
+                                  Container(
+                                    width: double.infinity,
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                    decoration: const BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.grey,
+                                                width: 0.7))),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'By: ${args.authorName}',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            fontStyle: FontStyle.italic,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 5 * fem,
-                                      ),
-                                      Text(
-                                        'Post On: ${DateFormat('dd-MM-yyyy').format(args.postDate.toDate())}',
-                                      )
-                                    ],
+                                        SizedBox(
+                                          height: 5 * fem,
+                                        ),
+                                        Text(
+                                          'Post On: ${DateFormat('dd-MM-yyyy').format(args.postDate.toDate())}',
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                for (var item in args.content) Container(
-                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                  child: Text(item, style: const TextStyle(fontSize: 16))
-                                )
-                              ],
-                            );
-                          },
-                        )
-                      ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  for (var item in args.content)
+                                    Container(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 0, 0, 5),
+                                        child: Text(item,
+                                            style:
+                                                const TextStyle(fontSize: 16)))
+                                ],
+                              );
+                            },
+                          )),
                     ],
                   );
                 } else if (snapshot.hasError) {
@@ -251,6 +264,7 @@ class _BlogDetail extends State<BlogDetail> {
       ),
     );
   }
+
   Future<UserModel> getUserDetail(String email) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('Users')
@@ -264,7 +278,7 @@ class _BlogDetail extends State<BlogDetail> {
     try {
       await downloadURL(imgName);
       return imageUrl;
-    } catch(e) {
+    } catch (e) {
       debugPrint("Error - $e");
       return null;
     }
@@ -274,4 +288,3 @@ class _BlogDetail extends State<BlogDetail> {
     imageUrl = await storage.child('blogs_image/$imgName.png').getDownloadURL();
   }
 }
-

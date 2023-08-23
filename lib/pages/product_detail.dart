@@ -19,13 +19,13 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetail extends State<ProductDetail> {
+  final storage = FirebaseStorage.instance.ref().child('products_image');
   int noRating = 0;
   int quantity = 1;
   bool likeProduct = false;
-  String productColor = 'BLUE';
-  String productSize = 'S';
+  String productColor = '';
+  String productSize = '';
   String imageUrl = '';
-  final storage = FirebaseStorage.instance.ref().child('products_image');
 
   void setRating(noStar) {
     if (noRating == noStar) {
@@ -46,6 +46,17 @@ class _ProductDetail extends State<ProductDetail> {
     double baseWidth = 412;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
+    List sizes = args.sizes;
+    List<String> names = [];
+    List<int> colors = [];
+
+    Map colored = args.colors;
+    if (colors.isEmpty || sizes.isEmpty) {
+      colored.forEach((key, value) {
+        names.add(key);
+        colors.add(int.parse(value));
+      });
+    }
 
     return Scaffold(
       drawer: const MyNavigationDrawer(),
@@ -286,7 +297,7 @@ class _ProductDetail extends State<ProductDetail> {
                                                       MaterialStateProperty
                                                           .resolveWith(
                                                               (states) {
-                                                    if (noRating == 3) {
+                                                    if (noRating >= 3) {
                                                       return Colors.yellow;
                                                     } else {
                                                       return Colors.black;
@@ -313,6 +324,79 @@ class _ProductDetail extends State<ProductDetail> {
                                                 ),
                                               ),
                                             ),
+                                            SizedBox(
+                                              width: 25 * fem,
+                                              height: 25 * fem,
+                                              child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  foregroundColor:
+                                                      MaterialStateProperty
+                                                          .resolveWith(
+                                                              (states) {
+                                                    if (noRating >= 4) {
+                                                      return Colors.yellow;
+                                                    } else {
+                                                      return Colors.black;
+                                                    }
+                                                  }),
+                                                  padding:
+                                                      MaterialStateProperty.all(
+                                                          EdgeInsets.zero),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.transparent),
+                                                  shadowColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.transparent),
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    setRating(4);
+                                                  });
+                                                },
+                                                child: Icon(
+                                                  Icons.star_border_rounded,
+                                                  size: 25 * fem,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 25 * fem,
+                                              height: 25 * fem,
+                                              child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  foregroundColor:
+                                                      MaterialStateProperty
+                                                          .resolveWith(
+                                                              (states) {
+                                                    if (noRating == 5) {
+                                                      return Colors.yellow;
+                                                    } else {
+                                                      return Colors.black;
+                                                    }
+                                                  }),
+                                                  padding:
+                                                      MaterialStateProperty.all(
+                                                          EdgeInsets.zero),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.transparent),
+                                                  shadowColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.transparent),
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    setRating(5);
+                                                  });
+                                                },
+                                                child: Icon(
+                                                  Icons.star_border_rounded,
+                                                  size: 25 * fem,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 5),
                                           ],
                                         ),
                                         Text(
@@ -438,7 +522,7 @@ class _ProductDetail extends State<ProductDetail> {
                                 children: [
                                   SizedBox(
                                     width: double.infinity,
-                                    height: 60 * fem,
+                                    height: 70 * fem,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -447,9 +531,9 @@ class _ProductDetail extends State<ProductDetail> {
                                       children: [
                                         Container(
                                           margin: EdgeInsets.fromLTRB(0 * fem,
-                                              3 * fem, 99 * fem, 3 * fem),
-                                          width: 100 * fem,
-                                          height: double.infinity,
+                                              0 * fem, 0 * fem, 0 * fem),
+                                          width: 130,
+                                          height: 100,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -459,7 +543,7 @@ class _ProductDetail extends State<ProductDetail> {
                                                     0 * fem,
                                                     0 * fem,
                                                     0 * fem,
-                                                    11 * fem),
+                                                    10 * fem),
                                                 child: RichText(
                                                   text: TextSpan(
                                                     style: SafeGoogleFont(
@@ -516,105 +600,50 @@ class _ProductDetail extends State<ProductDetail> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: double.infinity,
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 20 * fem,
-                                                      height: 20 * fem,
-                                                      child: ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .blue),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            productColor =
-                                                                'BLUE';
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        3 * fem),
-                                                          ),
+                                                height: 30,
+                                                width: 130,
+                                                child: GridView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 1,
+                                                    childAspectRatio: 1,
+                                                    mainAxisSpacing: 10,
+                                                  ),
+                                                  itemCount: colors.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              backgroundColor:
+                                                                  Color(colors[
+                                                                      index])),
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          productColor =
+                                                              names[index];
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      3 * fem),
                                                         ),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 12 * fem,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 20 * fem,
-                                                      height: 20 * fem,
-                                                      child: ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                backgroundColor:
-                                                                    Colors.red),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            productColor =
-                                                                'RED';
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        3 * fem),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 12 * fem,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 20 * fem,
-                                                      height: 20 * fem,
-                                                      child: ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .green),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            productColor =
-                                                                'GREEN';
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        3 * fem),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 12 * fem,
-                                                    ),
-                                                  ],
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 176 * fem,
+                                          width: 170 * fem,
                                           height: double.infinity,
                                           child: Column(
                                             crossAxisAlignment:
@@ -683,243 +712,86 @@ class _ProductDetail extends State<ProductDetail> {
                                               ),
                                               SizedBox(
                                                 width: double.infinity,
-                                                height: 29 * fem,
+                                                height: 35 * fem,
                                                 child: Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.center,
                                                   children: [
                                                     SizedBox(
-                                                      width: 29 * fem,
-                                                      height: 29 * fem,
-                                                      child: ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          foregroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'S') {
-                                                              return Colors
-                                                                  .white;
-                                                            } else {
-                                                              return Colors
-                                                                  .black;
-                                                            }
-                                                          }),
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'S') {
-                                                              return Colors
-                                                                  .black;
-                                                            } else {
-                                                              return Colors
-                                                                  .white;
-                                                            }
-                                                          }),
-                                                          padding:
-                                                              MaterialStateProperty
-                                                                  .all(EdgeInsets
-                                                                      .zero),
-                                                          side: MaterialStateProperty
-                                                              .all(
-                                                                  const BorderSide(
-                                                                      width:
-                                                                          1)),
-                                                          shape: MaterialStateProperty.all(
-                                                              RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5))),
+                                                      height: 30,
+                                                      width: 160,
+                                                      child: GridView.builder(
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        gridDelegate:
+                                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                                          crossAxisCount: 1,
+                                                          childAspectRatio: 1,
+                                                          mainAxisSpacing: 10,
                                                         ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            setProductSize('S');
-                                                          });
+                                                        itemCount: sizes.length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return SizedBox(
+                                                            width: 30 * fem,
+                                                            height: 30 * fem,
+                                                            child:
+                                                                ElevatedButton(
+                                                              style:
+                                                                  ButtonStyle(
+                                                                foregroundColor:
+                                                                    MaterialStateProperty
+                                                                        .resolveWith(
+                                                                            (states) {
+                                                                  if (productSize ==
+                                                                      sizes[
+                                                                          index]) {
+                                                                    return Colors
+                                                                        .white;
+                                                                  } else {
+                                                                    return Colors
+                                                                        .black;
+                                                                  }
+                                                                }),
+                                                                backgroundColor:
+                                                                    MaterialStateProperty
+                                                                        .resolveWith(
+                                                                            (states) {
+                                                                  if (productSize ==
+                                                                      sizes[
+                                                                          index]) {
+                                                                    return Colors
+                                                                        .black;
+                                                                  } else {
+                                                                    return Colors
+                                                                        .white;
+                                                                  }
+                                                                }),
+                                                                padding: MaterialStateProperty
+                                                                    .all(EdgeInsets
+                                                                        .zero),
+                                                                side: MaterialStateProperty.all(
+                                                                    const BorderSide(
+                                                                        width:
+                                                                            1)),
+                                                                shape: MaterialStateProperty.all(
+                                                                    RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5))),
+                                                              ),
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  setProductSize(
+                                                                      sizes[
+                                                                          index]);
+                                                                });
+                                                              },
+                                                              child: Text(
+                                                                  sizes[index]),
+                                                            ),
+                                                          );
                                                         },
-                                                        child: const Text('S'),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10 * fem,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 29 * fem,
-                                                      height: 29 * fem,
-                                                      child: ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          foregroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'M') {
-                                                              return Colors
-                                                                  .white;
-                                                            } else {
-                                                              return Colors
-                                                                  .black;
-                                                            }
-                                                          }),
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'M') {
-                                                              return Colors
-                                                                  .black;
-                                                            } else {
-                                                              return Colors
-                                                                  .white;
-                                                            }
-                                                          }),
-                                                          padding:
-                                                              MaterialStateProperty
-                                                                  .all(EdgeInsets
-                                                                      .zero),
-                                                          side: MaterialStateProperty
-                                                              .all(
-                                                                  const BorderSide(
-                                                                      width:
-                                                                          1)),
-                                                          shape: MaterialStateProperty.all(
-                                                              RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5))),
-                                                        ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            setProductSize('M');
-                                                          });
-                                                        },
-                                                        child: const Text('M'),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10 * fem,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 29 * fem,
-                                                      height: 29 * fem,
-                                                      child: ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          foregroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'L') {
-                                                              return Colors
-                                                                  .white;
-                                                            } else {
-                                                              return Colors
-                                                                  .black;
-                                                            }
-                                                          }),
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'L') {
-                                                              return Colors
-                                                                  .black;
-                                                            } else {
-                                                              return Colors
-                                                                  .white;
-                                                            }
-                                                          }),
-                                                          padding:
-                                                              MaterialStateProperty
-                                                                  .all(EdgeInsets
-                                                                      .zero),
-                                                          side: MaterialStateProperty
-                                                              .all(
-                                                                  const BorderSide(
-                                                                      width:
-                                                                          1)),
-                                                          shape: MaterialStateProperty.all(
-                                                              RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5))),
-                                                        ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            setProductSize('L');
-                                                          });
-                                                        },
-                                                        child: const Text('L'),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10 * fem,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 36 * fem,
-                                                      height: 36 * fem,
-                                                      child: ElevatedButton(
-                                                        style: ButtonStyle(
-                                                          foregroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'XL') {
-                                                              return Colors
-                                                                  .white;
-                                                            } else {
-                                                              return Colors
-                                                                  .black;
-                                                            }
-                                                          }),
-                                                          backgroundColor:
-                                                              MaterialStateProperty
-                                                                  .resolveWith(
-                                                                      (states) {
-                                                            if (productSize ==
-                                                                'XL') {
-                                                              return Colors
-                                                                  .black;
-                                                            } else {
-                                                              return Colors
-                                                                  .white;
-                                                            }
-                                                          }),
-                                                          padding:
-                                                              MaterialStateProperty
-                                                                  .all(EdgeInsets
-                                                                      .zero),
-                                                          side: MaterialStateProperty
-                                                              .all(
-                                                                  const BorderSide(
-                                                                      width:
-                                                                          1)),
-                                                          shape: MaterialStateProperty.all(
-                                                              RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              5))),
-                                                        ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            setProductSize(
-                                                                'XL');
-                                                          });
-                                                        },
-                                                        child: const Text('XL'),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10 * fem,
                                                     ),
                                                   ],
                                                 ),
@@ -1080,6 +952,9 @@ class _ProductDetail extends State<ProductDetail> {
                                                 BorderRadius.circular(5)),
                                       ),
                                       onPressed: () async {
+                                        if (productColor == "" ||
+                                            productSize == "") return;
+
                                         final cart = CartModel(
                                           userId: userData.id,
                                           product: {

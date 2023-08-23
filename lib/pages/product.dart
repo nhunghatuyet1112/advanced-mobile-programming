@@ -486,6 +486,10 @@ class _Product extends State<Product> {
                                                       snapshot.data![index]
                                                           .description,
                                                       snapshot
+                                                          .data![index].colors,
+                                                      snapshot
+                                                          .data![index].sizes,
+                                                      snapshot
                                                           .data![index].price,
                                                       snapshot.data![index]
                                                           .imageUrl,
