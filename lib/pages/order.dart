@@ -182,6 +182,22 @@ class _OrderHistoryState extends State<OrderHistory> {
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
                                   if (snapshot.hasData) {
+                                    if (snapshot.data!.isEmpty) {
+                                      return SizedBox(
+                                        height: 500,
+                                        child: Center(
+                                            child: Text(
+                                          'No orders !',
+                                          style: SafeGoogleFont(
+                                            'Encode Sans',
+                                            fontSize: 25 * ffem,
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle: FontStyle.italic,
+                                            color: Colors.black,
+                                          ),
+                                        )),
+                                      );
+                                    }
                                     return Column(
                                       children: [
                                         Container(
@@ -415,7 +431,8 @@ class _OrderHistoryState extends State<OrderHistory> {
                                                                           18 *
                                                                               ffem,
                                                                       fontWeight:
-                                                                          FontWeight.w600,
+                                                                          FontWeight
+                                                                              .w600,
                                                                       height: 1.25 *
                                                                           ffem /
                                                                           fem,

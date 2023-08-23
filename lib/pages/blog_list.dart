@@ -150,6 +150,20 @@ class _BlogList extends State<BlogList> {
                           color: Color(0xff000000),
                         ),
                       ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 15),
+                        child: Center(
+                          child: Text(
+                            'Blog',
+                            style: SafeGoogleFont(
+                              'Encode Sans',
+                              fontSize: 25 * ffem,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
                       FutureBuilder<List<BlogModel>>(
                           future: getBlogList(),
                           builder: (context, snapshot) {
