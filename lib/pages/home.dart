@@ -17,14 +17,12 @@ class _Home extends State<Home> {
   String imageUrl = '';
   final storage = FirebaseStorage.instance.ref().child('dashboard_image');
   final storage1 = FirebaseStorage.instance.ref();
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     double baseWidth = 412;
-    double fem = MediaQuery
-        .of(context)
-        .size
-        .width / baseWidth;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
     return Scaffold(
@@ -82,7 +80,7 @@ class _Home extends State<Home> {
                                                   fontWeight: FontWeight.w400,
                                                   height: 1.2575 * ffem / fem,
                                                   color:
-                                                  const Color(0xff000000),
+                                                      const Color(0xff000000),
                                                 ),
                                               ),
                                             ],
@@ -150,7 +148,7 @@ class _Home extends State<Home> {
                           color: Color(0xff000000),
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 412,
                         height: 575,
                         child: ListView(
@@ -159,178 +157,334 @@ class _Home extends State<Home> {
                             FutureBuilder(
                                 future: getListUrls('women'),
                                 builder: (context, snapshot) {
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 575,
-                                    child: PageView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return FutureBuilder(
-                                            future: getProductImage(snapshot.data![index].toString()),
-                                            builder: (context, snapshot) {
-                                              if(snapshot.connectionState == ConnectionState.done) {
-                                                if (snapshot.hasData) {
-                                                  return Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 575,
-                                                        width: 500,
-                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
-                                                      ),
-                                                      const Positioned.fill(
-                                                        child: Align(
-                                                          alignment: Alignment.center,
-                                                          child: Text('"WOMEN"', style: TextStyle(color: Colors.white)),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }
-                                                else if (snapshot.hasError) {
-                                                  return Text(snapshot.error.toString());
-                                                } else {
-                                                  return const Text('Something went wrong');
-                                                }
-                                              } else {
-                                                return const CircularProgressIndicator();
-                                              }
-                                            },
-                                          );
-                                        }),
-                                  );
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    if (snapshot.hasData) {
+                                      return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 575,
+                                        child: PageView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) {
+                                              return FutureBuilder(
+                                                future: getProductImage(snapshot
+                                                    .data![index]
+                                                    .toString()),
+                                                builder: (context, snapshot) {
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.done) {
+                                                    if (snapshot.hasData) {
+                                                      return Stack(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 575,
+                                                            width: 500,
+                                                            child:
+                                                                Image.network(
+                                                              snapshot.data
+                                                                  .toString(),
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                          const Positioned.fill(
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                  '"WOMEN"',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else if (snapshot
+                                                        .hasError) {
+                                                      return Text(snapshot.error
+                                                          .toString());
+                                                    } else {
+                                                      return const Text(
+                                                          'Something went wrong');
+                                                    }
+                                                  } else {
+                                                    return const SizedBox
+                                                        .shrink();
+                                                  }
+                                                },
+                                              );
+                                            }),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Center(
+                                          child:
+                                              Text(snapshot.error.toString()));
+                                    } else {
+                                      return const Center(
+                                          child: Text('Something went wrong'));
+                                    }
+                                  } else {
+                                    return SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      child: const Center(
+                                          child: CircularProgressIndicator()),
+                                    );
+                                  }
                                 }),
                             FutureBuilder(
                                 future: getListUrls('men'),
                                 builder: (context, snapshot) {
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 575,
-                                    child: PageView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return FutureBuilder(
-                                            future: getProductImage(snapshot.data![index].toString()),
-                                            builder: (context, snapshot) {
-                                              if(snapshot.connectionState == ConnectionState.done) {
-                                                if (snapshot.hasData) {
-                                                  return Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 575,
-                                                        width: 500,
-                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
-                                                      ),
-                                                      const Positioned.fill(
-                                                        child: Align(
-                                                          alignment: Alignment.center,
-                                                          child: Text('"MEN"', style: TextStyle(color: Colors.white)),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }
-                                                else if (snapshot.hasError) {
-                                                  return Text(snapshot.error.toString());
-                                                } else {
-                                                  return const Text('Something went wrong');
-                                                }
-                                              } else {
-                                                return const CircularProgressIndicator();
-                                              }
-                                            },
-                                          );
-                                        }),
-                                  );
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    if (snapshot.hasData) {
+                                      return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 575,
+                                        child: PageView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) {
+                                              return FutureBuilder(
+                                                future: getProductImage(snapshot
+                                                    .data![index]
+                                                    .toString()),
+                                                builder: (context, snapshot) {
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.done) {
+                                                    if (snapshot.hasData) {
+                                                      return Stack(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 575,
+                                                            width: 500,
+                                                            child:
+                                                                Image.network(
+                                                              snapshot.data
+                                                                  .toString(),
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                          const Positioned.fill(
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                  '"MEN"',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else if (snapshot
+                                                        .hasError) {
+                                                      return Text(snapshot.error
+                                                          .toString());
+                                                    } else {
+                                                      return const Text(
+                                                          'Something went wrong');
+                                                    }
+                                                  } else {
+                                                    return const SizedBox
+                                                        .shrink();
+                                                  }
+                                                },
+                                              );
+                                            }),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Center(
+                                          child:
+                                              Text(snapshot.error.toString()));
+                                    } else {
+                                      return const Center(
+                                          child: Text('Something went wrong'));
+                                    }
+                                  } else {
+                                    return SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      child: const Center(
+                                          child: CircularProgressIndicator()),
+                                    );
+                                  }
                                 }),
                             FutureBuilder(
                                 future: getListUrls('kid'),
                                 builder: (context, snapshot) {
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 575,
-                                    child: PageView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return FutureBuilder(
-                                            future: getProductImage(snapshot.data![index].toString()),
-                                            builder: (context, snapshot) {
-                                              if(snapshot.connectionState == ConnectionState.done) {
-                                                if (snapshot.hasData) {
-                                                  return Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 575,
-                                                        width: 500,
-                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
-                                                      ),
-                                                      const Positioned.fill(
-                                                        child: Align(
-                                                          alignment: Alignment.center,
-                                                          child: Text('"KID"', style: TextStyle(color: Colors.white)),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }
-                                                else if (snapshot.hasError) {
-                                                  return Text(snapshot.error.toString());
-                                                } else {
-                                                  return const Text('Something went wrong');
-                                                }
-                                              } else {
-                                                return const CircularProgressIndicator();
-                                              }
-                                            },
-                                          );
-                                        }),
-                                  );
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    if (snapshot.hasData) {
+                                      return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 575,
+                                        child: PageView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) {
+                                              return FutureBuilder(
+                                                future: getProductImage(snapshot
+                                                    .data![index]
+                                                    .toString()),
+                                                builder: (context, snapshot) {
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.done) {
+                                                    if (snapshot.hasData) {
+                                                      return Stack(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 575,
+                                                            width: 500,
+                                                            child:
+                                                                Image.network(
+                                                              snapshot.data
+                                                                  .toString(),
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                          const Positioned.fill(
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                  '"KID"',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else if (snapshot
+                                                        .hasError) {
+                                                      return Text(snapshot.error
+                                                          .toString());
+                                                    } else {
+                                                      return const Text(
+                                                          'Something went wrong');
+                                                    }
+                                                  } else {
+                                                    return const SizedBox
+                                                        .shrink();
+                                                  }
+                                                },
+                                              );
+                                            }),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Center(
+                                          child:
+                                              Text(snapshot.error.toString()));
+                                    } else {
+                                      return const Center(
+                                          child: Text('Something went wrong'));
+                                    }
+                                  } else {
+                                    return SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      child: const Center(
+                                          child: CircularProgressIndicator()),
+                                    );
+                                  }
                                 }),
                             FutureBuilder(
                                 future: getListUrls('baby'),
                                 builder: (context, snapshot) {
-                                  return SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 575,
-                                    child: PageView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: 5,
-                                        itemBuilder: (context, index) {
-                                          return FutureBuilder(
-                                            future: getProductImage(snapshot.data![index].toString()),
-                                            builder: (context, snapshot) {
-                                              if(snapshot.connectionState == ConnectionState.done) {
-                                                if (snapshot.hasData) {
-                                                  return Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 575,
-                                                        width: 500,
-                                                        child: Image.network(snapshot.data.toString(), fit: BoxFit.fill,),
-                                                      ),
-                                                      const Positioned.fill(
-                                                        child: Align(
-                                                          alignment: Alignment.center,
-                                                          child: Text('"BABY"', style: TextStyle(color: Colors.white)),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }
-                                                else if (snapshot.hasError) {
-                                                  return Text(snapshot.error.toString());
-                                                } else {
-                                                  return const Text('Something went wrong');
-                                                }
-                                              } else {
-                                                return const CircularProgressIndicator();
-                                              }
-                                            },
-                                          );
-                                        }),
-                                  );
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    if (snapshot.hasData) {
+                                      return SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 575,
+                                        child: PageView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: 5,
+                                            itemBuilder: (context, index) {
+                                              return FutureBuilder(
+                                                future: getProductImage(snapshot
+                                                    .data![index]
+                                                    .toString()),
+                                                builder: (context, snapshot) {
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.done) {
+                                                    if (snapshot.hasData) {
+                                                      return Stack(
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 575,
+                                                            width: 500,
+                                                            child:
+                                                                Image.network(
+                                                              snapshot.data
+                                                                  .toString(),
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                          const Positioned.fill(
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                  '"BABY"',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white)),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    } else if (snapshot
+                                                        .hasError) {
+                                                      return Text(snapshot.error
+                                                          .toString());
+                                                    } else {
+                                                      return const Text(
+                                                          'Something went wrong');
+                                                    }
+                                                  } else {
+                                                    return const SizedBox
+                                                        .shrink();
+                                                  }
+                                                },
+                                              );
+                                            }),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Center(
+                                          child:
+                                              Text(snapshot.error.toString()));
+                                    } else {
+                                      return const Center(
+                                          child: Text('Something went wrong'));
+                                    }
+                                  } else {
+                                    return SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      child: const Center(
+                                          child: CircularProgressIndicator()),
+                                    );
+                                  }
                                 }),
                           ],
                         ),
@@ -344,14 +498,8 @@ class _Home extends State<Home> {
                 }
               } else {
                 return SizedBox(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
                   child: const Center(child: CircularProgressIndicator()),
                 );
               }
@@ -367,9 +515,7 @@ class _Home extends State<Home> {
         .collection('Users')
         .where("Email", isEqualTo: email)
         .get();
-    final userData = snapshot.docs
-        .map((e) => UserModel.fromSnapshot(e))
-        .single;
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
   }
 
